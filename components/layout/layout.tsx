@@ -10,7 +10,7 @@ const Layout: React.FC<ILayout> = ({ children }: ILayout) => {
   return (
     <>
       <Header />
-      <div className="py-6 px-4 sm:px-6 lg:px-8">
+      <div className="py-6">
         <main>{children}</main>
       </div>
       <Footer />
