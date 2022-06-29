@@ -3,7 +3,6 @@ import { Menu, Transition, Disclosure } from "@headlessui/react";
 import { SearchIcon } from "@heroicons/react/solid";
 import { MenuIcon, XIcon } from "@heroicons/react/outline";
 import classNames from "classnames";
-import Logo from "../logo/logo";
 
 const navigation = [
   { name: "Explore", href: "#", current: true },
@@ -19,12 +18,12 @@ const Header: React.FC = () => {
         {({ open }) => (
           <>
             <div className="lg:divide-y lg:divide-gray-200">
-              <div className="relative h-16 flex justify-between">
-                <div className="flex items-center p-6 font-sans font-bold text-sm sm:text-sm md:text-lg lg:text-2xl">
+              <div className="items-center h-16 flex justify-between">
+                <div className="flex items-center p-6 font-sans font-bold text-lg lg:text-2xl">
                   <h1>Open Format NFT.</h1>
                 </div>
-                <div className="px-2 flex items-center justify-center sm:absolute sm:inset-0">
-                  <div className="md:w-3/6 lg:w-full max-w-xl">
+                <div className="px-2 flex flex-1 items-center justify-center">
+                  <div className="w-full">
                     <label htmlFor="search" className="sr-only">
                       Search
                     </label>
@@ -57,6 +56,26 @@ const Header: React.FC = () => {
                   </Disclosure.Button>
                 </div>
                 <div className="hidden lg:relative lg:z-10 lg:ml-4 lg:flex lg:items-center">
+                  <nav
+                    className="px-6 hidden lg:py-2 lg:flex lg:space-x-8"
+                    aria-label="Global"
+                  >
+                    {navigation.map((item) => (
+                      <a
+                        key={item.name}
+                        href={item.href}
+                        className={classNames(
+                          item.current
+                            ? "bg-gray-100 text-gray-900"
+                            : "text-gray-900 hover:bg-gray-50 hover:text-gray-900",
+                          "rounded-md py-2 px-3 inline-flex items-center text-sm font-medium"
+                        )}
+                        aria-current={item.current ? "page" : undefined}
+                      >
+                        {item.name}
+                      </a>
+                    ))}
+                  </nav>
                   <button
                     type="button"
                     className="flex-shrink-0 bg-white rounded-full p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
@@ -79,26 +98,6 @@ const Header: React.FC = () => {
                   </Menu>
                 </div>
               </div>
-              <nav
-                className="px-6 hidden lg:py-2 lg:flex lg:space-x-8"
-                aria-label="Global"
-              >
-                {navigation.map((item) => (
-                  <a
-                    key={item.name}
-                    href={item.href}
-                    className={classNames(
-                      item.current
-                        ? "bg-gray-100 text-gray-900"
-                        : "text-gray-900 hover:bg-gray-50 hover:text-gray-900",
-                      "rounded-md py-2 px-3 inline-flex items-center text-sm font-medium"
-                    )}
-                    aria-current={item.current ? "page" : undefined}
-                  >
-                    {item.name}
-                  </a>
-                ))}
-              </nav>
             </div>
 
             <Disclosure.Panel
