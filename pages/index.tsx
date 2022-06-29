@@ -69,7 +69,7 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="mt-24 bg-gradient-to-t from-amber-200">
-        <div className=" px-4 py-4 mx-auto max-w-7xl">
+        <div className="px-4 py-4 mx-auto max-w-7xl">
           <div className="lg:grid lg:grid-cols-12 lg:gap-8">
             <div className="px-4 sm:px-6 sm:text-center md:max-w-2xl md:mx-auto lg:col-span-6 lg:text-left lg:flex lg:items-center">
               <div>
@@ -78,7 +78,7 @@ const Home: NextPage = () => {
                     Create, release, monitise and analyse your NFT collections
                     using
                   </span>{" "}
-                  <span className="text-indigo-400">open-format</span>
+                  <span className="text-blue-400">open-format</span>
                 </h1>
                 <p className="mt-3 text-base text-gray-300 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
                   Build your own NFT ecosystem Trustless, permissionless and
@@ -92,7 +92,7 @@ const Home: NextPage = () => {
                     <div className="rounded-md shadow">
                       <a
                         href="#"
-                        className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 md:py-4 md:text-lg md:px-10"
+                        className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 md:py-4 md:text-lg md:px-10"
                       >
                         Explore
                       </a>
@@ -100,7 +100,7 @@ const Home: NextPage = () => {
                     <div className="mt-3 rounded-md shadow sm:mt-0 sm:ml-3">
                       <a
                         href="#"
-                        className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-indigo-600 bg-white hover:bg-gray-50 md:py-4 md:text-lg md:px-10"
+                        className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-blue-600 bg-white hover:bg-gray-50 md:py-4 md:text-lg md:px-10"
                       >
                         Create
                       </a>
@@ -145,7 +145,7 @@ const Home: NextPage = () => {
                   actionIdx === actions.length - 1
                     ? "rounded-bl-lg rounded-br-lg sm:rounded-bl-none"
                     : "",
-                  "relative group bg-white p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500"
+                  "relative group bg-white p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-500"
                 )}
               >
                 <div>
@@ -215,7 +215,7 @@ const Home: NextPage = () => {
                   </div>
                   <div className="flex-1 bg-white p-6 flex flex-col justify-between">
                     <div className="flex-1">
-                      <p className="text-sm font-medium text-indigo-600">
+                      <p className="text-sm font-medium text-blue-600">
                         <a
                           href={resource.category.href}
                           className="hover:underline"
