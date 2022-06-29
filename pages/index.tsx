@@ -50,14 +50,13 @@ const Home: NextPage = () => {
             </div>
           </div>
           <div className="mt-16 sm:mt-24 lg:mt-0 lg:col-span-6">
-            <div className="bg-white sm:max-w-md shadow-md shadow-slate-500 sm:w-full sm:mx-auto sm:rounded-lg sm:overflow-hidden">
-              <div className="w-full h-56 bg-gray-200  border-transparent overflow-hidden group-hover:opacity-75 lg:h-72 xl:h-80">
-                <img
-                  src="https://images.unsplash.com/photo-1520333789090-1afc82db536a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2102&q=80"
-                  alt=""
-                  className="w-full h-full object-center object-cover"
-                />
-              </div>
+            <div className="sm:max-w-md shadow-md shadow-slate-500 sm:w-full sm:mx-auto sm:rounded-lg sm:overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1520333789090-1afc82db536a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2102&q=80"
+                alt=""
+                className="object-center object-cover"
+              />
+
               <div className="py-4 px-2">
                 <h3 className="mt-2 text-sm text-gray-700">
                   Woman Looking at Phone
