@@ -45,7 +45,7 @@ const Footer: React.FC = () => {
   };
   return (
     <>
-      <footer className="bg-white">
+      <footer className="bg-amber-200">
         <div className="max-w-8xl mx-auto py-8 px-4 overflow-hidden sm:px-6 lg:px-8">
           <nav
             className="-mx-5 -my-2 flex flex-wrap justify-center"
@@ -75,7 +75,7 @@ const Footer: React.FC = () => {
             ))}
           </div>
           <p className="mt-8 text-center text-base text-gray-400">
-            &copy; 2022 Open-Format-NFT.
+            &copy; Powered by Simpleweb.
           </p>
         </div>
       </footer>
