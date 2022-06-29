@@ -3,6 +3,7 @@ import { Menu, Transition, Disclosure } from "@headlessui/react";
 import { SearchIcon } from "@heroicons/react/solid";
 import { MenuIcon, XIcon } from "@heroicons/react/outline";
 import classNames from "classnames";
+import Logo from "../logo/logo";
 
 const navigation = [
   { name: "Explore", href: "#", current: true },
@@ -17,19 +18,13 @@ const Header: React.FC = () => {
       <Disclosure as="header" className="bg-white shadow">
         {({ open }) => (
           <>
-            <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:divide-y lg:divide-gray-200 lg:px-8">
+            <div className="lg:divide-y lg:divide-gray-200">
               <div className="relative h-16 flex justify-between">
-                <div className="relative z-10 px-2 flex lg:px-0">
-                  <div className="flex-shrink-0 flex items-center">
-                    <img
-                      className="block h-8 w-auto"
-                      src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
-                      alt="Workflow"
-                    />
-                  </div>
+                <div className="flex items-center p-6 font-sans font-bold text-sm sm:text-sm md:text-lg lg:text-2xl">
+                  <h1>Open Format NFT.</h1>
                 </div>
-                <div className="relative z-0 flex-1 px-2 flex items-center justify-center sm:absolute sm:inset-0">
-                  <div className="w-full sm:max-w-xs">
+                <div className="px-2 flex items-center justify-center sm:absolute sm:inset-0">
+                  <div className="md:w-3/6 lg:w-full max-w-xl">
                     <label htmlFor="search" className="sr-only">
                       Search
                     </label>
@@ -85,7 +80,7 @@ const Header: React.FC = () => {
                 </div>
               </div>
               <nav
-                className="hidden lg:py-2 lg:flex lg:space-x-8"
+                className="px-6 hidden lg:py-2 lg:flex lg:space-x-8"
                 aria-label="Global"
               >
                 {navigation.map((item) => (
