@@ -9,16 +9,8 @@ import Link from "next/link";
 import React from "react";
 import { ButtonGroup } from "../../components/button-group/button-group";
 import { EthLogo } from "../../components/logo/eth-logo";
+import ItemActivityTable from "../../components/tables/item-activity-table";
 const product = {
-  name: "Basic Tee",
-  price: "$35",
-  rating: 3.9,
-  reviewCount: 512,
-  href: "#",
-  breadcrumbs: [
-    { id: 1, name: "Women", href: "#" },
-    { id: 2, name: "Clothing", href: "#" },
-  ],
   image: {
     id: 1,
     imageSrc:
@@ -26,75 +18,13 @@ const product = {
     imageAlt: "Back of women's Basic Tee in black.",
     primary: true,
   },
-
-  colors: [
-    { name: "Black", bgColor: "bg-gray-900", selectedColor: "ring-gray-900" },
-    {
-      name: "Heather Grey",
-      bgColor: "bg-gray-400",
-      selectedColor: "ring-gray-400",
-    },
-  ],
-  sizes: [
-    { name: "XXS", inStock: true },
-    { name: "XS", inStock: true },
-    { name: "S", inStock: true },
-    { name: "M", inStock: true },
-    { name: "L", inStock: true },
-    { name: "XL", inStock: false },
-  ],
-  description: `
-    The Basic tee is an honest new take on a classic. The tee uses super soft, pre-shrunk cotton for true comfort and a dependable fit. They are hand cut and sewn locally, with a special dye technique that gives each tee it's own look.
-    Looking to stock your closet? The Basic tee also comes in a 3-pack or 5-pack at a bundle discount.
-  `,
-  details: [
-    "Only the best materials",
-    "Ethically and locally made",
-    "Pre-washed and pre-shrunk",
-    "Machine wash cold with similar colors",
-  ],
-};
-const prodTwo = {
-  name: "Zip Tote Basket",
-  price: "$140",
-  rating: 4,
-  images: [
-    {
-      id: 1,
-      name: "Angled view",
-      src: "https://tailwindui.com/img/ecommerce-images/product-page-03-product-01.jpg",
-      alt: "Angled front view with bag zipped and handles upright.",
-    },
-    // More images...
-  ],
-
   details: [
     {
       name: "About cosmetic queens",
-      items: [
-        "Multiple strap configurations",
-        "Spacious interior with top zip",
-        "Leather handle and tabs",
-        "Interior dividers",
-        "Stainless strap loops",
-        "Double stitched construction",
-        "Water-resistant",
-      ],
     },
     {
       name: "Details",
-      items: [
-        "Multiple strap configurations",
-        "Spacious interior with top zip",
-        "Leather handle and tabs",
-        "Interior dividers",
-        "Stainless strap loops",
-        "Double stitched construction",
-        "Water-resistant",
-      ],
     },
-
-    // More sections...
   ],
 };
 
@@ -134,7 +64,7 @@ const Release: React.FC = () => {
               </div>
 
               <div>
-                {prodTwo.details.map((detail) => (
+                {product.details.map((detail) => (
                   <Disclosure as="div" key={detail.name}>
                     {({ open }) => (
                       <div className="border-t divide-y border-slate-200">
@@ -219,6 +149,37 @@ const Release: React.FC = () => {
                 </button>
               </div>
             </div>
+          </div>
+          <div className="col-span-12">
+            <Disclosure as="div">
+              {({ open }) => (
+                <div className="border-[1px] rounded-md mt-12 border-slate-200">
+                  <h3>
+                    <Disclosure.Button className="group relative w-full p-6 bg-white flex justify-between items-center text-left">
+                      <span className="text-gray-900 text-sm font-medium">
+                        Item Activity
+                      </span>
+                      <span className="ml-6 flex items-center">
+                        {open ? (
+                          <ChevronUpIcon
+                            className="block h-6 w-6 text-gray-900 group-hover:text-gray-900"
+                            aria-hidden="true"
+                          />
+                        ) : (
+                          <ChevronDownIcon
+                            className="block h-6 w-6 text-gray-400 group-hover:text-gray-500"
+                            aria-hidden="true"
+                          />
+                        )}
+                      </span>
+                    </Disclosure.Button>
+                  </h3>
+                  <Disclosure.Panel as="div" className="bg-slate-50">
+                    <ItemActivityTable />
+                  </Disclosure.Panel>
+                </div>
+              )}
+            </Disclosure>
           </div>
         </div>
       </div>
