@@ -62,6 +62,11 @@ const Container: React.FC = () => {
         <ExploreCard />
         <ExploreCard />
         <ExploreCard />
+        <ExploreCard />
+        <ExploreCard />
+        <ExploreCard />
+        <ExploreCard />
+        <ExploreCard />
       </div>
     </>
   );

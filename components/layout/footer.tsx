@@ -2,8 +2,8 @@ const Footer: React.FC = () => {
   const navigation = {
     main: [
       { name: "Docs", href: "#" },
-      { name: "Explore", href: "#" },
-      { name: "Create", href: "#" },
+      { name: "Explore", href: "/explore" },
+      { name: "Create", href: "/create" },
     ],
     social: [
       {

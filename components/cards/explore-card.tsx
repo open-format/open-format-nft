@@ -3,7 +3,7 @@ import React from "react";
 
 const ExploreCard: React.FC = () => {
   return (
-    <Link href={"/"}>
+    <Link href={"/explore/1"}>
       <div className="cursor-pointer hover:shadow-md hover:shadow-slate-300 transition-shadow flex flex-col border-2 max-h-max rounded-lg sm:overflow-hidden">
         <img
           src="https://images.unsplash.com/photo-1520333789090-1afc82db536a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2102&q=80"

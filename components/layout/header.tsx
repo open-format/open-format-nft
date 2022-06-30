@@ -7,7 +7,7 @@ import Link from "next/link";
 
 const navigation = [
   { name: "Explore", href: "/explore", current: true },
-  { name: "Create", href: "#", current: false },
+  { name: "Create", href: "/create", current: false },
 ];
 
 const Header: React.FC = () => {
