@@ -31,7 +31,7 @@ const product = {
 const Release: React.FC = () => {
   return (
     <>
-      <div className="mt-8 max-w-4xl mx-auto px-4 sm:px-6 lg:max-w-5xl lg:px-8">
+      <div className="mt-8 max-w-4xl mx-auto px-4 sm:px-6 lg:max-w-6xl lg:px-8">
         <div className="lg:grid lg:grid-cols-12 lg:gap-x-8">
           <div className="mt-2 lg:col-span-5 lg:row-start-1">
             <h2 className="sr-only">Images</h2>
