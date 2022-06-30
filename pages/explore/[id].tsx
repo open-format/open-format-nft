@@ -1,8 +1,14 @@
 import { Disclosure } from "@headlessui/react";
-import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/solid";
+import {
+  ChevronDownIcon,
+  ChevronUpIcon,
+  TagIcon,
+} from "@heroicons/react/solid";
 import classNames from "classnames";
+import Link from "next/link";
 import React from "react";
 import { ButtonGroup } from "../../components/button-group/button-group";
+import { EthLogo } from "../../components/logo/eth-logo";
 const product = {
   name: "Basic Tee",
   price: "$35",
@@ -162,12 +168,51 @@ const Release: React.FC = () => {
             </div>
           </div>
           <div className="mt-2 lg:col-span-7">
-            <h2 className="sr-only">Images</h2>
-            <div className="grid grid-cols-1 lg:grid-cols-2 lg:grid-rows-2 lg:gap-8">
-              <p>Description</p>
-            </div>
+            <h2 className="sr-only">NFT</h2>
             <div>
-              <ButtonGroup />
+              <div className="flex justify-between items-center">
+                <Link href={"#"}>
+                  <a className="text-blue-500">Comic Queens</a>
+                </Link>
+                <div className="flex">
+                  <ButtonGroup />
+                </div>
+              </div>
+
+              <div className="py-4">
+                <h1 className="font-extrabold text-3xl">Title</h1>
+              </div>
+              <div className="py-4">
+                <p>
+                  Owned By{" "}
+                  <Link href={"#"}>
+                    <a className="text-blue-400">0xfj65fsa...4834DS</a>
+                  </Link>
+                </p>
+              </div>
+            </div>
+            <div className="grid bg-slate-50 grid-cols-4 border-2 border-b-slate-200 rounded-md">
+              <div className="lg:col-span-7 p-4">
+                <p>Mint Price</p>
+                <div className="flex items-center">
+                  <EthLogo />
+                  <p className="ml-2 text-2xl font-bold">
+                    0.0023
+                    <span className="font-normal text-sm text-gray-400">
+                      {" "}
+                      ($203.09)
+                    </span>
+                  </p>
+                </div>
+              </div>
+              <div className="p-4 col-span-2">
+                <button className="w-full border-2 bg-white rounded-md px-4 py-2 col-span-2">
+                  <div className="flex items-center justify-center">
+                    <TagIcon className="h-4  text-blue-400 mr-2" />
+                    <span className="text-blue-400">Mint</span>
+                  </div>
+                </button>
+              </div>
             </div>
           </div>
         </div>
