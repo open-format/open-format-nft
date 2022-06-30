@@ -16,6 +16,8 @@ const actions = [
     icon: LightningBoltIcon,
     iconForeground: "text-teal-700",
     iconBackground: "bg-teal-50",
+    description:
+      "Create data rich NFT collections with minting, selling, payment splitting and royalty functionality built in.",
   },
   {
     title: "Search, filter and sort data",
@@ -23,6 +25,8 @@ const actions = [
     icon: SearchCircleIcon,
     iconForeground: "text-purple-700",
     iconBackground: "bg-purple-50",
+    description:
+      "Use our subgraph to search, filter and sort NFT collections on open format to create unique marketplace experiences.",
   },
   {
     title: "Reward NFT holders",
@@ -30,6 +34,8 @@ const actions = [
     icon: UsersIcon,
     iconForeground: "text-sky-700",
     iconBackground: "bg-sky-50",
+    description:
+      "Deposit external revenue streams into a NFT collection that is split between NFT holders.",
   },
   {
     title: "Sales Commission",
@@ -37,12 +43,14 @@ const actions = [
     icon: CurrencyDollarIcon,
     iconForeground: "text-yellow-700",
     iconBackground: "bg-yellow-50",
+    description:
+      "Add a commission to allow developers and external sellers to benefit from your NFT sales.",
   },
 ];
 const resources = [
   {
     title: "open-format-documentation",
-    href: "#",
+    href: "https://docs.openformat.simpleweb.co.uk/protocol-overview/overview",
     category: { name: "Documentation", href: "#" },
     description:
       "Enabling developers to build decentralised marketplaces and factories for digital assets in the metaverse.",
@@ -51,11 +59,12 @@ const resources = [
     imageUrl: "/images/nft-factory.png",
   },
   {
-    title: "How to use search engine optimization to drive sales",
-    href: "#",
-    category: { name: "Video", href: "#" },
+    title: "Our Discord",
+
+    href: "https://discord.com/invite/8WV52tVqbZ",
+    category: { name: "Community", href: "#" },
     description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit facilis asperiores porro quaerat doloribus, eveniet dolore. Adipisci tempora aut inventore optio animi., tempore temporibus quo laudantium.",
+      "Builiding a web 3 community that we can all be proud of, come say hi whatever it may be we're all here to help.",
     date: "Mar 10, 2020",
     datetime: "2020-03-10",
     imageUrl: "/images/discord.jpg",
@@ -73,14 +82,14 @@ const Home: NextPage = () => {
           <div className="lg:grid lg:grid-cols-12 lg:gap-8">
             <div className="px-4 sm:px-6 sm:text-center md:max-w-2xl md:mx-auto lg:col-span-6 lg:text-left lg:flex lg:items-center">
               <div>
-                <h1 className="mt-4 text-4xl font-extrabold text-black sm:mt-5 lg:mt-6">
+                <h1 className="mt-4 text-4xl font-bold text-black sm:mt-5 lg:mt-6">
                   <span>
                     Create, release, monitise and analyse your NFT collections
                     using
                   </span>{" "}
                   <span className="text-blue-400">open-format</span>
                 </h1>
-                <p className="mt-3 text-base text-gray-300 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
+                <p className="mt-3 text-gray-300 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
                   Build your own NFT ecosystem Trustless, permissionless and
                   collaborative
                 </p>
@@ -168,9 +177,7 @@ const Home: NextPage = () => {
                     </a>
                   </h3>
                   <p className="mt-2 text-sm text-gray-500">
-                    Doloribus dolores nostrum quia qui natus officia quod et
-                    dolorem. Sit repellendus qui ut at blanditiis et quo et
-                    molestiae.
+                    {action.description}
                   </p>
                 </div>
                 <span
