@@ -2,6 +2,7 @@ import { Disclosure } from "@headlessui/react";
 import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/solid";
 import classNames from "classnames";
 import React from "react";
+import { ButtonGroup } from "../../components/button-group/button-group";
 const product = {
   name: "Basic Tee",
   price: "$35",
@@ -164,6 +165,9 @@ const Release: React.FC = () => {
             <h2 className="sr-only">Images</h2>
             <div className="grid grid-cols-1 lg:grid-cols-2 lg:grid-rows-2 lg:gap-8">
               <p>Description</p>
+            </div>
+            <div>
+              <ButtonGroup />
             </div>
           </div>
         </div>
