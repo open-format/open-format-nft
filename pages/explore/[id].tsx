@@ -123,8 +123,13 @@ const Release: React.FC = () => {
                 </p>
               </div>
               <div className="border-t bg-slate-50 border-slate-200">
-                <p className="text-gray-900 text-sm font-medium p-6">
+                <p className="text-gray-900 text-sm font-medium pt-6 pb-2 px-6">
                   By <span className=" font-extrabold">Mr Robot</span>
+                </p>
+                <p className="px-6 pb-2 text-sm">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Delectus vitae repellat in. Recusandae, illo nam et tenetur
+                  molestiae possimus ratione.
                 </p>
               </div>
 
