@@ -140,7 +140,7 @@ const Create: NextPage = () => {
                 htmlFor="country"
                 className="block text-sm font-medium text-gray-700"
               >
-                Country
+                Blockchain
               </label>
               <div className="mt-1">
                 <select
