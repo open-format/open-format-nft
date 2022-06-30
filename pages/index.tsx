@@ -68,7 +68,7 @@ const Home: NextPage = () => {
         <title>Open-Format-NFT</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="mt-24 bg-gradient-to-t from-amber-200">
+      <div className="mt-24">
         <div className="px-4 py-4 mx-auto max-w-7xl">
           <div className="lg:grid lg:grid-cols-12 lg:gap-8">
             <div className="px-4 sm:px-6 sm:text-center md:max-w-2xl md:mx-auto lg:col-span-6 lg:text-left lg:flex lg:items-center">

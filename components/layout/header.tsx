@@ -3,9 +3,10 @@ import { Menu, Transition, Disclosure } from "@headlessui/react";
 import { SearchIcon } from "@heroicons/react/solid";
 import { MenuIcon, XIcon } from "@heroicons/react/outline";
 import classNames from "classnames";
+import Link from "next/link";
 
 const navigation = [
-  { name: "Explore", href: "#", current: true },
+  { name: "Explore", href: "/explore", current: true },
   { name: "Create", href: "#", current: false },
 ];
 
@@ -19,9 +20,11 @@ const Header: React.FC = () => {
           <>
             <div className="lg:divide-y lg:divide-gray-200">
               <div className="items-center h-16 flex justify-between">
-                <div className="flex items-center p-6 font-sans font-bold text-lg lg:text-2xl">
-                  <h1>Open Format NFT.</h1>
-                </div>
+                <Link href="/">
+                  <a className="flex cursor-pointer items-center p-6 font-sans font-bold text-lg lg:text-2xl">
+                    <h1>Open Format NFT.</h1>
+                  </a>
+                </Link>
                 <div className="px-2 flex flex-1 items-center justify-center">
                   <div className="w-full">
                     <label htmlFor="search" className="sr-only">
