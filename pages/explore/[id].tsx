@@ -116,7 +116,7 @@ const Release: React.FC = () => {
                 )}
               />
             </div>
-            <div className="border-2 mt-4 bg-slate-100 border-slate-200 rounded-lg">
+            <div className="border-[1px] mt-4 bg-slate-100 border-slate-200 rounded-lg">
               <div>
                 <p className="text-gray-900 bg-white text-sm font-medium p-6">
                   Description
@@ -126,7 +126,7 @@ const Release: React.FC = () => {
                 <p className="text-gray-900 text-sm font-medium pt-6 pb-2 px-6">
                   By <span className=" font-extrabold">Mr Robot</span>
                 </p>
-                <p className="px-6 pb-2 text-sm">
+                <p className="px-6 pb-8 text-sm">
                   Lorem ipsum dolor sit amet consectetur adipisicing elit.
                   Delectus vitae repellat in. Recusandae, illo nam et tenetur
                   molestiae possimus ratione.
@@ -196,7 +196,7 @@ const Release: React.FC = () => {
                 </p>
               </div>
             </div>
-            <div className="grid bg-slate-50 grid-cols-4 border-2 border-b-slate-200 rounded-md">
+            <div className="grid bg-slate-50 lg:grid-cols-4 border-[1px] border-b-slate-200 rounded-md">
               <div className="lg:col-span-7 p-4">
                 <p>Mint Price</p>
                 <div className="flex items-center">
@@ -211,7 +211,7 @@ const Release: React.FC = () => {
                 </div>
               </div>
               <div className="p-4 col-span-2">
-                <button className="w-full border-2 bg-white rounded-md px-4 py-2 col-span-2">
+                <button className="w-full border-2 hover:shadow-md hover:transition transition bg-white rounded-md px-4 py-2 col-span-2">
                   <div className="flex items-center justify-center">
                     <TagIcon className="h-4  text-blue-400 mr-2" />
                     <span className="text-blue-400">Mint</span>
