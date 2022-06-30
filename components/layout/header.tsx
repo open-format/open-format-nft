@@ -6,7 +6,7 @@ import classNames from "classnames";
 import Link from "next/link";
 
 const navigation = [
-  { name: "Explore", href: "/explore", current: true },
+  { name: "Explore", href: "/explore", current: false },
   { name: "Create", href: "/create", current: false },
 ];
 
@@ -67,12 +67,7 @@ const Header: React.FC = () => {
                       <a
                         key={item.name}
                         href={item.href}
-                        className={classNames(
-                          item.current
-                            ? "bg-gray-100 text-gray-900"
-                            : "text-gray-900 hover:bg-gray-50 hover:text-gray-900",
-                          "rounded-md py-2 px-3 inline-flex items-center text-sm font-medium"
-                        )}
+                        className="text-gray-900 hover:bg-gray-50 hover:text-gray-900 rounded-md py-2 px-3 inline-flex items-center text-sm font-medium"
                         aria-current={item.current ? "page" : undefined}
                       >
                         {item.name}
@@ -81,7 +76,7 @@ const Header: React.FC = () => {
                   </nav>
                   <button
                     type="button"
-                    className="flex-shrink-0 bg-white rounded-full p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    className="flex-shrink-0 bg-blue-500 rounded-md  p-2 text-white hover:text-gray-200 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                   >
                     Connect
                   </button>
