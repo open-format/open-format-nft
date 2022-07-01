@@ -1,4 +1,5 @@
 import React, { Dispatch, SetStateAction } from "react";
+import StyledLink from "../styled-link/styled-link";
 
 type NavItem = {
   name: string;
@@ -21,26 +22,26 @@ const ExploreNavigation: React.FC<ExploreNavigationProps> = ({
           </a>
           <div className="hidden space-x-8 lg:block">
             {navigation.map((link) => (
-              <a
+              <StyledLink
                 key={link.name}
                 href={link.href}
                 className="text-base font-medium text-slate-500 hover:text-slate-900"
               >
                 {link.name}
-              </a>
+              </StyledLink>
             ))}
           </div>
         </div>
       </div>
       <div className="py-4 flex flex-wrap justify-center space-x-6 lg:hidden">
         {navigation.map((link) => (
-          <a
+          <StyledLink
             key={link.name}
             href={link.href}
             className="text-base font-medium text-slate-500 hover:text-slate-700"
           >
             {link.name}
-          </a>
+          </StyledLink>
         ))}
       </div>
       <hr className="divide-y"></hr>
