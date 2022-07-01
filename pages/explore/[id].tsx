@@ -8,8 +8,10 @@ import classNames from "classnames";
 import Link from "next/link";
 import React from "react";
 import { ButtonGroup } from "../../components/button-group/button-group";
+import NFTDropdown from "../../components/dropdowns/nft-dropdown";
 import { EthLogo } from "../../components/logo/eth-logo";
 import ItemActivityTable from "../../components/tables/item-activity-table";
+
 const product = {
   image: {
     id: 1,
@@ -34,8 +36,8 @@ const Release: React.FC = () => {
       <div className="mt-8 max-w-4xl mx-auto px-4 sm:px-6 lg:max-w-6xl lg:px-8">
         <div className="lg:grid lg:grid-cols-12 lg:gap-x-8">
           <div className="mt-2 lg:col-span-5 lg:row-start-1">
-            <h2 className="sr-only">Images</h2>
-            <div className="grid grid-cols-1 lg:grid-cols-2 lg:grid-rows-2 lg:gap-8">
+            <h2 className="sr-only">NFT</h2>
+            <div>
               <img
                 src={product.image.imageSrc}
                 className={classNames(
@@ -46,61 +48,7 @@ const Release: React.FC = () => {
                 )}
               />
             </div>
-            <div className="border-[1px] mt-4 bg-slate-100 border-slate-200 rounded-lg">
-              <div>
-                <p className="text-gray-900 bg-white text-sm font-medium p-6">
-                  Description
-                </p>
-              </div>
-              <div className="border-t bg-slate-50 border-slate-200">
-                <p className="text-gray-900 text-sm font-medium pt-6 pb-2 px-6">
-                  By <span className=" font-extrabold">Mr Robot</span>
-                </p>
-                <p className="px-6 pb-8 text-sm">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Delectus vitae repellat in. Recusandae, illo nam et tenetur
-                  molestiae possimus ratione.
-                </p>
-              </div>
-
-              <div>
-                {product.details.map((detail) => (
-                  <Disclosure as="div" key={detail.name}>
-                    {({ open }) => (
-                      <div className="border-t divide-y border-slate-200">
-                        <h3>
-                          <Disclosure.Button className="group relative w-full p-6 bg-white flex justify-between items-center text-left">
-                            <span className="text-gray-900 text-sm font-medium">
-                              {detail.name}
-                            </span>
-                            <span className="ml-6 flex items-center">
-                              {open ? (
-                                <ChevronUpIcon
-                                  className="block h-6 w-6 text-gray-900 group-hover:text-gray-900"
-                                  aria-hidden="true"
-                                />
-                              ) : (
-                                <ChevronDownIcon
-                                  className="block h-6 w-6 text-gray-400 group-hover:text-gray-500"
-                                  aria-hidden="true"
-                                />
-                              )}
-                            </span>
-                          </Disclosure.Button>
-                        </h3>
-                        <Disclosure.Panel as="div" className="bg-slate-50">
-                          <p className="p-4">
-                            Lorem ipsum dolor sit amet consectetur adipisicing
-                            elit. Laboriosam eveniet eius blanditiis non est eos
-                            a molestiae facere veritatis consequatur.
-                          </p>
-                        </Disclosure.Panel>
-                      </div>
-                    )}
-                  </Disclosure>
-                ))}
-              </div>
-            </div>
+            <NFTDropdown {...{ product }} />
           </div>
           <div className="mt-2 lg:col-span-7">
             <h2 className="sr-only">NFT</h2>
