@@ -98,8 +98,8 @@ const Create: NextPage = () => {
               >
                 <p>Description</p>
                 <p className="mt-2 text-xs text-gray-500">
-                  The description will be included on the items detail page
-                  underneath its image.
+                  The description will be included on the item&apos;s detail
+                  page underneath its image.
                 </p>
               </label>
               <div className="mt-1">
