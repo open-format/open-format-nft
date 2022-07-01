@@ -8,6 +8,7 @@ import React from "react";
 import { ButtonGroup } from "../../components/button-group/button-group";
 import PuchaseCard from "../../components/cards/purchase-card";
 import NFTDropdown from "../../components/dropdowns/nft-dropdown";
+import NftTableDropdown from "../../components/dropdowns/nft-table-dropdown";
 import { EthLogo } from "../../components/logo/eth-logo";
 import StyledLink from "../../components/styled-link/styled-link";
 import ItemActivityTable from "../../components/tables/item-activity-table";
@@ -51,35 +52,7 @@ const Release: React.FC = () => {
             <PuchaseCard />
           </div>
           <div className="col-span-12">
-            <Disclosure as="div">
-              {({ open }) => (
-                <div className="border-[1px] rounded-md mt-12 border-slate-200">
-                  <h3>
-                    <Disclosure.Button className="group relative w-full p-6 bg-white flex justify-between items-center text-left">
-                      <span className="text-gray-900 text-sm font-medium">
-                        Item Activity
-                      </span>
-                      <span className="ml-6 flex items-center">
-                        {open ? (
-                          <ChevronUpIcon
-                            className="block h-6 w-6 text-gray-900 group-hover:text-gray-900"
-                            aria-hidden="true"
-                          />
-                        ) : (
-                          <ChevronDownIcon
-                            className="block h-6 w-6 text-gray-400 group-hover:text-gray-500"
-                            aria-hidden="true"
-                          />
-                        )}
-                      </span>
-                    </Disclosure.Button>
-                  </h3>
-                  <Disclosure.Panel as="div" className="bg-slate-50">
-                    <ItemActivityTable />
-                  </Disclosure.Panel>
-                </div>
-              )}
-            </Disclosure>
+            <NftTableDropdown />
           </div>
         </div>
       </div>
