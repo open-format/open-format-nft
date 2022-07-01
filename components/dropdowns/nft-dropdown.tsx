@@ -2,40 +2,21 @@ import { Disclosure } from "@headlessui/react";
 import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/solid";
 import React from "react";
 
-const product = {
-  image: {
-    imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/product-page-01-featured-product-shot.jpg",
-    imageAlt: "Back of women's Basic Tee in black.",
-  },
-  details: [
-    {
-      name: "About cosmetic queens",
-    },
-    {
-      description:
-        " Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam eveniet eius blanditiis non est eos a molestiae facere veritatis consequatur.",
-    },
-  ],
-};
-
 type Product = {
-  imageSrc: string;
-  imageAlt: string;
-  detais: [
-    {
-      name: string;
-    },
-    {
-      description: string;
-    }
-  ];
+  image: {
+    imageSrc: string;
+    imageAlt: string;
+  };
+  details: {
+    name: string;
+    description: string;
+  }[];
 };
 interface NFTDropdownProps {
   product: Product;
 }
 
-const NFTDropdown: React.FC<NFTDropdownProps> = () => {
+const NFTDropdown: React.FC<NFTDropdownProps> = ({ product }) => {
   return (
     <div className="border-[1px] mt-4 bg-slate-100 border-slate-200 rounded-lg">
       <div>
@@ -80,7 +61,7 @@ const NFTDropdown: React.FC<NFTDropdownProps> = () => {
                   </Disclosure.Button>
                 </h3>
                 <Disclosure.Panel as="div" className="bg-slate-50">
-                  <p className="p-4 text-sm">{detail.description}</p>
+                  <p className="px-6 pb-8 text-sm">{detail.description}</p>
                 </Disclosure.Panel>
               </div>
             )}

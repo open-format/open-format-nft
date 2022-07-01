@@ -4,28 +4,30 @@ import {
   ChevronUpIcon,
   TagIcon,
 } from "@heroicons/react/solid";
-import classNames from "classnames";
-import Link from "next/link";
 import React from "react";
 import { ButtonGroup } from "../../components/button-group/button-group";
+import PuchaseCard from "../../components/cards/purchase-card";
 import NFTDropdown from "../../components/dropdowns/nft-dropdown";
 import { EthLogo } from "../../components/logo/eth-logo";
+import StyledLink from "../../components/styled-link/styled-link";
 import ItemActivityTable from "../../components/tables/item-activity-table";
 
 const product = {
   image: {
-    id: 1,
     imageSrc:
       "https://tailwindui.com/img/ecommerce-images/product-page-01-featured-product-shot.jpg",
     imageAlt: "Back of women's Basic Tee in black.",
-    primary: true,
   },
   details: [
     {
       name: "About cosmetic queens",
+      description:
+        " Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam eveniet eius blanditiis non est eos a molestiae facere veritatis consequatur.",
     },
     {
       name: "Details",
+      description:
+        " Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam eveniet eius blanditiis non est eos a molestiae facere veritatis consequatur.",
     },
   ],
 };
@@ -40,63 +42,13 @@ const Release: React.FC = () => {
             <div>
               <img
                 src={product.image.imageSrc}
-                className={classNames(
-                  product.image.primary
-                    ? "lg:col-span-2 lg:row-span-2"
-                    : "hidden lg:block",
-                  "rounded-lg"
-                )}
+                className="lg:col-span-2 lg:row-span-2 rounded-lg"
               />
             </div>
             <NFTDropdown {...{ product }} />
           </div>
           <div className="mt-2 lg:col-span-7">
-            <h2 className="sr-only">NFT</h2>
-            <div>
-              <div className="flex justify-between items-center">
-                <Link href={"#"}>
-                  <a className="text-blue-500">Comic Queens</a>
-                </Link>
-                <div className="flex">
-                  <ButtonGroup />
-                </div>
-              </div>
-
-              <div className="py-4">
-                <h1 className="font-extrabold text-3xl">Title</h1>
-              </div>
-              <div className="py-4">
-                <p>
-                  Owned By{" "}
-                  <Link href={"#"}>
-                    <a className="text-blue-400">0xfj65fsa...4834DS</a>
-                  </Link>
-                </p>
-              </div>
-            </div>
-            <div className="grid bg-slate-50 lg:grid-cols-4 border-[1px] border-b-slate-200 rounded-md">
-              <div className="lg:col-span-7 p-4">
-                <p>Mint Price</p>
-                <div className="flex items-center">
-                  <EthLogo />
-                  <p className="ml-2 text-2xl font-bold">
-                    0.0023
-                    <span className="font-normal text-sm text-gray-400">
-                      {" "}
-                      ($203.09)
-                    </span>
-                  </p>
-                </div>
-              </div>
-              <div className="p-4 col-span-2">
-                <button className="w-full border-2 hover:shadow-md hover:transition transition bg-white rounded-md px-4 py-2 col-span-2">
-                  <div className="flex items-center justify-center">
-                    <TagIcon className="h-4  text-blue-400 mr-2" />
-                    <span className="text-blue-400">Mint</span>
-                  </div>
-                </button>
-              </div>
-            </div>
+            <PuchaseCard />
           </div>
           <div className="col-span-12">
             <Disclosure as="div">
