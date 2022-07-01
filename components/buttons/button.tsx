@@ -6,7 +6,11 @@ interface ButtonProps extends React.ComponentProps<"button"> {
 }
 
 const Button: React.FC<ButtonProps> = ({ children, isLoading, ...rest }) => {
-  return <button {...rest}>{children}</button>;
+  return (
+    <button {...rest} disabled={isLoading}>
+      {children}
+    </button>
+  );
 };
 
 export default Button;
