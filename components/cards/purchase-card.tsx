@@ -47,10 +47,10 @@ const PuchaseCard: React.FC = () => {
         </div>
         <div className="p-4 col-span-2">
           <Button className="w-full border-2 hover:shadow-md hover:transition transition bg-white rounded-md px-4 py-2 col-span-2">
-            <div className="flex items-center justify-center">
+            <span className="flex items-center justify-center">
               <TagIcon className="h-4  text-blue-400 mr-2" />
               <span className="text-blue-400">Mint</span>
-            </div>
+            </span>
           </Button>
         </div>
       </div>
