@@ -12,7 +12,7 @@ const Hero: React.FC = () => {
             <div>
               <h1 className="mt-4 text-4xl font-bold text-black sm:mt-5 lg:mt-6">
                 <span>
-                  Create, release, monitise and analyse your NFT collections
+                  Create, release, monetise and analyse your NFT collections
                   using
                 </span>{" "}
                 <span className="text-blue-400">open-format</span>

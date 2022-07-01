@@ -21,7 +21,7 @@ const GridList: React.FC<GridListProps> = ({ actions }) => {
   return (
     <div className=" mt-24 px-4 py-4 mx-auto max-w-7xl">
       <h1 className="m-4 p-12 text-4xl text-center">
-        Create, release, monitise and analyse your NFT collections
+        Create, release, monetise and analyse your NFT collections
       </h1>
       <div className="rounded-lg bg-gray-200 overflow-hidden  sm:grid sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-4 sm:gap-px">
         {actions.map((action, actionIdx) => (
