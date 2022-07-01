@@ -8,6 +8,7 @@ import type { NextPage } from "next";
 import Head from "next/head";
 
 import classNames from "classnames";
+import { useState } from "react";
 
 const actions = [
   {
@@ -71,6 +72,7 @@ const resources = [
   },
 ];
 const Home: NextPage = () => {
+  const [navigationSelected, setNavigationSelected] = useState("");
   return (
     <>
       <Head>
