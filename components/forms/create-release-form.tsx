@@ -54,8 +54,6 @@ const CreateReleaseForm: React.FC = () => {
       image: data.image,
     };
     const meta = await buildMetadata(metaUpload);
-    //Your metadata that is passed to ipfs
-    console.log({ meta });
     try {
       setLoadingToIPFS(true);
       const ipfsSuccess = await toast.promise(uploadToIPFS(meta), {
@@ -63,12 +61,6 @@ const CreateReleaseForm: React.FC = () => {
         success: "Upload complete",
         error: "Upload error",
       });
-      console.log({ ipfsSuccess });
-
-      //IPFS token response on success
-
-      //Deply function from SDK to go here
-
       setLoadingToIPFS(false);
     } catch (error) {
       console.log(error);
