@@ -1,17 +1,7 @@
-import { Disclosure } from "@headlessui/react";
-import {
-  ChevronDownIcon,
-  ChevronUpIcon,
-  TagIcon,
-} from "@heroicons/react/solid";
 import React from "react";
-import { ButtonGroup } from "../../components/button-group/button-group";
 import PuchaseCard from "../../components/cards/purchase-card";
 import NFTDropdown from "../../components/dropdowns/nft-dropdown";
 import NftTableDropdown from "../../components/dropdowns/nft-table-dropdown";
-import { EthLogo } from "../../components/logo/eth-logo";
-import StyledLink from "../../components/styled-link/styled-link";
-import ItemActivityTable from "../../components/tables/item-activity-table";
 
 const product = {
   image: {
