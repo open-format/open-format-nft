@@ -23,6 +23,17 @@ const product = {
   ],
 };
 
+const transactions = [
+  {
+    event: "Minted",
+    currentContractAddress: "0x28......58b7",
+    ownerId: "03cv......51n0",
+    price: "0.0023",
+    date: "01/07/2022",
+  },
+  // More people...
+];
+
 const Release: React.FC = () => {
   return (
     <>
@@ -39,10 +50,14 @@ const Release: React.FC = () => {
             <NFTDropdown {...{ product }} />
           </div>
           <div className="mt-2 lg:col-span-7">
-            <PuchaseCard />
+            <PuchaseCard
+              createdBy="03cv......51n0"
+              name="cosmic galaxy"
+              price="0.0023"
+            />
           </div>
           <div className="col-span-12">
-            <NftTableDropdown />
+            <NftTableDropdown {...{ transactions }} />
           </div>
         </div>
       </div>

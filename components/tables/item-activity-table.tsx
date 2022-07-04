@@ -1,15 +1,12 @@
 import React from "react";
-const people = [
-  {
-    name: "Minted",
-    title: "0x28......58b7",
-    email: "03cv......51n0",
-    role: "Member",
-  },
-  // More people...
-];
 
-const ItemActivityTable: React.FC = () => {
+interface ItemActivityTableProps {
+  transactions: Transaction[];
+}
+
+const ItemActivityTable: React.FC<ItemActivityTableProps> = ({
+  transactions,
+}) => {
   return (
     <>
       <div className="sm:px-4">
@@ -53,28 +50,28 @@ const ItemActivityTable: React.FC = () => {
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-200 bg-white">
-                    {people.map((person) => (
-                      <tr key={person.email}>
+                    {transactions.map((transaction) => (
+                      <tr key={transaction.currentContractAddress}>
                         <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
                           Minted
                         </td>
                         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                           <a className="cursor-pointer" href="">
-                            0.0023
+                            {transaction.price}
                           </a>
                         </td>
                         <td className="whitespace-nowrap px-3 py-4 text-sm text-blue-500">
                           <a className="cursor-pointer" href="">
-                            {person.email}
+                            {transaction.currentContractAddress}
                           </a>
                         </td>
                         <td className="cursor-pointer whitespace-nowrap px-3 py-4 text-sm text-blue-500">
                           <a className="cursor-pointer" href="">
-                            {person.title}
+                            {transaction.ownerId}
                           </a>
                         </td>
                         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                          19/09/2022
+                          {transaction.date}
                         </td>
                       </tr>
                     ))}

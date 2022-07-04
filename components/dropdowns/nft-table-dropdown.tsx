@@ -3,7 +3,13 @@ import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/solid";
 import React from "react";
 import ItemActivityTable from "../tables/item-activity-table";
 
-const NftTableDropdown: React.FC = () => {
+interface NftTableDropdownProps {
+  transactions: Transaction[];
+}
+
+const NftTableDropdown: React.FC<NftTableDropdownProps> = ({
+  transactions,
+}) => {
   return (
     <Disclosure as="div">
       {({ open }) => (
@@ -29,7 +35,7 @@ const NftTableDropdown: React.FC = () => {
             </Disclosure.Button>
           </h3>
           <Disclosure.Panel as="div" className="bg-slate-50">
-            <ItemActivityTable />
+            <ItemActivityTable {...{ transactions }} />
           </Disclosure.Panel>
         </div>
       )}

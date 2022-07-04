@@ -5,14 +5,24 @@ import Button from "../buttons/button";
 import { EthLogo } from "../logo/eth-logo";
 import StyledLink from "../styled-link/styled-link";
 
-const PuchaseCard: React.FC = () => {
+type PurchaseCardProps = {
+  createdBy: string;
+  price: string;
+  name: string;
+};
+
+const PuchaseCard: React.FC<PurchaseCardProps> = ({
+  createdBy,
+  name,
+  price,
+}) => {
   return (
     <>
       <h2 className="sr-only">NFT</h2>
       <div>
         <div className="flex justify-between items-center">
           <StyledLink href={"#"}>
-            <a className="text-blue-500">Comic Queens</a>
+            <a className="text-blue-500">{createdBy}</a>
           </StyledLink>
           <div className="flex">
             <ButtonGroup />
@@ -20,13 +30,13 @@ const PuchaseCard: React.FC = () => {
         </div>
 
         <div className="py-4">
-          <h1 className="font-extrabold text-3xl">Title</h1>
+          <h1 className="font-extrabold text-3xl">{name}</h1>
         </div>
         <div className="py-4">
           <p>
             Owned By{" "}
             <StyledLink href={"#"}>
-              <a className="text-blue-400">0xfj65fsa...4834DS</a>
+              <a className="text-blue-400">{createdBy}</a>
             </StyledLink>
           </p>
         </div>
@@ -37,9 +47,10 @@ const PuchaseCard: React.FC = () => {
           <div className="flex items-center">
             <EthLogo />
             <p className="ml-2 text-2xl font-bold">
-              0.0023
+              {price}
               <span className="font-normal text-sm text-gray-400">
                 {" "}
+                {/* @dev create a convertion helper here */}
                 ($203.09)
               </span>
             </p>
