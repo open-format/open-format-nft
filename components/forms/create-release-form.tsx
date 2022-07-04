@@ -1,9 +1,11 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { buildMetadata, uploadToIPFS } from "../../helpers/ipfs";
 import * as yup from "yup";
 import { ErrorMessage } from "@hookform/error-message";
+import toast from "react-hot-toast";
+import Button from "../buttons/button";
 const ReleaseSchema = yup.object().shape({
   name: yup.string().required("You must provide a name"),
   description: yup.string().required("You must provide a description"),
@@ -29,6 +31,7 @@ const ReleaseSchema = yup.object().shape({
 });
 
 const CreateReleaseForm: React.FC = () => {
+  const [loadingToIPFS, setLoadingToIPFS] = useState<boolean>(false);
   type FormValues = {
     name: string;
     totalSupply: string;
@@ -53,9 +56,19 @@ const CreateReleaseForm: React.FC = () => {
     const meta = await buildMetadata(metaUpload);
     //Your metadata that is passed to ipfs
     console.log({ meta });
-    const ipfsSuccess = await uploadToIPFS(meta);
+    try {
+      setLoadingToIPFS(true);
+      const ipfsSuccess = await toast.promise(uploadToIPFS(meta), {
+        loading: "Uploading your creation to IPFS",
+        success: "Upload complete",
+        error: "Upload error",
+      });
+      console.log({ ipfsSuccess });
+      setLoadingToIPFS(false);
+    } catch (error) {
+      console.log(error);
+    }
     //IPFS token response on success
-    console.log({ ipfsSuccess });
 
     //Deply function from SDK to go here
   };
@@ -252,12 +265,13 @@ const CreateReleaseForm: React.FC = () => {
       </div>
       <div className="pt-5">
         <div className="flex justify-end">
-          <button
+          <Button
+            isLoading={loadingToIPFS}
             type="submit"
-            className="bg-blue-500 text-white py-2 px-4 border rounded-md  text-sm font-medium hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            className="bg-blue-500 text-white py-2 px-4 border rounded-md  text-sm font-medium hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           >
             Create
-          </button>
+          </Button>
         </div>
       </div>
     </form>
