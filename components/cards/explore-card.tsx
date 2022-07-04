@@ -1,7 +1,17 @@
 import Link from "next/link";
 import React from "react";
 
-const ExploreCard: React.FC = () => {
+interface ExploreCardProps {
+  description: string;
+  name: string;
+  creator: string;
+}
+
+const ExploreCard: React.FC<ExploreCardProps> = ({
+  description,
+  name,
+  creator,
+}) => {
   return (
     <Link href={"/explore/1"}>
       <div className="cursor-pointer hover:shadow-md hover:shadow-slate-300 transition-shadow flex flex-col border-2 max-h-max rounded-lg sm:overflow-hidden">
