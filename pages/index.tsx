@@ -6,7 +6,6 @@ import {
 } from "@heroicons/react/solid";
 import type { NextPage } from "next";
 import Head from "next/head";
-import { useState } from "react";
 import Resources from "../components/resources/resources";
 import Hero from "../components/hero/hero";
 import GridList from "../components/grid-lists/grid-list";
@@ -72,7 +71,6 @@ const resources = [
 ];
 
 const Home: NextPage = () => {
-  const [navigationSelected, setNavigationSelected] = useState("");
   return (
     <>
       <Head>
