@@ -5,6 +5,7 @@ import Head from "next/head";
 import ExploreCard from "../../components/cards/explore-card";
 import ExploreNavigation from "../../components/navigations/explore-navigation";
 import getMetaValue from "../../helpers/get-meta-value";
+import transformURL from "../../helpers/transform-url";
 
 const navigation = [
   { name: "Trending", href: "/" },
@@ -38,7 +39,13 @@ const Releases: NextPage = () => {
     variables: { factory_id: process.env.NEXT_PUBLIC_FACTORY_ID as string },
   });
 
-  console.log(historicTokens);
+  type Token = {
+    id: string;
+    creator: {
+      id: string;
+    };
+    properties: Property[];
+  };
 
   return (
     <>
@@ -56,18 +63,25 @@ const Releases: NextPage = () => {
         </div>
         <ExploreNavigation {...{ navigation }} />
         <div className="mt-12 px-6 grid grid-cols-1 gap-y-10 gap-x-10 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 md:gap-y-4">
-          {historicTokens.tokens.map((token) => {
+          {historicTokens?.tokens.map((token: Token) => {
             console.log(token);
-            const description = getMetaValue(token.properties, "description");
-            const name = getMetaValue(token.properties, "name");
+            const description = getMetaValue(
+              token.properties,
+              "description"
+            ) as string;
+            const name = getMetaValue(token.properties, "name") as string;
+            const image = transformURL(
+              getMetaValue(token.properties, "image") as string
+            ) as string;
+            const creator = token.creator.id as string;
 
             return (
               <ExploreCard
                 key={token.id}
                 {...{ description }}
                 {...{ name }}
-                creator={token.creator.id}
-                image="https://images.unsplash.com/photo-1520333789090-1afc82db536a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2102&q=80"
+                {...{ creator }}
+                {...{ image }}
               />
             );
           })}
