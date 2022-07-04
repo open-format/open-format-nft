@@ -3,19 +3,20 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { buildMetadata, uploadToIPFS } from "../../helpers/ipfs";
 import * as yup from "yup";
+import { ErrorMessage } from "@hookform/error-message";
 const ReleaseSchema = yup.object().shape({
-  name: yup.string().required("You must provide an artist name"),
-  description: yup.string().required("You must provide an artist name"),
+  name: yup.string().required("You must provide a name"),
+  description: yup.string().required("You must provide a description"),
   totalSupply: yup
     .number()
     .required()
     .min(1, "Must be at least 1")
-    .typeError("You must provide a quantity e.g 100"),
+    .typeError("You must provide a supply e.g 100"),
   mintPrice: yup
     .number()
     .required()
     .min(0, "Cannot be less than 0")
-    .typeError("You must provide a sale price"),
+    .typeError("You must provide a mint price"),
   image: yup
     .mixed()
     .test("required", "You need to provide a file", (file: [File]) => {
@@ -106,6 +107,13 @@ const CreateReleaseForm: React.FC = () => {
                 <p className="text-xs text-gray-500">JPEG, PNG, MP3 Max 20MB</p>
               </div>
             </div>
+            <ErrorMessage
+              errors={errors}
+              name="image"
+              render={({ message }) => (
+                <p className="text-sm mt-1 text-pink-700">{message}</p>
+              )}
+            />
           </div>
         </div>
       </div>
@@ -127,6 +135,13 @@ const CreateReleaseForm: React.FC = () => {
               className=" focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
             />
           </div>
+          <ErrorMessage
+            errors={errors}
+            name="name"
+            render={({ message }) => (
+              <p className="text-sm mt-1 text-pink-700">{message}</p>
+            )}
+          />
         </div>
 
         <div className="sm:col-span-6">
@@ -151,6 +166,13 @@ const CreateReleaseForm: React.FC = () => {
               placeholder="Provide a detailed description of you item."
             />
           </div>
+          <ErrorMessage
+            errors={errors}
+            name="description"
+            render={({ message }) => (
+              <p className="text-sm mt-1 text-pink-700">{message}</p>
+            )}
+          />
         </div>
         <div className="sm:col-span-6">
           <label
@@ -170,6 +192,13 @@ const CreateReleaseForm: React.FC = () => {
               className=" focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
             />
           </div>
+          <ErrorMessage
+            errors={errors}
+            name="mintPrice"
+            render={({ message }) => (
+              <p className="text-sm mt-1 text-pink-700">{message}</p>
+            )}
+          />
         </div>
         <div className="sm:col-span-6">
           <label
@@ -192,6 +221,13 @@ const CreateReleaseForm: React.FC = () => {
               className=" focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
             />
           </div>
+          <ErrorMessage
+            errors={errors}
+            name="totalSupply"
+            render={({ message }) => (
+              <p className="text-sm mt-1 text-pink-700">{message}</p>
+            )}
+          />
         </div>
         <div className="sm:col-span-6">
           <label
