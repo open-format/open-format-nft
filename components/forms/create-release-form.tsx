@@ -56,6 +56,8 @@ const CreateReleaseForm: React.FC = () => {
     const ipfsSuccess = await uploadToIPFS(meta);
     //IPFS token response on success
     console.log({ ipfsSuccess });
+
+    //Deply function from SDK to go here
   };
 
   return (
