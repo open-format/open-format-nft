@@ -6,6 +6,7 @@ interface ExploreCardProps {
   name: string;
   creator: string;
   image: string;
+  tokenId: string;
 }
 
 const ExploreCard: React.FC<ExploreCardProps> = ({
@@ -13,9 +14,10 @@ const ExploreCard: React.FC<ExploreCardProps> = ({
   name,
   creator,
   image,
+  tokenId,
 }) => {
   return (
-    <Link href={"/explore/1"}>
+    <Link href={`/explore/${tokenId}`}>
       <div className="cursor-pointer hover:shadow-md hover:shadow-slate-300 transition-shadow flex flex-col border-2 max-h-max rounded-lg sm:overflow-hidden">
         <img src={image} alt="" className="h-52 object-cover" />
         <div className="-m-6 flex justify-start items-center flex-col">

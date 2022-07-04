@@ -74,9 +74,11 @@ const Releases: NextPage = () => {
               getMetaValue(token.properties, "image") as string
             ) as string;
             const creator = token.creator.id as string;
+            const tokenId = token.id;
 
             return (
               <ExploreCard
+                {...{ tokenId }}
                 key={token.id}
                 {...{ description }}
                 {...{ name }}
