@@ -1,6 +1,31 @@
+import { yupResolver } from "@hookform/resolvers/yup";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { buildMetadata, uploadToIPFS } from "../../helpers/ipfs";
+import * as yup from "yup";
+const ReleaseSchema = yup.object().shape({
+  name: yup.string().required("You must provide an artist name"),
+  description: yup.string().required("You must provide an artist name"),
+  totalSupply: yup
+    .number()
+    .required()
+    .min(1, "Must be at least 1")
+    .typeError("You must provide a quantity e.g 100"),
+  mintPrice: yup
+    .number()
+    .required()
+    .min(0, "Cannot be less than 0")
+    .typeError("You must provide a sale price"),
+  image: yup
+    .mixed()
+    .test("required", "You need to provide a file", (file: [File]) => {
+      if (file[0]) return true;
+      return false;
+    })
+    .test("fileSize", "The image file is too large", (file: [File]) => {
+      return file[0] && file[0].size <= 10000000;
+    }),
+});
 
 const CreateReleaseForm: React.FC = () => {
   type FormValues = {
@@ -14,7 +39,9 @@ const CreateReleaseForm: React.FC = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormValues>();
+  } = useForm<FormValues>({
+    resolver: yupResolver(ReleaseSchema),
+  });
 
   const onSubmit = async (data: FormValues) => {
     const metaUpload = {
