@@ -5,3 +5,8 @@ type Transaction = {
   price: string;
   date: string;
 };
+
+type Property = {
+  key: string;
+  value: string;
+};

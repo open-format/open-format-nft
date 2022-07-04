@@ -4,6 +4,7 @@ import { gql } from "graphql-request";
 import Head from "next/head";
 import ExploreCard from "../../components/cards/explore-card";
 import ExploreNavigation from "../../components/navigations/explore-navigation";
+import getMetaValue from "../../helpers/get-meta-value";
 
 const navigation = [
   { name: "Trending", href: "/" },
@@ -27,10 +28,6 @@ const Releases: NextPage = () => {
         properties {
           key
           value
-        }
-        saleData {
-          maxSupply
-          totalSold
         }
       }
     }
@@ -59,70 +56,21 @@ const Releases: NextPage = () => {
         </div>
         <ExploreNavigation {...{ navigation }} />
         <div className="mt-12 px-6 grid grid-cols-1 gap-y-10 gap-x-10 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 md:gap-y-4">
-          <ExploreCard
-            description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis
-            tempore sapiente nesciunt velit debitis odit illo tenetur sequi cum
-            et."
-            name="Woman holding phone"
-            creator="0x2858b....0FF334"
-            image="https://images.unsplash.com/photo-1520333789090-1afc82db536a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2102&q=80"
-          />
-          <ExploreCard
-            description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis
-            tempore sapiente nesciunt velit debitis odit illo tenetur sequi cum
-            et."
-            name="Woman holding phone"
-            creator="0x2858b....0FF334"
-            image="https://images.unsplash.com/photo-1520333789090-1afc82db536a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2102&q=80"
-          />
-          <ExploreCard
-            description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis
-            tempore sapiente nesciunt velit debitis odit illo tenetur sequi cum
-            et."
-            name="Woman holding phone"
-            creator="0x2858b....0FF334"
-            image="https://images.unsplash.com/photo-1520333789090-1afc82db536a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2102&q=80"
-          />
-          <ExploreCard
-            description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis
-            tempore sapiente nesciunt velit debitis odit illo tenetur sequi cum
-            et."
-            name="Woman holding phone"
-            creator="0x2858b....0FF334"
-            image="https://images.unsplash.com/photo-1520333789090-1afc82db536a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2102&q=80"
-          />
-          <ExploreCard
-            description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis
-            tempore sapiente nesciunt velit debitis odit illo tenetur sequi cum
-            et."
-            name="Woman holding phone"
-            creator="0x2858b....0FF334"
-            image="https://images.unsplash.com/photo-1520333789090-1afc82db536a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2102&q=80"
-          />
-          <ExploreCard
-            description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis
-            tempore sapiente nesciunt velit debitis odit illo tenetur sequi cum
-            et."
-            name="Woman holding phone"
-            creator="0x2858b....0FF334"
-            image="https://images.unsplash.com/photo-1520333789090-1afc82db536a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2102&q=80"
-          />
-          <ExploreCard
-            description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis
-            tempore sapiente nesciunt velit debitis odit illo tenetur sequi cum
-            et."
-            name="Woman holding phone"
-            creator="0x2858b....0FF334"
-            image="https://images.unsplash.com/photo-1520333789090-1afc82db536a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2102&q=80"
-          />
-          <ExploreCard
-            description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis
-            tempore sapiente nesciunt velit debitis odit illo tenetur sequi cum
-            et."
-            name="Woman holding phone"
-            creator="0x2858b....0FF334"
-            image="https://images.unsplash.com/photo-1520333789090-1afc82db536a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2102&q=80"
-          />
+          {historicTokens.tokens.map((token) => {
+            console.log(token);
+            const description = getMetaValue(token.properties, "description");
+            const name = getMetaValue(token.properties, "name");
+
+            return (
+              <ExploreCard
+                key={token.id}
+                {...{ description }}
+                {...{ name }}
+                creator={token.creator.id}
+                image="https://images.unsplash.com/photo-1520333789090-1afc82db536a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2102&q=80"
+              />
+            );
+          })}
         </div>
       </div>
     </>
