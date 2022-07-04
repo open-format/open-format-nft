@@ -3,24 +3,13 @@ import PuchaseCard from "../../components/cards/purchase-card";
 import NFTDropdown from "../../components/dropdowns/nft-dropdown";
 import NftTableDropdown from "../../components/dropdowns/nft-table-dropdown";
 
-const product = {
-  image: {
-    imageSrc:
-      "https://tailwindui.com/img/ecommerce-images/product-page-01-featured-product-shot.jpg",
-    imageAlt: "Back of women's Basic Tee in black.",
-  },
-  details: [
-    {
-      name: "About cosmetic queens",
-      description:
-        " Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam eveniet eius blanditiis non est eos a molestiae facere veritatis consequatur.",
-    },
-    {
-      name: "Details",
-      description:
-        " Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam eveniet eius blanditiis non est eos a molestiae facere veritatis consequatur.",
-    },
-  ],
+const nftInfo = {
+  imageSrc:
+    "https://tailwindui.com/img/ecommerce-images/product-page-01-featured-product-shot.jpg",
+  imageAlt: "Back of women's Basic Tee in black.",
+  name: "About cosmetic queens",
+  description:
+    " Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam eveniet eius blanditiis non est eos a molestiae facere veritatis consequatur.",
 };
 
 const transactions = [
@@ -31,7 +20,7 @@ const transactions = [
     price: "0.0023",
     date: "01/07/2022",
   },
-  // More people...
+  // More transactions from query...
 ];
 
 const Release: React.FC = () => {
@@ -43,11 +32,11 @@ const Release: React.FC = () => {
             <h2 className="sr-only">NFT</h2>
             <div>
               <img
-                src={product.image.imageSrc}
+                src={nftInfo.imageSrc}
                 className="lg:col-span-2 lg:row-span-2 rounded-lg"
               />
             </div>
-            <NFTDropdown {...{ product }} />
+            <NFTDropdown {...{ nftInfo }} />
           </div>
           <div className="mt-2 lg:col-span-7">
             <PuchaseCard
