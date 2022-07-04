@@ -47,6 +47,7 @@ const Hero: React.FC = () => {
             </div>
           </div>
           <HeroCard
+            image="https://images.unsplash.com/photo-1520333789090-1afc82db536a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2102&q=80"
             creator="0x2858b738580644D607af792bD0dd8430D20FF334"
             name="Woman Looking at Phone"
           />
