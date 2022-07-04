@@ -1,4 +1,6 @@
+import { useRawRequest } from "@simpleweb/open-format-react";
 import { NextPage } from "next";
+import { gql } from "graphql-request";
 import Head from "next/head";
 import ExploreCard from "../../components/cards/explore-card";
 import ExploreNavigation from "../../components/navigations/explore-navigation";
@@ -15,6 +17,32 @@ const navigation = [
 ];
 
 const Releases: NextPage = () => {
+  const rawQuery = gql`
+    query ($factory_id: String!) {
+      tokens(where: { factory_id: $factory_id }) {
+        id
+        creator {
+          id
+        }
+        properties {
+          key
+          value
+        }
+        saleData {
+          maxSupply
+          totalSold
+        }
+      }
+    }
+  `;
+
+  const { data: historicTokens } = useRawRequest({
+    query: rawQuery,
+    variables: { factory_id: process.env.NEXT_PUBLIC_FACTORY_ID as string },
+  });
+
+  console.log(historicTokens);
+
   return (
     <>
       <Head>
