@@ -1,12 +1,13 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { buildMetadata, uploadToIPFS } from "../../helpers/ipfs";
 
 const CreateReleaseForm: React.FC = () => {
   type FormValues = {
     name: string;
     totalSupply: string;
     mintPrice: string;
-    fileUpload: File;
+    image: File[];
     description: string;
   };
   const {
@@ -16,7 +17,15 @@ const CreateReleaseForm: React.FC = () => {
   } = useForm<FormValues>();
 
   const onSubmit = async (data: FormValues) => {
-    console.log(data);
+    const metaUpload = {
+      name: data.name,
+      description: data.description,
+      image: data.image,
+    };
+    const meta = await buildMetadata(metaUpload);
+    console.log({ meta });
+    const ipfsSuccess = await uploadToIPFS(meta);
+    console.log({ ipfsSuccess });
   };
 
   return (
@@ -51,14 +60,14 @@ const CreateReleaseForm: React.FC = () => {
                 </svg>
                 <div className="flex text-sm text-gray-600">
                   <label
-                    htmlFor="fileUpload"
+                    htmlFor="image"
                     className="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
                   >
                     <span>Upload a file</span>
                     <input
-                      {...register("fileUpload")}
-                      id="fileUpload"
-                      name="fileUpload"
+                      {...register("image")}
+                      id="image"
+                      name="image"
                       type="file"
                       className="sr-only"
                     />
@@ -75,7 +84,7 @@ const CreateReleaseForm: React.FC = () => {
       <div className="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
         <div className="sm:col-span-6">
           <label
-            htmlFor="first-name"
+            htmlFor="name"
             className="block text-sm font-medium text-gray-700"
           >
             Name
@@ -157,16 +166,16 @@ const CreateReleaseForm: React.FC = () => {
         </div>
         <div className="sm:col-span-6">
           <label
-            htmlFor="country"
+            htmlFor="blockchain"
             className="block text-sm font-medium text-gray-700"
           >
             Blockchain
           </label>
           <div className="mt-1">
             <select
-              id="country"
-              name="country"
-              autoComplete="country-name"
+              id="bolckchain"
+              name="blockchain"
+              autoComplete="blockchain"
               className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
             >
               <option selected>Polygon</option>

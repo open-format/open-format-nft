@@ -8,12 +8,18 @@ const client = new NFTStorage({
 });
 
 type Data = {
+  image: File[];
+  name: string;
+  description: string;
+};
+
+type UploadData = {
   image: File;
   name: string;
   description: string;
 };
 
-export const uploadToIPFS = async (data: Data) => {
+export const uploadToIPFS = async (data: UploadData) => {
   if (!data) throw Error("Data is invalid");
   return await client.store(data);
 };
@@ -26,9 +32,11 @@ export const uploadToIPFS = async (data: Data) => {
  * with it's own IPFS CID linking back to the generated metadata.json.
  */
 
-export const buildMetadata = (data: Data) => {
+export const buildMetadata = async (data: Data) => {
   const { name, description, image } = data;
   const blockchainId = "ART";
+
+  const imageUpload = image[0];
 
   // generate a random factory ID
   const FACTORY_ID = process.env.NEXT_PUBLIC_FACTORY_ID;
@@ -43,7 +51,7 @@ export const buildMetadata = (data: Data) => {
     name,
     description,
     blockchainId,
-    image,
+    image: imageUpload,
     releaseType: "art",
     factoryId: FACTORY_ID,
   };
