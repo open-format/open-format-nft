@@ -23,8 +23,10 @@ const CreateReleaseForm: React.FC = () => {
       image: data.image,
     };
     const meta = await buildMetadata(metaUpload);
+    //Your metadata that is passed to ipfs
     console.log({ meta });
     const ipfsSuccess = await uploadToIPFS(meta);
+    //IPFS token response on success
     console.log({ ipfsSuccess });
   };
 
