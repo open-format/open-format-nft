@@ -46,7 +46,10 @@ const Hero: React.FC = () => {
               </div>
             </div>
           </div>
-          <HeroCard />
+          <HeroCard
+            creator="0x2858b738580644D607af792bD0dd8430D20FF334"
+            name="Woman Looking at Phone"
+          />
         </div>
       </div>
       <BackgroundImage />

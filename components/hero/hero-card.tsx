@@ -1,6 +1,11 @@
 import React from "react";
 
-const HeroCard: React.FC = () => {
+interface HeroCard {
+  name: string;
+  creator: string;
+}
+
+const HeroCard: React.FC = ({ name, creator }) => {
   return (
     <div className="mt-16 sm:mt-24 lg:mt-0 lg:col-span-6">
       <div className="sm:max-w-md shadow-md shadow-slate-500 sm:w-full sm:mx-auto sm:rounded-lg sm:overflow-hidden">
