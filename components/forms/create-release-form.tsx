@@ -64,13 +64,15 @@ const CreateReleaseForm: React.FC = () => {
         error: "Upload error",
       });
       console.log({ ipfsSuccess });
+
+      //IPFS token response on success
+
+      //Deply function from SDK to go here
+
       setLoadingToIPFS(false);
     } catch (error) {
       console.log(error);
     }
-    //IPFS token response on success
-
-    //Deply function from SDK to go here
   };
 
   return (
