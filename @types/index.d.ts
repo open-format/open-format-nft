@@ -1,9 +1,9 @@
 type Transaction = {
   event: string;
-  currentContractAddress: string;
-  ownerId: string;
-  price: string;
+  from: string;
+  to: string;
   date: string;
+  price: string;
 };
 
 type Property = {

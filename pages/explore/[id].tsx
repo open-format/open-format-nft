@@ -7,18 +7,6 @@ import { useRawRequest } from "@simpleweb/open-format-react";
 import { gql } from "graphql-request";
 import getMetaValue from "../../helpers/get-meta-value";
 import transformURL from "../../helpers/transform-url";
-import { ethers } from "ethers";
-
-const transactions = [
-  {
-    event: "Minted",
-    currentContractAddress: "0x28......58b7",
-    ownerId: "03cv......51n0",
-    price: "0.0023",
-    date: "01/07/2022",
-  },
-  // More transactions from query...
-];
 
 interface ReleasePageProps {
   tokenId: string;
@@ -73,6 +61,42 @@ const Release: React.FC<ReleasePageProps> = ({ tokenId }) => {
     price,
   };
 
+  const getTransactionHistory = gql`
+    query ($tokenId: String!) {
+      transactions(where: { token: $tokenId }) {
+        id
+        from
+        to
+        timestamp
+        token {
+          saleData {
+            salePrice
+          }
+        }
+      }
+    }
+  `;
+
+  const { data: transactionData } = useRawRequest({
+    query: getTransactionHistory,
+    variables: { tokenId },
+  });
+
+  console.log(transactionData);
+
+  const transactions = transactionData?.transactions?.map(
+    (transaction: any) => {
+      return {
+        event: "Minted",
+        from: transaction.from,
+        to: transaction.to,
+        date: transaction.timestamp,
+        price: transaction.token.saleData.salePrice,
+      };
+    }
+  );
+  console.log(transactions);
+
   return (
     <>
       <div className="mt-8 max-w-4xl mx-auto px-4 sm:px-6 lg:max-w-6xl lg:px-8">
@@ -88,7 +112,7 @@ const Release: React.FC<ReleasePageProps> = ({ tokenId }) => {
 
             <NFTDropdown {...{ nftDropdownProps }} />
           </div>
-          <div className="mt-2 lg:col-span-7">
+          <div className="mt-2 lg:col-span-8">
             <PuchaseCard {...{ purchaseCardProps }} />
           </div>
           <div className="col-span-12">

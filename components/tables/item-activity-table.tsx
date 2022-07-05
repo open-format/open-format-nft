@@ -1,3 +1,4 @@
+import { ethers } from "ethers";
 import React from "react";
 
 interface ItemActivityTableProps {
@@ -50,24 +51,26 @@ const ItemActivityTable: React.FC<ItemActivityTableProps> = ({
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-200 bg-white">
-                    {transactions.map((transaction) => (
-                      <tr key={transaction.currentContractAddress}>
+                    {transactions.map((transaction, index) => (
+                      <tr key={`${transaction.from}${index}`}>
                         <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
                           Minted
                         </td>
                         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                           <a className="cursor-pointer" href="">
-                            {transaction.price}
+                            {ethers.utils.formatEther(
+                              transaction.price.toString()
+                            )}
                           </a>
                         </td>
                         <td className="whitespace-nowrap px-3 py-4 text-sm text-blue-500">
                           <a className="cursor-pointer" href="">
-                            {transaction.currentContractAddress}
+                            {transaction.from}
                           </a>
                         </td>
                         <td className="cursor-pointer whitespace-nowrap px-3 py-4 text-sm text-blue-500">
                           <a className="cursor-pointer" href="">
-                            {transaction.ownerId}
+                            {transaction.to}
                           </a>
                         </td>
                         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
