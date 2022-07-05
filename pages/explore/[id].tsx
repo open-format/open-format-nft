@@ -5,15 +5,8 @@ import NFTDropdown from "../../components/dropdowns/nft-dropdown";
 import NftTableDropdown from "../../components/dropdowns/nft-table-dropdown";
 import { useRawRequest } from "@simpleweb/open-format-react";
 import { gql } from "graphql-request";
-
-const nftInfo = {
-  imageSrc:
-    "https://tailwindui.com/img/ecommerce-images/product-page-01-featured-product-shot.jpg",
-  imageAlt: "Back of women's Basic Tee in black.",
-  name: "About cosmetic queens",
-  description:
-    " Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam eveniet eius blanditiis non est eos a molestiae facere veritatis consequatur.",
-};
+import getMetaValue from "../../helpers/get-meta-value";
+import transformURL from "../../helpers/transform-url";
 
 const transactions = [
   {
@@ -42,6 +35,9 @@ const Release: React.FC<ReleasePageProps> = ({ tokenId }) => {
         saleData {
           salePrice
         }
+        creator {
+          id
+        }
       }
     }
   `;
@@ -51,22 +47,36 @@ const Release: React.FC<ReleasePageProps> = ({ tokenId }) => {
     variables: { tokenId },
   });
 
-  console.log(nftData);
+  const tokenData = nftData.token;
+  const properties = tokenData.properties;
+  //This compponent
+  const image = transformURL(getMetaValue(properties, "image") as string);
+  //NFTDropdown props
+  const description = getMetaValue(properties, "description") as string;
+  const name = getMetaValue(properties, "name") as string;
+
+  const createdBy = tokenData.creator.id;
+  const nftDropdownProps = {
+    name,
+    description,
+  };
+
+  const purchaseCardProps = {};
 
   return (
     <>
       <div className="mt-8 max-w-4xl mx-auto px-4 sm:px-6 lg:max-w-6xl lg:px-8">
         <div className="lg:grid lg:grid-cols-12 lg:gap-x-8">
-          <div className="mt-2 lg:col-span-5 lg:row-start-1">
+          <div className="mt-2 lg:col-span-4 lg:row-start-1">
             <h2 className="sr-only">NFT</h2>
             <div>
               <img
-                src={nftInfo.imageSrc}
+                src={image}
                 className="lg:col-span-2 lg:row-span-2 rounded-lg"
               />
             </div>
 
-            <NFTDropdown {...{ nftInfo }} />
+            <NFTDropdown {...{ nftDropdownProps }} />
           </div>
           <div className="mt-2 lg:col-span-7">
             <PuchaseCard
