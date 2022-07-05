@@ -73,8 +73,6 @@ const Release: React.FC<ReleasePageProps> = ({ tokenId }) => {
     price,
   };
 
-  console.log(price);
-
   return (
     <>
       <div className="mt-8 max-w-4xl mx-auto px-4 sm:px-6 lg:max-w-6xl lg:px-8">

@@ -33,10 +33,6 @@ const PuchaseCard: React.FC<PurchaseCardProps> = ({ purchaseCardProps }) => {
     "£"
   );
 
-  console.log({ formattedPrice });
-
-  console.log(convertedPrice);
-
   return (
     <>
       <h2 className="sr-only">NFT</h2>
