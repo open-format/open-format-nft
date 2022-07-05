@@ -3,8 +3,8 @@ import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/solid";
 import React from "react";
 
 type NFTInfo = {
-  name: string;
-  description: string;
+  name?: string;
+  description?: string;
 };
 interface NFTDropdownProps {
   nftDropdownProps: NFTInfo;

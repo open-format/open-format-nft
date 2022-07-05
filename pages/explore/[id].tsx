@@ -7,6 +7,7 @@ import { useRawRequest } from "@simpleweb/open-format-react";
 import { gql } from "graphql-request";
 import getMetaValue from "../../helpers/get-meta-value";
 import transformURL from "../../helpers/transform-url";
+import { ethers } from "ethers";
 
 const transactions = [
   {
@@ -47,21 +48,32 @@ const Release: React.FC<ReleasePageProps> = ({ tokenId }) => {
     variables: { tokenId },
   });
 
-  const tokenData = nftData.token;
-  const properties = tokenData.properties;
-  //This compponent
-  const image = transformURL(getMetaValue(properties, "image") as string);
-  //NFTDropdown props
-  const description = getMetaValue(properties, "description") as string;
-  const name = getMetaValue(properties, "name") as string;
+  const tokenData = nftData?.token;
+  const createdBy = tokenData?.creator?.id;
+  const properties = tokenData?.properties;
+  const price = tokenData?.saleData?.salePrice;
 
-  const createdBy = tokenData.creator.id;
+  //This compponent
+  const image = transformURL(getMetaValue(properties, "image") as string) ?? "";
+  //NFTDropdown props
+  const description = (getMetaValue(properties, "description") as string) ?? "";
+  const name = (getMetaValue(properties, "name") as string) ?? "";
+  //Purchase Card props
+
+  //Prop builder
   const nftDropdownProps = {
     name,
     description,
   };
 
-  const purchaseCardProps = {};
+  //Prop builder
+  const purchaseCardProps = {
+    createdBy,
+    name,
+    price,
+  };
+
+  console.log(price);
 
   return (
     <>
@@ -72,18 +84,14 @@ const Release: React.FC<ReleasePageProps> = ({ tokenId }) => {
             <div>
               <img
                 src={image}
-                className="lg:col-span-2 lg:row-span-2 rounded-lg"
+                className="object-cover min-w-full lg:col-span-2 lg:row-span-2 rounded-lg"
               />
             </div>
 
             <NFTDropdown {...{ nftDropdownProps }} />
           </div>
           <div className="mt-2 lg:col-span-7">
-            <PuchaseCard
-              createdBy="03cv......51n0"
-              name="cosmic galaxy"
-              price="0.0023"
-            />
+            <PuchaseCard {...{ purchaseCardProps }} />
           </div>
           <div className="col-span-12">
             <NftTableDropdown {...{ transactions }} />

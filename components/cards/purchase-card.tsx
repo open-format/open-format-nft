@@ -1,21 +1,42 @@
 import { TagIcon } from "@heroicons/react/solid";
-import React from "react";
+import { ethers } from "ethers";
+import React, { useEffect, useState } from "react";
+import useMaticPriceCalculation from "../../hooks/use-matic-price-calculation";
 import { ButtonGroup } from "../button-group/button-group";
 import Button from "../buttons/button";
 import { EthLogo } from "../logo/eth-logo";
 import StyledLink from "../styled-link/styled-link";
 
-type PurchaseCardProps = {
-  createdBy: string;
-  price: string;
-  name: string;
+type PurchaseCard = {
+  createdBy?: string;
+  price?: string;
+  name?: string;
 };
 
-const PuchaseCard: React.FC<PurchaseCardProps> = ({
-  createdBy,
-  name,
-  price,
-}) => {
+interface PurchaseCardProps {
+  purchaseCardProps: PurchaseCard;
+}
+
+const PuchaseCard: React.FC<PurchaseCardProps> = ({ purchaseCardProps }) => {
+  const { createdBy, name, price } = purchaseCardProps;
+  const [formattedPrice, setFormattedPrice] = useState<string>("");
+
+  useEffect(() => {
+    if (price) {
+      setFormattedPrice(ethers.utils.formatEther(price?.toString()));
+    }
+  });
+
+  const convertedPrice = useMaticPriceCalculation(
+    parseFloat(formattedPrice),
+    "gbp",
+    "£"
+  );
+
+  console.log({ formattedPrice });
+
+  console.log(convertedPrice);
+
   return (
     <>
       <h2 className="sr-only">NFT</h2>
@@ -47,11 +68,11 @@ const PuchaseCard: React.FC<PurchaseCardProps> = ({
           <div className="flex items-center">
             <EthLogo />
             <p className="ml-2 text-2xl font-bold">
-              {price}
+              {formattedPrice}
               <span className="font-normal text-sm text-gray-400">
                 {" "}
                 {/* @dev create a convertion helper here */}
-                ($203.09)
+                {convertedPrice}
               </span>
             </p>
           </div>
