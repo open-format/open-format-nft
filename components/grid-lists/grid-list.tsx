@@ -53,8 +53,10 @@ const GridList: React.FC<GridListProps> = ({ actions }) => {
             <div className="mt-8">
               <h3 className="text-lg font-medium">
                 <StyledLink className="focus:outline-none" href={action.href}>
-                  <span className="absolute inset-0" aria-hidden="true" />
-                  {action.title}
+                  <div>
+                    <span className="absolute inset-0" aria-hidden="true" />
+                    {action.title}
+                  </div>
                 </StyledLink>
               </h3>
               <p className="mt-2 text-sm text-gray-500">{action.description}</p>

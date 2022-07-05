@@ -64,7 +64,6 @@ const Releases: NextPage = () => {
         <ExploreNavigation {...{ navigation }} />
         <div className="mt-12 px-6 grid grid-cols-1 gap-y-10 gap-x-10 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 md:gap-y-4">
           {historicTokens?.tokens.map((token: Token) => {
-            console.log(token);
             const description = getMetaValue(
               token.properties,
               "description"

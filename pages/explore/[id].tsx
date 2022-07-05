@@ -1,7 +1,10 @@
+import { GetServerSideProps } from "next";
 import React from "react";
 import PuchaseCard from "../../components/cards/purchase-card";
 import NFTDropdown from "../../components/dropdowns/nft-dropdown";
 import NftTableDropdown from "../../components/dropdowns/nft-table-dropdown";
+import { useRawRequest } from "@simpleweb/open-format-react";
+import { gql } from "graphql-request";
 
 const nftInfo = {
   imageSrc:
@@ -23,7 +26,33 @@ const transactions = [
   // More transactions from query...
 ];
 
-const Release: React.FC = () => {
+interface ReleasePageProps {
+  tokenId: string;
+}
+
+const Release: React.FC<ReleasePageProps> = ({ tokenId }) => {
+  const getTokenDataQuery = gql`
+    query ($tokenId: String!) {
+      token(id: $tokenId) {
+        id
+        properties {
+          key
+          value
+        }
+        saleData {
+          salePrice
+        }
+      }
+    }
+  `;
+
+  const { data: nftData } = useRawRequest({
+    query: getTokenDataQuery,
+    variables: { tokenId },
+  });
+
+  console.log(nftData);
+
   return (
     <>
       <div className="mt-8 max-w-4xl mx-auto px-4 sm:px-6 lg:max-w-6xl lg:px-8">
@@ -36,6 +65,7 @@ const Release: React.FC = () => {
                 className="lg:col-span-2 lg:row-span-2 rounded-lg"
               />
             </div>
+
             <NFTDropdown {...{ nftInfo }} />
           </div>
           <div className="mt-2 lg:col-span-7">
@@ -55,3 +85,14 @@ const Release: React.FC = () => {
 };
 
 export default Release;
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  console.log(context);
+
+  const tokenId = context.query.id;
+  return {
+    props: {
+      tokenId,
+    },
+  };
+};
