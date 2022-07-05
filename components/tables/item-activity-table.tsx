@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import { ethers } from "ethers";
 import React from "react";
 
@@ -74,7 +75,9 @@ const ItemActivityTable: React.FC<ItemActivityTableProps> = ({
                           </a>
                         </td>
                         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                          {transaction.date}
+                          {dayjs(parseInt(transaction.date) * 1000).format(
+                            "DD/MM/YYYY"
+                          )}
                         </td>
                       </tr>
                     ))}
