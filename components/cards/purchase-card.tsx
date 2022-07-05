@@ -21,8 +21,8 @@ const PuchaseCard: React.FC<PurchaseCardProps> = ({
       <h2 className="sr-only">NFT</h2>
       <div>
         <div className="flex justify-between items-center">
-          <StyledLink href={"#"}>
-            <a className="text-blue-500">{createdBy}</a>
+          <StyledLink className="text-blue-500" href={"#"}>
+            {createdBy}
           </StyledLink>
           <div className="flex">
             <ButtonGroup />
@@ -35,8 +35,8 @@ const PuchaseCard: React.FC<PurchaseCardProps> = ({
         <div className="py-4">
           <p>
             Owned By{" "}
-            <StyledLink href={"#"}>
-              <a className="text-blue-400">{createdBy}</a>
+            <StyledLink className="text-blue-400" href={"#"}>
+              {createdBy}
             </StyledLink>
           </p>
         </div>
