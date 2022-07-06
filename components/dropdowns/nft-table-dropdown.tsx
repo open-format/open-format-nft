@@ -11,7 +11,7 @@ const NftTableDropdown: React.FC<NftTableDropdownProps> = ({
   transactions,
 }) => {
   return (
-    <Disclosure as="div">
+    <Disclosure defaultOpen as="div">
       {({ open }) => (
         <div className="border-[1px] rounded-md mt-12 border-slate-200">
           <h3>

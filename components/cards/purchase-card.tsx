@@ -52,7 +52,11 @@ const PuchaseCard: React.FC<PurchaseCardProps> = ({ purchaseCardProps }) => {
         <div className="py-4">
           <p>
             Owned By{" "}
-            <StyledLink className="text-blue-400" href={"#"}>
+            <StyledLink
+              openInNewTab={true}
+              href={`${process.env.NEXT_PUBLIC_POLYGON_SCAN}/address/${createdBy}`}
+              className="text-blue-500"
+            >
               {createdBy}
             </StyledLink>
           </p>
