@@ -19,7 +19,6 @@ const NFTDropdown: React.FC<NFTDropdownProps> = ({ nftDropdownProps }) => {
 
   const contractAddress: string = addressSplitter(tokenId);
   const creatorAddress: string = addressSplitter(createdBy);
-  console.log(contractAddress);
 
   return (
     <div className="border-[1px] mt-4 bg-slate-100 border-slate-200 rounded-lg">

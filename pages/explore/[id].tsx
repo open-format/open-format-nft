@@ -65,8 +65,6 @@ const Release: React.FC<ReleasePageProps> = ({ tokenId }) => {
   const description = (getMetaValue(properties, "description") as string) ?? "";
   const name = getMetaValue(properties, "name") as string;
 
-  console.log(tokenData);
-
   //Prop Builders
   const nftDropdownProps = {
     name,
@@ -124,8 +122,6 @@ const Release: React.FC<ReleasePageProps> = ({ tokenId }) => {
 export default Release;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  console.log(context);
-
   const tokenId = context.query.id;
   return {
     props: {
