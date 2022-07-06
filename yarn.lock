@@ -1075,21 +1075,21 @@
   resolved "https://registry.yarnpkg.com/@simpleweb/open-format-contracts/-/open-format-contracts-0.3.0.tgz#408e880b42d5c9808ed11f3d877162e8c91bc760"
   integrity sha512-Kr1tL7Yegs0shP/49pQcfm+6c450b7SVpf8NGsJjblXetWQpW8crGEuGkHFUkO1MLQyuvUIysRphDUtJPJP0EQ==
 
-"@simpleweb/open-format-react@^0.1.1":
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/@simpleweb/open-format-react/-/open-format-react-0.1.1.tgz#3e04c241511f162f1b367ed192ba557271d4e96d"
-  integrity sha512-RyBpB3MfXHvuguXUHSGVbzAMu9H40x6qvi0zrb9UmFZNlrFfP1IIDfMzOwb8w8bXkxS/vL50t7PC/NRh7iguxw==
+"@simpleweb/open-format-react@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@simpleweb/open-format-react/-/open-format-react-0.2.0.tgz#b8c67925ab02795ecc03f1bff2eef00a5880e713"
+  integrity sha512-Q1nLa6503+9krsZUrUCDVVSHGkhqbHvhMQyuIam2OKFZoiXCFDdGPEF/+M+XN14zNJJPoG1oLhh2nmo3vD46nQ==
   dependencies:
-    "@simpleweb/open-format" "^0.1.1"
-    "@web3-onboard/injected-wallets" "^2.0.9"
-    "@web3-onboard/react" "2.1.6"
-    "@web3-onboard/walletconnect" "^2.0.2"
+    "@simpleweb/open-format" "^0.2.0"
+    "@web3-onboard/injected-wallets" "^2.0.12"
+    "@web3-onboard/react" "^2.2.2"
+    "@web3-onboard/walletconnect" "^2.0.5"
     react-query "^3.39.1"
 
-"@simpleweb/open-format@^0.1.1":
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/@simpleweb/open-format/-/open-format-0.1.2.tgz#d19a831beae015d5275045edd2b941fa3e95ecda"
-  integrity sha512-krr18f+k7g3DEEjDJv0CMzOoiQfu/+/d/H7AwnXgBs3BG8yw+yzw1AXA3UEmgHZVnXYo8RRfM3mh8KigMVZVOg==
+"@simpleweb/open-format@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@simpleweb/open-format/-/open-format-0.2.0.tgz#ba156d6c2f9b8b4b37695df33d18e0c112b2b30b"
+  integrity sha512-S/7yaEhzSaI3g41nE24AnTHM1lxmIhGdwf5nOTFg9bJvfbJ4Z4Bp1wntIE7mk6M1M4zefJ0L702O1U2IN7A4DA==
   dependencies:
     "@simpleweb/open-format-contracts" "^0.3.0"
     graphql "^16.5.0"
@@ -1447,7 +1447,7 @@
   dependencies:
     web-streams-polyfill "^3.1.1"
 
-"@web3-onboard/common@^2.0.7", "@web3-onboard/common@^2.1.4":
+"@web3-onboard/common@^2.1.4":
   version "2.1.4"
   resolved "https://registry.yarnpkg.com/@web3-onboard/common/-/common-2.1.4.tgz#b5143540e5690fc6f75386b538029a297d9f9aae"
   integrity sha512-+EzgwbPY0OSgw5EBjb69lUnBqTVS7M1jPNfNRF3VxqkIgl+Lv2WPgXhracSLeUh77sVeBmSn+VqlztKtjG+Dxg==
@@ -1457,7 +1457,7 @@
     joi "^17.4.2"
     rxjs "^7.5.2"
 
-"@web3-onboard/core@^2.2.7":
+"@web3-onboard/core@^2.3.2":
   version "2.3.2"
   resolved "https://registry.yarnpkg.com/@web3-onboard/core/-/core-2.3.2.tgz#0659d5fc3ed08573f9c6aedb0eb5a9472d4b52fd"
   integrity sha512-4qDe0/GHxkOtBbSdFu4btSNC5PLtW6m1VvqY5HUCBJlxDQq2sPWBjWg3j4o0cLTTw0IVgeWVNjR4GonlPvJtnQ==
@@ -1476,7 +1476,7 @@
     svelte "^3.46.4"
     svelte-i18n "^3.3.13"
 
-"@web3-onboard/injected-wallets@^2.0.9":
+"@web3-onboard/injected-wallets@^2.0.12":
   version "2.0.12"
   resolved "https://registry.yarnpkg.com/@web3-onboard/injected-wallets/-/injected-wallets-2.0.12.tgz#593cf6ec0fe1e2f57233e10795136cfd681c9bd5"
   integrity sha512-viZebgwenIKRN/1q0A6Yq0euYxGmP7sPCPwjKQoTFQPcwKuR+kPkfLw1MnPkntxpC7Cyc5dS4/LsOqeEfSPFbQ==
@@ -1485,15 +1485,16 @@
     joi "^17.4.2"
     lodash.uniqby "^4.7.0"
 
-"@web3-onboard/react@2.1.6":
-  version "2.1.6"
-  resolved "https://registry.yarnpkg.com/@web3-onboard/react/-/react-2.1.6.tgz#1efc7c5e120a11ddbf13840c651439c2fb34806d"
-  integrity sha512-suvxlTkcvAiV2ecJu0mZ7tpnLsFSGqm9BGbjXm7s6xOHPYtRJyqGRlhWSOm1clLHV5sBFF42QMKVQVOFz6TdtQ==
+"@web3-onboard/react@^2.2.2":
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/@web3-onboard/react/-/react-2.2.2.tgz#7ff0b5e24b7c5bb405171e6c66a83eeb9c2595a4"
+  integrity sha512-xYN9/4ZRTRHq28YuJVVIBOCRzDeIVuZQaAuxxLtkseQ74LMiwRQfvKgrpYK+eS5dnGEr47b5ygZxPusqlaryGA==
   dependencies:
-    "@web3-onboard/common" "^2.0.7"
-    "@web3-onboard/core" "^2.2.7"
+    "@web3-onboard/common" "^2.1.4"
+    "@web3-onboard/core" "^2.3.2"
+    use-sync-external-store "1.0.0"
 
-"@web3-onboard/walletconnect@^2.0.2":
+"@web3-onboard/walletconnect@^2.0.5":
   version "2.0.5"
   resolved "https://registry.yarnpkg.com/@web3-onboard/walletconnect/-/walletconnect-2.0.5.tgz#5d4937edb7956d2b826f7a513baf1c4bf77cd20f"
   integrity sha512-FFaDk/BbRhBAlDOzX497CKrMEPMKYGjJSYl2nOt6FtjpeUW+z0wLbaaevFQRgmQlnx0Q4HR9wCr38NPmOzzVPQ==
@@ -5212,6 +5213,11 @@ uri-js@^4.2.2:
   integrity sha512-7rKUyy33Q1yc98pQ1DAmLtwX109F7TIfWlW1Ydo8Wl1ii1SeHieeh0HHfPeL2fMXK6z0s8ecKs9frCuLJvndBg==
   dependencies:
     punycode "^2.1.0"
+
+use-sync-external-store@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/use-sync-external-store/-/use-sync-external-store-1.0.0.tgz#d98f4a9c2e73d0f958e7e2d2c2bfb5f618cbd8fd"
+  integrity sha512-AFVsxg5GkFg8GDcxnl+Z0lMAz9rE8DGJCc28qnBuQF7lac57B5smLcT37aXpXIIPz75rW4g3eXHPjhHwdGskOw==
 
 use-sync-external-store@1.1.0:
   version "1.1.0"

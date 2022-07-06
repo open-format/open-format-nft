@@ -6,6 +6,7 @@ import * as yup from "yup";
 import { ErrorMessage } from "@hookform/error-message";
 import toast from "react-hot-toast";
 import Button from "../buttons/button";
+import { useDeploy, useWallet } from "@simpleweb/open-format-react";
 const ReleaseSchema = yup.object().shape({
   name: yup.string().required("You must provide a name"),
   description: yup.string().required("You must provide a description"),
@@ -31,6 +32,7 @@ const ReleaseSchema = yup.object().shape({
 });
 
 const CreateReleaseForm: React.FC = () => {
+  const { isConnected } = useWallet();
   const [loadingToIPFS, setLoadingToIPFS] = useState<boolean>(false);
   type FormValues = {
     name: string;
@@ -47,6 +49,10 @@ const CreateReleaseForm: React.FC = () => {
     resolver: yupResolver(ReleaseSchema),
   });
 
+  const { deploy, isLoading, data } = useDeploy();
+  console.log({ data });
+  console.log({ isConnected });
+
   const onSubmit = async (data: FormValues) => {
     const metaUpload = {
       name: data.name,
@@ -54,6 +60,8 @@ const CreateReleaseForm: React.FC = () => {
       image: data.image,
     };
     const meta = await buildMetadata(metaUpload);
+    console.log(meta);
+
     try {
       setLoadingToIPFS(true);
       const ipfsSuccess = await toast.promise(uploadToIPFS(meta), {
@@ -62,6 +70,24 @@ const CreateReleaseForm: React.FC = () => {
         error: "Upload error",
       });
       setLoadingToIPFS(false);
+
+      console.log({ ipfsSuccess });
+
+      await toast.promise(
+        deploy({
+          maxSupply: parseInt(data.totalSupply),
+          mintingPrice: parseFloat(data.mintPrice),
+          name: meta.name,
+          symbol: "TEST",
+          url: ipfsSuccess.url,
+        }),
+        {
+          loading:
+            "Uploading your creation to the blockhain, please check your wallet for further instructions",
+          success: "Contract deployed",
+          error: "Upload error",
+        }
+      );
     } catch (error) {
       console.log(error);
     }
@@ -259,13 +285,15 @@ const CreateReleaseForm: React.FC = () => {
       </div>
       <div className="pt-5">
         <div className="flex justify-end">
-          <Button
-            isLoading={loadingToIPFS}
-            type="submit"
-            className="bg-blue-500 text-white py-2 px-4 border rounded-md  text-sm font-medium hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-          >
-            Create
-          </Button>
+          {isConnected && (
+            <Button
+              isLoading={loadingToIPFS || isLoading}
+              type="submit"
+              className="bg-blue-500 text-white py-2 px-4 border rounded-md  text-sm font-medium hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            >
+              Create
+            </Button>
+          )}
         </div>
       </div>
     </form>
