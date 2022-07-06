@@ -74,7 +74,7 @@ const CreateReleaseForm: React.FC = () => {
 
       console.log({ ipfsSuccess });
 
-      await toast.promise(
+      const response = await toast.promise(
         deploy({
           maxSupply: parseInt(data.totalSupply),
           mintingPrice: parseFloat(data.mintPrice),
@@ -89,7 +89,7 @@ const CreateReleaseForm: React.FC = () => {
           error: "Upload error",
         }
       );
-      router.push(`/explore/${contractData?.contractAddress}`);
+      router.push(`/explore/${response.contractAddress}`);
     } catch (error) {
       console.log(error);
     }
