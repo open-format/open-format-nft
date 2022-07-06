@@ -58,7 +58,9 @@ const Release: React.FC<ReleasePageProps> = ({ tokenId }) => {
     variables: { tokenId },
   });
 
-  const { mint } = useMint();
+  const { mint, isLoading: minting } = useMint();
+
+  console.log(minting);
 
   const submitPurchase = async (address: string) => {
     try {
@@ -97,6 +99,7 @@ const Release: React.FC<ReleasePageProps> = ({ tokenId }) => {
     price,
     submitPurchase,
     tokenId,
+    minting,
   };
 
   //Transaction List
