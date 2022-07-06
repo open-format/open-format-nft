@@ -7,6 +7,7 @@ import { useMint, useRawRequest } from "@simpleweb/open-format-react";
 import { gql } from "graphql-request";
 import getMetaValue from "../../helpers/get-meta-value";
 import transformURL from "../../helpers/transform-url";
+import toast from "react-hot-toast";
 
 interface ReleasePageProps {
   tokenId: string;
@@ -59,12 +60,16 @@ const Release: React.FC<ReleasePageProps> = ({ tokenId }) => {
 
   const { mint } = useMint();
 
-  const submitPurchase = (address: string) => {
+  const submitPurchase = async (address: string) => {
     try {
       if (typeof address !== "string") {
         throw new Error("Contract address not sent");
       }
-      mint({ contractAddress: address });
+      await toast.promise(mint({ contractAddress: address }), {
+        loading: "Please confirm the transaction in your wallet",
+        success: "Purchase complete",
+        error: "Minting error",
+      });
     } catch (error) {
       console.log("handleDeploy", error);
     }

@@ -12,7 +12,7 @@ type PurchaseCard = {
   createdBy?: string;
   price?: string;
   name?: string;
-  submitPurchase: (address: string) => void | Error;
+  submitPurchase: (address: string) => Promise<void | Error>;
   tokenId: string;
 };
 
