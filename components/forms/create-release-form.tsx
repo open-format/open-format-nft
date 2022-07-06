@@ -7,6 +7,7 @@ import { ErrorMessage } from "@hookform/error-message";
 import toast from "react-hot-toast";
 import Button from "../buttons/button";
 import { useDeploy, useWallet } from "@simpleweb/open-format-react";
+import { useRouter } from "next/router";
 const ReleaseSchema = yup.object().shape({
   name: yup.string().required("You must provide a name"),
   description: yup.string().required("You must provide a description"),
@@ -48,9 +49,9 @@ const CreateReleaseForm: React.FC = () => {
   } = useForm<FormValues>({
     resolver: yupResolver(ReleaseSchema),
   });
-
-  const { deploy, isLoading, data } = useDeploy();
-  console.log({ data });
+  const router = useRouter();
+  const { deploy, isLoading, data: contractData } = useDeploy();
+  console.log({ contractData });
   console.log({ isConnected });
 
   const onSubmit = async (data: FormValues) => {
@@ -88,6 +89,7 @@ const CreateReleaseForm: React.FC = () => {
           error: "Upload error",
         }
       );
+      router.push(`/explore/${contractData?.contractAddress}`);
     } catch (error) {
       console.log(error);
     }
