@@ -36,31 +36,6 @@ const Release: React.FC<ReleasePageProps> = ({ tokenId }) => {
     variables: { tokenId },
   });
 
-  const tokenData = nftData?.token;
-  const createdBy = tokenData?.creator?.id;
-  const properties = tokenData?.properties;
-  const price = tokenData?.saleData?.salePrice;
-
-  //This compponent
-  const image = transformURL(getMetaValue(properties, "image") as string) ?? "";
-  //NFTDropdown props
-  const description = (getMetaValue(properties, "description") as string) ?? "";
-  const name = (getMetaValue(properties, "name") as string) ?? "";
-  //Purchase Card props
-
-  //Prop builder
-  const nftDropdownProps = {
-    name,
-    description,
-  };
-
-  //Prop builder
-  const purchaseCardProps = {
-    createdBy,
-    name,
-    price,
-  };
-
   const getTransactionHistory = gql`
     query ($tokenId: String!) {
       transactions(where: { token: $tokenId }) {
@@ -82,8 +57,31 @@ const Release: React.FC<ReleasePageProps> = ({ tokenId }) => {
     variables: { tokenId },
   });
 
-  console.log(transactionData);
+  const tokenData = nftData?.token;
+  const createdBy = tokenData?.creator?.id;
+  const properties = tokenData?.properties;
+  const price = tokenData?.saleData?.salePrice;
+  const image = transformURL(getMetaValue(properties, "image") as string) ?? "";
+  const description = (getMetaValue(properties, "description") as string) ?? "";
+  const name = getMetaValue(properties, "name") as string;
 
+  console.log(tokenData);
+
+  //Prop Builders
+  const nftDropdownProps = {
+    name,
+    createdBy,
+    description,
+    tokenId,
+  };
+
+  const purchaseCardProps = {
+    createdBy,
+    name,
+    price,
+  };
+
+  //Transaction List
   const transactions = transactionData?.transactions?.map(
     (transaction: any) => {
       return {
@@ -95,7 +93,6 @@ const Release: React.FC<ReleasePageProps> = ({ tokenId }) => {
       };
     }
   );
-  console.log(transactions);
 
   return (
     <>

@@ -1,17 +1,24 @@
 import { Disclosure } from "@headlessui/react";
 import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/solid";
 import React from "react";
+import { addressSplitter } from "../../helpers/address-splitter";
+import StyledLink from "../styled-link/styled-link";
 
 type NFTInfo = {
   name?: string;
   description?: string;
+  tokenId: string;
+  createdBy: string;
 };
 interface NFTDropdownProps {
   nftDropdownProps: NFTInfo;
 }
 
 const NFTDropdown: React.FC<NFTDropdownProps> = ({ nftDropdownProps }) => {
-  const { description, name } = nftDropdownProps;
+  const { description, name, createdBy, tokenId } = nftDropdownProps;
+
+  const contractAddress: string = addressSplitter(tokenId);
+  console.log(contractAddress);
 
   return (
     <div className="border-[1px] mt-4 bg-slate-100 border-slate-200 rounded-lg">
@@ -55,12 +62,15 @@ const NFTDropdown: React.FC<NFTDropdownProps> = ({ nftDropdownProps }) => {
                 <div className="pt-2">
                   <div className="flex justify-between">
                     <p className="px-6 pb-2 text-sm">Contract Address</p>
-                    <p className="px-6 text-sm">0xwe92</p>
+                    <StyledLink
+                      openInNewTab={true}
+                      href={`${process.env.NEXT_PUBLIC_POLYGON_SCAN}/address/${tokenId}`}
+                      className="px-6 text-sm text-blue-500"
+                    >
+                      {contractAddress}
+                    </StyledLink>
                   </div>
-                  <div className="flex justify-between">
-                    <p className="px-6 pb-2 text-sm">Token ID</p>
-                    <p className="px-6  text-sm">0xwe92</p>
-                  </div>
+
                   <div className="flex justify-between">
                     <p className="px-6 pb-2 text-sm">Token Standard</p>
                     <p className="px-6 text-sm">ERC-20</p>
@@ -71,10 +81,6 @@ const NFTDropdown: React.FC<NFTDropdownProps> = ({ nftDropdownProps }) => {
                   </div>
                   <div className="flex justify-between">
                     <p className="px-6 pb-2 text-sm">Metadata</p>
-                    <p className="px-6 text-sm">IPFS</p>
-                  </div>
-                  <div className="flex justify-between">
-                    <p className="px-6 pb-2 text-sm">Creator Fee{"'"}s</p>
                     <p className="px-6 text-sm">IPFS</p>
                   </div>
                 </div>
