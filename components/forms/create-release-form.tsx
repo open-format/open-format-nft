@@ -50,9 +50,7 @@ const CreateReleaseForm: React.FC = () => {
     resolver: yupResolver(ReleaseSchema),
   });
   const router = useRouter();
-  const { deploy, isLoading, data: contractData } = useDeploy();
-  console.log({ contractData });
-  console.log({ isConnected });
+  const { deploy, isLoading } = useDeploy();
 
   const onSubmit = async (data: FormValues) => {
     const metaUpload = {
@@ -61,8 +59,6 @@ const CreateReleaseForm: React.FC = () => {
       image: data.image,
     };
     const meta = await buildMetadata(metaUpload);
-    console.log(meta);
-
     try {
       setLoadingToIPFS(true);
       const ipfsSuccess = await toast.promise(uploadToIPFS(meta), {
@@ -71,8 +67,6 @@ const CreateReleaseForm: React.FC = () => {
         error: "Upload error",
       });
       setLoadingToIPFS(false);
-
-      console.log({ ipfsSuccess });
 
       const response = await toast.promise(
         deploy({
