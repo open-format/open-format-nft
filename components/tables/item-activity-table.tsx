@@ -1,4 +1,7 @@
+import dayjs from "dayjs";
+import { ethers } from "ethers";
 import React from "react";
+import StyledLink from "../styled-link/styled-link";
 
 interface ItemActivityTableProps {
   transactions: Transaction[];
@@ -50,28 +53,38 @@ const ItemActivityTable: React.FC<ItemActivityTableProps> = ({
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-200 bg-white">
-                    {transactions.map((transaction) => (
-                      <tr key={transaction.currentContractAddress}>
+                    {transactions?.map((transaction, index) => (
+                      <tr key={`${transaction.from}${index}`}>
                         <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
                           Minted
                         </td>
                         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                           <a className="cursor-pointer" href="">
-                            {transaction.price}
+                            {ethers.utils.formatEther(
+                              transaction.price.toString()
+                            )}
                           </a>
                         </td>
                         <td className="whitespace-nowrap px-3 py-4 text-sm text-blue-500">
-                          <a className="cursor-pointer" href="">
-                            {transaction.currentContractAddress}
-                          </a>
+                          <StyledLink
+                            openInNewTab={true}
+                            href={`${process.env.NEXT_PUBLIC_POLYGON_SCAN}/address/${transaction.from}`}
+                          >
+                            {transaction.from}
+                          </StyledLink>
                         </td>
                         <td className="cursor-pointer whitespace-nowrap px-3 py-4 text-sm text-blue-500">
-                          <a className="cursor-pointer" href="">
-                            {transaction.ownerId}
-                          </a>
+                          <StyledLink
+                            openInNewTab={true}
+                            href={`${process.env.NEXT_PUBLIC_POLYGON_SCAN}/address/${transaction.from}`}
+                          >
+                            {transaction.to}
+                          </StyledLink>
                         </td>
                         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                          {transaction.date}
+                          {dayjs(parseInt(transaction.date) * 1000).format(
+                            "DD/MM/YYYY"
+                          )}
                         </td>
                       </tr>
                     ))}
