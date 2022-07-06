@@ -4,6 +4,7 @@ import { SearchIcon } from "@heroicons/react/solid";
 import { MenuIcon, XIcon } from "@heroicons/react/outline";
 import classNames from "classnames";
 import Link from "next/link";
+import { ConnectButton } from "@simpleweb/open-format-react";
 
 const navigation = [
   { name: "Explore", href: "/explore", current: false },
@@ -74,6 +75,7 @@ const Header: React.FC = () => {
                       </a>
                     ))}
                   </nav>
+                  <ConnectButton />
                   <button
                     type="button"
                     className="flex-shrink-0 bg-blue-500 rounded-md  p-2 text-white hover:text-gray-200 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"

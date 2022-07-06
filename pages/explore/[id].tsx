@@ -3,7 +3,7 @@ import React from "react";
 import PuchaseCard from "../../components/cards/purchase-card";
 import NFTDropdown from "../../components/dropdowns/nft-dropdown";
 import NftTableDropdown from "../../components/dropdowns/nft-table-dropdown";
-import { useRawRequest } from "@simpleweb/open-format-react";
+import { useMint, useRawRequest } from "@simpleweb/open-format-react";
 import { gql } from "graphql-request";
 import getMetaValue from "../../helpers/get-meta-value";
 import transformURL from "../../helpers/transform-url";
@@ -57,6 +57,19 @@ const Release: React.FC<ReleasePageProps> = ({ tokenId }) => {
     variables: { tokenId },
   });
 
+  const { mint } = useMint();
+
+  const submitPurchase = (address: string) => {
+    try {
+      if (typeof address !== "string") {
+        throw new Error("Contract address not sent");
+      }
+      mint({ contractAddress: address });
+    } catch (error) {
+      console.log("handleDeploy", error);
+    }
+  };
+
   const tokenData = nftData?.token;
   const createdBy = tokenData?.creator?.id;
   const properties = tokenData?.properties;
@@ -77,6 +90,8 @@ const Release: React.FC<ReleasePageProps> = ({ tokenId }) => {
     createdBy,
     name,
     price,
+    submitPurchase,
+    tokenId,
   };
 
   //Transaction List
