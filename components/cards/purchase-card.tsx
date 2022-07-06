@@ -1,6 +1,6 @@
 import { TagIcon } from "@heroicons/react/solid";
 import { ethers } from "ethers";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import useMaticPriceCalculation from "../../hooks/use-matic-price-calculation";
 import { ButtonGroup } from "../button-group/button-group";
 import Button from "../buttons/button";
@@ -19,13 +19,9 @@ interface PurchaseCardProps {
 
 const PuchaseCard: React.FC<PurchaseCardProps> = ({ purchaseCardProps }) => {
   const { createdBy, name, price } = purchaseCardProps;
-  const [formattedPrice, setFormattedPrice] = useState<string>("");
-
-  useEffect(() => {
-    if (price) {
-      setFormattedPrice(ethers.utils.formatEther(price?.toString()));
-    }
-  });
+  const formattedPrice = price
+    ? ethers.utils.formatEther(price.toString())
+    : "";
 
   const convertedPrice = useMaticPriceCalculation(
     parseFloat(formattedPrice),
@@ -71,7 +67,6 @@ const PuchaseCard: React.FC<PurchaseCardProps> = ({ purchaseCardProps }) => {
               {formattedPrice}
               <span className="font-normal text-sm text-gray-400">
                 {" "}
-                {/* @dev create a convertion helper here */}
                 {convertedPrice}
               </span>
             </p>

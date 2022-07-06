@@ -75,14 +75,18 @@ const Releases: NextPage = () => {
             const creator = token.creator.id as string;
             const tokenId = token.id;
 
+            const exploreCardProps = {
+              name,
+              image,
+              description,
+              creator,
+              tokenId,
+            };
+
             return (
               <ExploreCard
-                {...{ tokenId }}
-                key={token.id}
-                {...{ description }}
-                {...{ name }}
-                {...{ creator }}
-                {...{ image }}
+                key={`${tokenId}${name}`}
+                {...{ exploreCardProps }}
               />
             );
           })}
