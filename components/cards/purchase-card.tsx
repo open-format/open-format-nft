@@ -1,7 +1,8 @@
-import { TagIcon } from "@heroicons/react/solid";
+import { BanIcon, TagIcon } from "@heroicons/react/solid";
 import { useWallet } from "@simpleweb/open-format-react";
 import { ethers } from "ethers";
 import React from "react";
+import { soldOut } from "../../helpers/sold-out";
 import useMaticPriceCalculation from "../../hooks/use-matic-price-calculation";
 import { ButtonGroup } from "../button-group/button-group";
 import Button from "../buttons/button";
@@ -15,6 +16,8 @@ type PurchaseCard = {
   submitPurchase: (address: string) => Promise<void | Error>;
   tokenId: string;
   minting: boolean;
+  maxSupply: string;
+  totalSold: string;
 };
 
 interface PurchaseCardProps {
@@ -22,8 +25,16 @@ interface PurchaseCardProps {
 }
 
 const PuchaseCard: React.FC<PurchaseCardProps> = ({ purchaseCardProps }) => {
-  const { createdBy, name, price, submitPurchase, tokenId, minting } =
-    purchaseCardProps;
+  const {
+    createdBy,
+    name,
+    price,
+    submitPurchase,
+    tokenId,
+    minting,
+    maxSupply,
+    totalSold,
+  } = purchaseCardProps;
   const formattedPrice = price
     ? ethers.utils.formatEther(price.toString())
     : "";
@@ -33,8 +44,6 @@ const PuchaseCard: React.FC<PurchaseCardProps> = ({ purchaseCardProps }) => {
     "gbp",
     "£"
   );
-
-  console.log({ minting });
 
   return (
     <>
@@ -82,13 +91,23 @@ const PuchaseCard: React.FC<PurchaseCardProps> = ({ purchaseCardProps }) => {
         <div className="p-4 col-span-2">
           <Button
             type="button"
-            disabled={minting}
+            isLoading={minting}
+            soldOut={() => soldOut(maxSupply, totalSold)}
             onClick={() => submitPurchase(tokenId)}
             className="w-full border-2 hover:shadow-md hover:transition transition bg-white rounded-md px-4 py-2 col-span-2"
           >
             <span className="flex items-center justify-center">
-              <TagIcon className="h-4  text-blue-400 mr-2" />
-              <span className="text-blue-400">Mint</span>
+              {!soldOut(maxSupply, totalSold) ? (
+                <>
+                  <TagIcon className="h-4  text-blue-400 mr-2" />
+                  <span className="text-blue-400">Mint</span>
+                </>
+              ) : (
+                <>
+                  <BanIcon className="h-4  text-red-400 mr-2" />
+                  <span className="text-red-400">Sold Out</span>
+                </>
+              )}
             </span>
           </Button>
         </div>

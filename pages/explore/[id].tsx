@@ -24,6 +24,8 @@ const Release: React.FC<ReleasePageProps> = ({ tokenId }) => {
         }
         saleData {
           salePrice
+          totalSold
+          maxSupply
         }
         creator {
           id
@@ -59,9 +61,6 @@ const Release: React.FC<ReleasePageProps> = ({ tokenId }) => {
   });
 
   const { mint, isLoading: minting } = useMint();
-
-  console.log(minting);
-
   const submitPurchase = async (address: string) => {
     try {
       if (typeof address !== "string") {
@@ -80,6 +79,8 @@ const Release: React.FC<ReleasePageProps> = ({ tokenId }) => {
   const tokenData = nftData?.token;
   const createdBy = tokenData?.creator?.id;
   const properties = tokenData?.properties;
+  const maxSupply = nftData?.token?.saleData?.maxSupply;
+  const totalSold = nftData?.token?.saleData?.totalSold;
   const price = tokenData?.saleData?.salePrice;
   const image = transformURL(getMetaValue(properties, "image") as string) ?? "";
   const description = (getMetaValue(properties, "description") as string) ?? "";
@@ -91,6 +92,8 @@ const Release: React.FC<ReleasePageProps> = ({ tokenId }) => {
     createdBy,
     description,
     tokenId,
+    totalSold,
+    maxSupply,
   };
 
   const purchaseCardProps = {
@@ -100,6 +103,8 @@ const Release: React.FC<ReleasePageProps> = ({ tokenId }) => {
     submitPurchase,
     tokenId,
     minting,
+    totalSold,
+    maxSupply,
   };
 
   //Transaction List
