@@ -18,6 +18,7 @@ const NFTDropdown: React.FC<NFTDropdownProps> = ({ nftDropdownProps }) => {
   const { description, name, createdBy, tokenId } = nftDropdownProps;
 
   const contractAddress: string = addressSplitter(tokenId);
+  const creatorAddress: string = addressSplitter(createdBy);
   console.log(contractAddress);
 
   return (
@@ -28,10 +29,19 @@ const NFTDropdown: React.FC<NFTDropdownProps> = ({ nftDropdownProps }) => {
         </p>
       </div>
       <div className="border-t bg-slate-50 border-slate-200">
-        <p className="text-gray-900 text-sm font-medium pt-6 pb-2 px-6">
-          By <span className=" font-extrabold">{name}</span>
-        </p>
-        <p className="px-6 pb-8 text-sm">{description}</p>
+        <div className="flex justify-between">
+          <p className="text-gray-900 text-sm font-medium pt-6 pb-2 px-6">
+            By{" "}
+          </p>
+          <StyledLink
+            openInNewTab={true}
+            href={`${process.env.NEXT_PUBLIC_POLYGON_SCAN}/address/${tokenId}`}
+            className="text-sm text-blue-500  pt-6 pb-2 px-6"
+          >
+            {creatorAddress}
+          </StyledLink>
+        </div>
+        <p className="px-6 pb-8 text-sm italic">{description}</p>
       </div>
 
       <div>
