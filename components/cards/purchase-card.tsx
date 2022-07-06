@@ -1,4 +1,5 @@
 import { TagIcon } from "@heroicons/react/solid";
+import { useWallet } from "@simpleweb/open-format-react";
 import { ethers } from "ethers";
 import React from "react";
 import useMaticPriceCalculation from "../../hooks/use-matic-price-calculation";
@@ -11,6 +12,9 @@ type PurchaseCard = {
   createdBy?: string;
   price?: string;
   name?: string;
+  submitPurchase: (address: string) => Promise<void | Error>;
+  tokenId: string;
+  minting: boolean;
 };
 
 interface PurchaseCardProps {
@@ -18,7 +22,8 @@ interface PurchaseCardProps {
 }
 
 const PuchaseCard: React.FC<PurchaseCardProps> = ({ purchaseCardProps }) => {
-  const { createdBy, name, price } = purchaseCardProps;
+  const { createdBy, name, price, submitPurchase, tokenId, minting } =
+    purchaseCardProps;
   const formattedPrice = price
     ? ethers.utils.formatEther(price.toString())
     : "";
@@ -28,6 +33,8 @@ const PuchaseCard: React.FC<PurchaseCardProps> = ({ purchaseCardProps }) => {
     "gbp",
     "£"
   );
+
+  console.log({ minting });
 
   return (
     <>
@@ -73,7 +80,12 @@ const PuchaseCard: React.FC<PurchaseCardProps> = ({ purchaseCardProps }) => {
           </div>
         </div>
         <div className="p-4 col-span-2">
-          <Button className="w-full border-2 hover:shadow-md hover:transition transition bg-white rounded-md px-4 py-2 col-span-2">
+          <Button
+            type="button"
+            disabled={minting}
+            onClick={() => submitPurchase(tokenId)}
+            className="w-full border-2 hover:shadow-md hover:transition transition bg-white rounded-md px-4 py-2 col-span-2"
+          >
             <span className="flex items-center justify-center">
               <TagIcon className="h-4  text-blue-400 mr-2" />
               <span className="text-blue-400">Mint</span>
