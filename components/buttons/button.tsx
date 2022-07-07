@@ -15,7 +15,6 @@ const Button: React.FC<ButtonProps> = ({
 }) => {
   return (
     <button {...rest} disabled={isLoading || disabled}>
-      {isLoading && <LoadingSpinner />}
       {children}
     </button>
   );

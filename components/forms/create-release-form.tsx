@@ -8,6 +8,7 @@ import toast from "react-hot-toast";
 import Button from "../buttons/button";
 import { useDeploy, useWallet } from "@simpleweb/open-format-react";
 import { useRouter } from "next/router";
+import LoadingSpinner from "../buttons/loading-spinner";
 const ReleaseSchema = yup.object().shape({
   name: yup.string().required("You must provide a name"),
   description: yup.string().required("You must provide a description"),
@@ -287,7 +288,14 @@ const CreateReleaseForm: React.FC = () => {
               type="submit"
               className="bg-blue-500 text-white py-2 px-4 border rounded-md  text-sm font-medium hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
-              Create
+              {isLoading || loadingToIPFS ? (
+                <>
+                  <LoadingSpinner className="h-5 w-5 inline mr-2 animate-spin text-white" />
+                  <span className="text-white">Loading</span>
+                </>
+              ) : (
+                "Create"
+              )}
             </Button>
           )}
         </div>

@@ -1,9 +1,11 @@
 import React from "react";
 
-const LoadingSpinner: React.FC = () => {
+interface LoadingSpinnerProps extends React.ComponentProps<"svg"> {}
+
+const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({ ...rest }) => {
   return (
     <svg
-      className="h-5 w-5 inline mr-2 animate-spin text-white"
+      {...rest}
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
