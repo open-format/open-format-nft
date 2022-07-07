@@ -10,8 +10,7 @@ import Button from "components/button";
 import EthLogo from "components/logo/eth-logo";
 import StyledLink from "components/styled-link";
 import { ethers } from "ethers";
-import { soldOut } from "helpers/sold-out";
-import useMaticPriceCalculation from "hooks/use-matic-price-calculation";
+import useMaticPriceCalculation from "hooks/useMaticPriceCalculation";
 import React from "react";
 
 interface Props {
@@ -39,11 +38,8 @@ export default function Puchase({
     ? ethers.utils.formatEther(price.toString())
     : "";
 
-  const convertedPrice = useMaticPriceCalculation(
-    parseFloat(formattedPrice),
-    "gbp",
-    "£"
-  );
+  const convertedPrice = useMaticPriceCalculation(parseFloat(formattedPrice));
+  const soldOut = parseInt(maxSupply) === parseInt(totalSold);
 
   return (
     <>
@@ -120,7 +116,7 @@ export default function Puchase({
           <Button
             type="button"
             isLoading={minting}
-            disabled={soldOut(maxSupply, totalSold)}
+            disabled={soldOut}
             onClick={() => submitPurchase(tokenId)}
             className="w-full border-2 hover:shadow-md hover:transition transition bg-white rounded-md px-4 py-2 col-span-2"
           >
@@ -130,7 +126,7 @@ export default function Puchase({
                 <ActivityIndicator className="h-5 w-5 inline mr-2 animate-spin text-blue-400" />
                 <span className="text-blue-400">Loading</span>
               </>
-            ) : !soldOut(maxSupply, totalSold) ? (
+            ) : !soldOut ? (
               //If not loading and you are able to mint then show mint
               <>
                 <TagIcon className="h-4 inline text-blue-400 mr-2" />
