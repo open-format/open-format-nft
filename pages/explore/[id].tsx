@@ -1,19 +1,19 @@
+import { useMint, useRawRequest } from "@simpleweb/open-format-react";
+import Meta from "components/meta";
+import ItemActivity from "components/item-activity";
+import Puchase from "components/purchase";
+import { gql } from "graphql-request";
+import getMetaValue from "helpers/get-meta-value";
+import transformURL from "helpers/transform-url";
 import { GetServerSideProps } from "next";
 import React from "react";
-import PuchaseCard from "../../components/cards/purchase-card";
-import NFTDropdown from "../../components/dropdowns/nft-dropdown";
-import NftTableDropdown from "../../components/dropdowns/nft-table-dropdown";
-import { useMint, useRawRequest } from "@simpleweb/open-format-react";
-import { gql } from "graphql-request";
-import getMetaValue from "../../helpers/get-meta-value";
-import transformURL from "../../helpers/transform-url";
 import toast from "react-hot-toast";
 
-interface ReleasePageProps {
+interface Props {
   tokenId: string;
 }
 
-const Release: React.FC<ReleasePageProps> = ({ tokenId }) => {
+export default function Release({ tokenId }: Props) {
   const getTokenDataQuery = gql`
     query ($tokenId: String!) {
       token(id: $tokenId) {
@@ -66,6 +66,7 @@ const Release: React.FC<ReleasePageProps> = ({ tokenId }) => {
       if (typeof address !== "string") {
         throw new Error("Contract address not sent");
       }
+
       await toast.promise(mint({ contractAddress: address }), {
         loading: "Please confirm the transaction in your wallet",
         success: "Purchase complete",
@@ -86,40 +87,6 @@ const Release: React.FC<ReleasePageProps> = ({ tokenId }) => {
   const description = (getMetaValue(properties, "description") as string) ?? "";
   const name = getMetaValue(properties, "name") as string;
 
-  //Prop Builders
-  const nftDropdownProps = {
-    name,
-    createdBy,
-    description,
-    tokenId,
-    totalSold,
-    maxSupply,
-  };
-
-  const purchaseCardProps = {
-    createdBy,
-    name,
-    price,
-    submitPurchase,
-    tokenId,
-    minting,
-    totalSold,
-    maxSupply,
-  };
-
-  //Transaction List
-  const transactions = transactionData?.transactions?.map(
-    (transaction: any) => {
-      return {
-        event: "Minted",
-        from: transaction.from,
-        to: transaction.to,
-        date: transaction.timestamp,
-        price: transaction.token.saleData.salePrice,
-      };
-    }
-  );
-
   return (
     <>
       <div className="mt-8 max-w-4xl mx-auto px-4 sm:px-6 lg:max-w-6xl lg:px-8">
@@ -133,21 +100,51 @@ const Release: React.FC<ReleasePageProps> = ({ tokenId }) => {
               />
             </div>
 
-            <NFTDropdown {...{ nftDropdownProps }} />
+            <Meta
+              {...{
+                name,
+                createdBy,
+                description,
+                tokenId,
+                totalSold,
+                maxSupply,
+              }}
+            />
           </div>
           <div className="mt-2 lg:col-span-8">
-            <PuchaseCard {...{ purchaseCardProps }} />
+            <Puchase
+              {...{
+                createdBy,
+                name,
+                price,
+                submitPurchase,
+                tokenId,
+                minting,
+                totalSold,
+                maxSupply,
+              }}
+            />
           </div>
           <div className="col-span-12">
-            <NftTableDropdown {...{ transactions }} />
+            <ItemActivity
+              transactions={transactionData?.transactions?.map(
+                (transaction: RawTransaction) => {
+                  return {
+                    event: "Minted",
+                    from: transaction.from,
+                    to: transaction.to,
+                    date: transaction.timestamp,
+                    price: transaction.token.saleData.salePrice,
+                  };
+                }
+              )}
+            />
           </div>
         </div>
       </div>
     </>
   );
-};
-
-export default Release;
+}
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const tokenId = context.query.id;

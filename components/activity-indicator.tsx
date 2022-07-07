@@ -1,8 +1,6 @@
 import React from "react";
 
-interface LoadingSpinnerProps extends React.ComponentProps<"svg"> {}
-
-const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({ ...rest }) => {
+export default function ActivityIndicator({ ...rest }) {
   return (
     <svg
       {...rest}
@@ -25,6 +23,4 @@ const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({ ...rest }) => {
       ></path>
     </svg>
   );
-};
-
-export default LoadingSpinner;
+}

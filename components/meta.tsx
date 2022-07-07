@@ -1,25 +1,26 @@
 import { Disclosure } from "@headlessui/react";
 import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/solid";
 import React from "react";
-import { addressSplitter } from "../../helpers/address-splitter";
-import StyledLink from "../styled-link/styled-link";
+import { addressSplitter } from "helpers/address-splitter";
+import StyledLink from "components/styled-link";
 
-type NFTInfo = {
+interface Props {
   name?: string;
   description?: string;
   tokenId: string;
   createdBy: string;
   maxSupply: string;
   totalSold: string;
-};
-interface NFTDropdownProps {
-  nftDropdownProps: NFTInfo;
 }
 
-const NFTDropdown: React.FC<NFTDropdownProps> = ({ nftDropdownProps }) => {
-  const { description, name, createdBy, tokenId, totalSold, maxSupply } =
-    nftDropdownProps;
-
+export default function Meta({
+  name,
+  createdBy,
+  description,
+  tokenId,
+  totalSold,
+  maxSupply,
+}: Props) {
   const contractAddress: string = addressSplitter(tokenId);
   const creatorAddress: string = addressSplitter(createdBy);
 
@@ -111,6 +112,4 @@ const NFTDropdown: React.FC<NFTDropdownProps> = ({ nftDropdownProps }) => {
       </div>
     </div>
   );
-};
-
-export default NFTDropdown;
+}

@@ -8,13 +8,13 @@ interface StyledLinkProps extends React.HTMLProps<HTMLAnchorElement> {
   openInNewTab?: boolean;
 }
 
-const StyledLink: React.FC<StyledLinkProps> = ({
+export default function StyledLink({
   children,
   role,
   href,
   openInNewTab,
   ...rest
-}) => {
+}: StyledLinkProps) {
   return (
     <Link {...{ href }}>
       <a
@@ -26,6 +26,4 @@ const StyledLink: React.FC<StyledLinkProps> = ({
       </a>
     </Link>
   );
-};
-
-export default StyledLink;
+}

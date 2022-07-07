@@ -1,9 +1,41 @@
 import React from "react";
-import StyledLink from "../styled-link/styled-link";
-import BackgroundImage from "./background-image";
-import HeroCard from "./hero-card";
+import StyledLink from "components/styled-link";
 
-const Hero: React.FC = () => {
+function Backdrop({ image }: { image: string }) {
+  return (
+    <div className="absolute top-0 left-0 right-0 bottom-0 w-full h-full bg-white z-0 after:absolute after:left-0 after:bottom-0 after:right-0 after:z-10 after:w-full after:h-full after:bg-gradient-to-t after:from-white after:to-white-20 ">
+      <img
+        className="object-cover blur-xl sm:scale-150 md:blur-lg"
+        src={image}
+        alt=""
+      />
+    </div>
+  );
+}
+
+function Card({
+  name,
+  creator,
+  image,
+}: {
+  name: string;
+  creator: string;
+  image: string;
+}) {
+  return (
+    <div className="mt-16 sm:mt-24 lg:mt-0 lg:col-span-6">
+      <div className="sm:max-w-md shadow-md shadow-slate-500 sm:w-full sm:mx-auto sm:rounded-lg sm:overflow-hidden">
+        <img src={image} alt="" className="object-center object-cover" />
+        <div className="py-4 px-2 bg-white">
+          <h3 className="mt-2 text-sm text-gray-700">{name}</h3>
+          <p className="mt-1 text-sm text-blue-500">{creator}</p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default function Hero() {
   return (
     <div className="relative overflow-hidden py-12">
       <div className="relative px-4 py-4 mx-auto max-w-7xl z-10">
@@ -46,16 +78,14 @@ const Hero: React.FC = () => {
               </div>
             </div>
           </div>
-          <HeroCard
+          <Card
             image="https://images.unsplash.com/photo-1520333789090-1afc82db536a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2102&q=80"
             creator="0x2858b738580644D607af792bD0dd8430D20FF334"
             name="Woman Looking at Phone"
           />
         </div>
       </div>
-      <BackgroundImage image="https://images.unsplash.com/photo-1520333789090-1afc82db536a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2102&q=80" />
+      <Backdrop image="https://images.unsplash.com/photo-1520333789090-1afc82db536a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2102&q=80" />
     </div>
   );
-};
-
-export default Hero;
+}

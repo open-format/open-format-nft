@@ -1,6 +1,6 @@
 import { NextPage } from "next";
 import React from "react";
-import CreateReleaseForm from "../../components/forms/create-release-form";
+import CreateReleaseForm from "components/forms/create-release";
 
 const Create: NextPage = () => {
   return (

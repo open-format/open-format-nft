@@ -1,16 +1,20 @@
-import { BanIcon, TagIcon } from "@heroicons/react/solid";
-import { useWallet } from "@simpleweb/open-format-react";
+import {
+  BanIcon,
+  DotsVerticalIcon,
+  RefreshIcon,
+  ShareIcon,
+  TagIcon,
+} from "@heroicons/react/solid";
+import ActivityIndicator from "components/activity-indicator";
+import Button from "components/button";
+import EthLogo from "components/logo/eth-logo";
+import StyledLink from "components/styled-link";
 import { ethers } from "ethers";
+import { soldOut } from "helpers/sold-out";
+import useMaticPriceCalculation from "hooks/use-matic-price-calculation";
 import React from "react";
-import { soldOut } from "../../helpers/sold-out";
-import useMaticPriceCalculation from "../../hooks/use-matic-price-calculation";
-import { ButtonGroup } from "../button-group/button-group";
-import Button from "../buttons/button";
-import LoadingSpinner from "../buttons/loading-spinner";
-import { EthLogo } from "../logo/eth-logo";
-import StyledLink from "../styled-link/styled-link";
 
-type PurchaseCard = {
+interface Props {
   createdBy?: string;
   price?: string;
   name?: string;
@@ -19,23 +23,18 @@ type PurchaseCard = {
   minting: boolean;
   maxSupply: string;
   totalSold: string;
-};
-
-interface PurchaseCardProps {
-  purchaseCardProps: PurchaseCard;
 }
 
-const PuchaseCard: React.FC<PurchaseCardProps> = ({ purchaseCardProps }) => {
-  const {
-    createdBy,
-    name,
-    price,
-    submitPurchase,
-    tokenId,
-    minting,
-    maxSupply,
-    totalSold,
-  } = purchaseCardProps;
+export default function Puchase({
+  createdBy,
+  name,
+  price,
+  submitPurchase,
+  tokenId,
+  minting,
+  totalSold,
+  maxSupply,
+}: Props) {
   const formattedPrice = price
     ? ethers.utils.formatEther(price.toString())
     : "";
@@ -55,7 +54,35 @@ const PuchaseCard: React.FC<PurchaseCardProps> = ({ purchaseCardProps }) => {
             {createdBy}
           </StyledLink>
           <div className="flex">
-            <ButtonGroup />
+            <span className="flex">
+              <button
+                type="button"
+                className="flex justify-center items-center p-4 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500"
+              >
+                <RefreshIcon
+                  className="h-5 w-5 text-slate-900"
+                  aria-hidden="true"
+                />
+              </button>
+              <button
+                type="button"
+                className="-ml-px flex justify-center p-4 items-center border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500"
+              >
+                <ShareIcon
+                  className="h-5 w-5 text-slate-900"
+                  aria-hidden="true"
+                />
+              </button>
+              <button
+                type="button"
+                className="-ml-px flex justify-center items-center pl-5 pr-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500"
+              >
+                <DotsVerticalIcon
+                  className="-ml-1 mr-2 h-5 w-5 text-slate-900"
+                  aria-hidden="true"
+                />
+              </button>
+            </span>
           </div>
         </div>
 
@@ -100,7 +127,7 @@ const PuchaseCard: React.FC<PurchaseCardProps> = ({ purchaseCardProps }) => {
             {minting ? (
               // diplsay loading state whilst minting
               <>
-                <LoadingSpinner className="h-5 w-5 inline mr-2 animate-spin text-blue-400" />
+                <ActivityIndicator className="h-5 w-5 inline mr-2 animate-spin text-blue-400" />
                 <span className="text-blue-400">Loading</span>
               </>
             ) : !soldOut(maxSupply, totalSold) ? (
@@ -121,6 +148,4 @@ const PuchaseCard: React.FC<PurchaseCardProps> = ({ purchaseCardProps }) => {
       </div>
     </>
   );
-};
-
-export default PuchaseCard;
+}

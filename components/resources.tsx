@@ -1,24 +1,10 @@
 import React from "react";
 
-type Category = {
-  name: string;
-  href: string;
-};
-
-type Resource = {
-  title: string;
-  href: string;
-  category: Category;
-  imageUrl: string;
-  alt: string;
-  description: string;
-};
-
-interface ResourceProps {
+interface Props {
   resources: Resource[];
 }
 
-const Resources: React.FC<ResourceProps> = ({ resources }) => {
+export default function Resources({ resources }: Props) {
   return (
     <div>
       <div className="text-center">
@@ -64,6 +50,4 @@ const Resources: React.FC<ResourceProps> = ({ resources }) => {
       </div>
     </div>
   );
-};
-
-export default Resources;
+}

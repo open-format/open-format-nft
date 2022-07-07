@@ -1,57 +1,60 @@
+import { ErrorMessage } from "@hookform/error-message";
 import { yupResolver } from "@hookform/resolvers/yup";
 import React, { useState } from "react";
-import { useForm } from "react-hook-form";
-import { buildMetadata, uploadToIPFS } from "../../helpers/ipfs";
-import * as yup from "yup";
-import { ErrorMessage } from "@hookform/error-message";
 import toast from "react-hot-toast";
-import Button from "../buttons/button";
+import { useForm } from "react-hook-form";
+import * as yup from "yup";
+import { buildMetadata, uploadToIPFS } from "../../helpers/ipfs";
+import Button from "components/button";
 import { useDeploy, useWallet } from "@simpleweb/open-format-react";
 import { useRouter } from "next/router";
-import LoadingSpinner from "../buttons/loading-spinner";
-const ReleaseSchema = yup.object().shape({
-  name: yup.string().required("You must provide a name"),
-  description: yup.string().required("You must provide a description"),
-  totalSupply: yup
-    .number()
-    .required()
-    .min(1, "Must be at least 1")
-    .typeError("You must provide a supply e.g 100"),
-  mintPrice: yup
-    .number()
-    .required()
-    .min(0, "Cannot be less than 0")
-    .typeError("You must provide a mint price"),
-  image: yup
-    .mixed()
-    .test("required", "You need to provide a file", (file: [File]) => {
-      if (file[0]) return true;
-      return false;
-    })
-    .test("fileSize", "The image file is too large", (file: [File]) => {
-      return file[0] && file[0].size <= 10000000;
-    }),
-});
+import ActivityIndicator from "components/activity-indicator";
 
-const CreateReleaseForm: React.FC = () => {
+type FormValues = {
+  name: string;
+  totalSupply: string;
+  mintPrice: string;
+  image: File[];
+  description: string;
+};
+
+export default function CreateReleaseForm() {
+  const router = useRouter();
+  const { deploy, isLoading } = useDeploy();
   const { isConnected } = useWallet();
   const [loadingToIPFS, setLoadingToIPFS] = useState<boolean>(false);
-  type FormValues = {
-    name: string;
-    totalSupply: string;
-    mintPrice: string;
-    image: File[];
-    description: string;
-  };
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<FormValues>({
-    resolver: yupResolver(ReleaseSchema),
+    resolver: yupResolver(
+      yup.object().shape({
+        name: yup.string().required("You must provide a name"),
+        description: yup.string().required("You must provide a description"),
+        totalSupply: yup
+          .number()
+          .required()
+          .min(1, "Must be at least 1")
+          .typeError("You must provide a supply e.g 100"),
+        mintPrice: yup
+          .number()
+          .required()
+          .min(0, "Cannot be less than 0")
+          .typeError("You must provide a mint price"),
+        image: yup
+          .mixed()
+          .test("required", "You need to provide a file", (file: [File]) => {
+            if (file[0]) return true;
+            return false;
+          })
+          .test("fileSize", "The image file is too large", (file: [File]) => {
+            return file[0] && file[0].size <= 10000000;
+          }),
+      })
+    ),
   });
-  const router = useRouter();
-  const { deploy, isLoading } = useDeploy();
 
   const onSubmit = async (data: FormValues) => {
     const metaUpload = {
@@ -59,14 +62,18 @@ const CreateReleaseForm: React.FC = () => {
       description: data.description,
       image: data.image,
     };
+
     const meta = await buildMetadata(metaUpload);
+
     try {
       setLoadingToIPFS(true);
+
       const ipfsSuccess = await toast.promise(uploadToIPFS(meta), {
         loading: "Uploading your creation to IPFS",
         success: "Upload complete",
         error: "Upload error",
       });
+
       setLoadingToIPFS(false);
 
       const response = await toast.promise(
@@ -274,8 +281,9 @@ const CreateReleaseForm: React.FC = () => {
               name="blockchain"
               autoComplete="blockchain"
               className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+              defaultValue="polygon"
             >
-              <option selected>Polygon</option>
+              <option value="polygon">Polygon</option>
             </select>
           </div>
         </div>
@@ -290,7 +298,7 @@ const CreateReleaseForm: React.FC = () => {
             >
               {isLoading || loadingToIPFS ? (
                 <>
-                  <LoadingSpinner className="h-5 w-5 inline mr-2 animate-spin text-white" />
+                  <ActivityIndicator className="h-5 w-5 inline mr-2 animate-spin text-white" />
                   <span className="text-white">Loading</span>
                 </>
               ) : (
@@ -302,6 +310,4 @@ const CreateReleaseForm: React.FC = () => {
       </div>
     </form>
   );
-};
-
-export default CreateReleaseForm;
+}
