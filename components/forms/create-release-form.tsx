@@ -6,6 +6,9 @@ import * as yup from "yup";
 import { ErrorMessage } from "@hookform/error-message";
 import toast from "react-hot-toast";
 import Button from "../buttons/button";
+import { useDeploy, useWallet } from "@simpleweb/open-format-react";
+import { useRouter } from "next/router";
+import LoadingSpinner from "../buttons/loading-spinner";
 const ReleaseSchema = yup.object().shape({
   name: yup.string().required("You must provide a name"),
   description: yup.string().required("You must provide a description"),
@@ -31,6 +34,7 @@ const ReleaseSchema = yup.object().shape({
 });
 
 const CreateReleaseForm: React.FC = () => {
+  const { isConnected } = useWallet();
   const [loadingToIPFS, setLoadingToIPFS] = useState<boolean>(false);
   type FormValues = {
     name: string;
@@ -46,6 +50,8 @@ const CreateReleaseForm: React.FC = () => {
   } = useForm<FormValues>({
     resolver: yupResolver(ReleaseSchema),
   });
+  const router = useRouter();
+  const { deploy, isLoading } = useDeploy();
 
   const onSubmit = async (data: FormValues) => {
     const metaUpload = {
@@ -62,6 +68,23 @@ const CreateReleaseForm: React.FC = () => {
         error: "Upload error",
       });
       setLoadingToIPFS(false);
+
+      const response = await toast.promise(
+        deploy({
+          maxSupply: parseInt(data.totalSupply),
+          mintingPrice: parseFloat(data.mintPrice),
+          name: meta.name,
+          symbol: "TEST",
+          url: ipfsSuccess.url,
+        }),
+        {
+          loading:
+            "Uploading your creation to the blockhain, please check your wallet for further instructions",
+          success: "Contract deployed",
+          error: "Upload error",
+        }
+      );
+      router.push(`/explore/${response.contractAddress}`);
     } catch (error) {
       console.log(error);
     }
@@ -259,13 +282,22 @@ const CreateReleaseForm: React.FC = () => {
       </div>
       <div className="pt-5">
         <div className="flex justify-end">
-          <Button
-            isLoading={loadingToIPFS}
-            type="submit"
-            className="bg-blue-500 text-white py-2 px-4 border rounded-md  text-sm font-medium hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-          >
-            Create
-          </Button>
+          {isConnected && (
+            <Button
+              isLoading={loadingToIPFS || isLoading}
+              type="submit"
+              className="bg-blue-500 text-white py-2 px-4 border rounded-md  text-sm font-medium hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            >
+              {isLoading || loadingToIPFS ? (
+                <>
+                  <LoadingSpinner className="h-5 w-5 inline mr-2 animate-spin text-white" />
+                  <span className="text-white">Loading</span>
+                </>
+              ) : (
+                "Create"
+              )}
+            </Button>
+          )}
         </div>
       </div>
     </form>

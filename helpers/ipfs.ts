@@ -34,7 +34,6 @@ export const uploadToIPFS = async (data: UploadData) => {
 
 export const buildMetadata = async (data: Data) => {
   const { name, description, image } = data;
-  const blockchainId = "ART";
 
   const imageUpload = image[0];
 
@@ -50,10 +49,9 @@ export const buildMetadata = async (data: Data) => {
   const metadata = {
     name,
     description,
-    blockchainId,
     image: imageUpload,
-    releaseType: "art",
-    factoryId: FACTORY_ID,
+    release_type: "art",
+    factory_id: FACTORY_ID,
   };
 
   return metadata;

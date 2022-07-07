@@ -3,10 +3,11 @@ import React from "react";
 import PuchaseCard from "../../components/cards/purchase-card";
 import NFTDropdown from "../../components/dropdowns/nft-dropdown";
 import NftTableDropdown from "../../components/dropdowns/nft-table-dropdown";
-import { useRawRequest } from "@simpleweb/open-format-react";
+import { useMint, useRawRequest } from "@simpleweb/open-format-react";
 import { gql } from "graphql-request";
 import getMetaValue from "../../helpers/get-meta-value";
 import transformURL from "../../helpers/transform-url";
+import toast from "react-hot-toast";
 
 interface ReleasePageProps {
   tokenId: string;
@@ -23,6 +24,8 @@ const Release: React.FC<ReleasePageProps> = ({ tokenId }) => {
         }
         saleData {
           salePrice
+          totalSold
+          maxSupply
         }
         creator {
           id
@@ -57,9 +60,27 @@ const Release: React.FC<ReleasePageProps> = ({ tokenId }) => {
     variables: { tokenId },
   });
 
+  const { mint, isLoading: minting } = useMint();
+  const submitPurchase = async (address: string) => {
+    try {
+      if (typeof address !== "string") {
+        throw new Error("Contract address not sent");
+      }
+      await toast.promise(mint({ contractAddress: address }), {
+        loading: "Please confirm the transaction in your wallet",
+        success: "Purchase complete",
+        error: "Minting error",
+      });
+    } catch (error) {
+      console.log("handleDeploy", error);
+    }
+  };
+
   const tokenData = nftData?.token;
   const createdBy = tokenData?.creator?.id;
   const properties = tokenData?.properties;
+  const maxSupply = nftData?.token?.saleData?.maxSupply;
+  const totalSold = nftData?.token?.saleData?.totalSold;
   const price = tokenData?.saleData?.salePrice;
   const image = transformURL(getMetaValue(properties, "image") as string) ?? "";
   const description = (getMetaValue(properties, "description") as string) ?? "";
@@ -71,12 +92,19 @@ const Release: React.FC<ReleasePageProps> = ({ tokenId }) => {
     createdBy,
     description,
     tokenId,
+    totalSold,
+    maxSupply,
   };
 
   const purchaseCardProps = {
     createdBy,
     name,
     price,
+    submitPurchase,
+    tokenId,
+    minting,
+    totalSold,
+    maxSupply,
   };
 
   //Transaction List

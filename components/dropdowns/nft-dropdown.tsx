@@ -9,13 +9,16 @@ type NFTInfo = {
   description?: string;
   tokenId: string;
   createdBy: string;
+  maxSupply: string;
+  totalSold: string;
 };
 interface NFTDropdownProps {
   nftDropdownProps: NFTInfo;
 }
 
 const NFTDropdown: React.FC<NFTDropdownProps> = ({ nftDropdownProps }) => {
-  const { description, name, createdBy, tokenId } = nftDropdownProps;
+  const { description, name, createdBy, tokenId, totalSold, maxSupply } =
+    nftDropdownProps;
 
   const contractAddress: string = addressSplitter(tokenId);
   const creatorAddress: string = addressSplitter(createdBy);
@@ -91,6 +94,14 @@ const NFTDropdown: React.FC<NFTDropdownProps> = ({ nftDropdownProps }) => {
                   <div className="flex justify-between">
                     <p className="px-6 pb-2 text-sm">Metadata</p>
                     <p className="px-6 text-sm">IPFS</p>
+                  </div>
+                  <div className="flex justify-between">
+                    <p className="px-6 pb-2 text-sm">Total Supply</p>
+                    <p className="px-6 text-sm">{maxSupply}</p>
+                  </div>
+                  <div className="flex justify-between">
+                    <p className="px-6 pb-2 text-sm">Total Sold</p>
+                    <p className="px-6 text-sm">{totalSold}</p>
                   </div>
                 </div>
               </Disclosure.Panel>

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import React from "react";
+import { paragraphShortner } from "../../helpers/paragraph-shortner";
 
 type ExploreCard = {
   name: string;
@@ -15,6 +16,7 @@ interface ExploreCardProps {
 
 const ExploreCard: React.FC<ExploreCardProps> = ({ exploreCardProps }) => {
   const { tokenId, image, creator, description, name } = exploreCardProps;
+
   return (
     <Link href={`/explore/${tokenId}`}>
       <div className="cursor-pointer hover:shadow-md hover:shadow-slate-300 transition-shadow flex flex-col border-2 max-h-max rounded-lg sm:overflow-hidden">
@@ -26,12 +28,12 @@ const ExploreCard: React.FC<ExploreCardProps> = ({ exploreCardProps }) => {
             className="w-12 h-12 border-2 shadow-md shadow-slate-400 border-white flex justify-center items-center overflow-hidden relative rounded-full object-cover"
           />
         </div>
-        <div className="flex h-48 flex-col text-center p-2 mt-2 justify-center items-center">
-          <p>{name}</p>
+        <div className="flex h-48 flex-col text-center p-2 sm:-12 md:p-8 lg:p-8 mt-2 justify-center items-center">
+          <p className="pb-4">{name}</p>
           <p>
             by <span className="text-blue-500">{creator}</span>
           </p>
-          <p className="mt-2">{description}</p>
+          <p className="mt-2">{paragraphShortner(description)}</p>
         </div>
       </div>
     </Link>

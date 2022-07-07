@@ -1,9 +1,12 @@
-import { TagIcon } from "@heroicons/react/solid";
+import { BanIcon, TagIcon } from "@heroicons/react/solid";
+import { useWallet } from "@simpleweb/open-format-react";
 import { ethers } from "ethers";
 import React from "react";
+import { soldOut } from "../../helpers/sold-out";
 import useMaticPriceCalculation from "../../hooks/use-matic-price-calculation";
 import { ButtonGroup } from "../button-group/button-group";
 import Button from "../buttons/button";
+import LoadingSpinner from "../buttons/loading-spinner";
 import { EthLogo } from "../logo/eth-logo";
 import StyledLink from "../styled-link/styled-link";
 
@@ -11,6 +14,11 @@ type PurchaseCard = {
   createdBy?: string;
   price?: string;
   name?: string;
+  submitPurchase: (address: string) => Promise<void | Error>;
+  tokenId: string;
+  minting: boolean;
+  maxSupply: string;
+  totalSold: string;
 };
 
 interface PurchaseCardProps {
@@ -18,7 +26,16 @@ interface PurchaseCardProps {
 }
 
 const PuchaseCard: React.FC<PurchaseCardProps> = ({ purchaseCardProps }) => {
-  const { createdBy, name, price } = purchaseCardProps;
+  const {
+    createdBy,
+    name,
+    price,
+    submitPurchase,
+    tokenId,
+    minting,
+    maxSupply,
+    totalSold,
+  } = purchaseCardProps;
   const formattedPrice = price
     ? ethers.utils.formatEther(price.toString())
     : "";
@@ -73,11 +90,32 @@ const PuchaseCard: React.FC<PurchaseCardProps> = ({ purchaseCardProps }) => {
           </div>
         </div>
         <div className="p-4 col-span-2">
-          <Button className="w-full border-2 hover:shadow-md hover:transition transition bg-white rounded-md px-4 py-2 col-span-2">
-            <span className="flex items-center justify-center">
-              <TagIcon className="h-4  text-blue-400 mr-2" />
-              <span className="text-blue-400">Mint</span>
-            </span>
+          <Button
+            type="button"
+            isLoading={minting}
+            disabled={soldOut(maxSupply, totalSold)}
+            onClick={() => submitPurchase(tokenId)}
+            className="w-full border-2 hover:shadow-md hover:transition transition bg-white rounded-md px-4 py-2 col-span-2"
+          >
+            {minting ? (
+              // diplsay loading state whilst minting
+              <>
+                <LoadingSpinner className="h-5 w-5 inline mr-2 animate-spin text-blue-400" />
+                <span className="text-blue-400">Loading</span>
+              </>
+            ) : !soldOut(maxSupply, totalSold) ? (
+              //If not loading and you are able to mint then show mint
+              <>
+                <TagIcon className="h-4 inline text-blue-400 mr-2" />
+                <span className="text-blue-400">Mint</span>
+              </>
+            ) : (
+              //If sold out then show to the user that all nfts are sold
+              <>
+                <BanIcon className="h-4 inline text-red-400 mr-2" />
+                <span className="text-red-400">Sold Out</span>
+              </>
+            )}
           </Button>
         </div>
       </div>
