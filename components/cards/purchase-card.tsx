@@ -92,7 +92,7 @@ const PuchaseCard: React.FC<PurchaseCardProps> = ({ purchaseCardProps }) => {
           <Button
             type="button"
             isLoading={minting}
-            soldOut={() => soldOut(maxSupply, totalSold)}
+            disabled={soldOut(maxSupply, totalSold)}
             onClick={() => submitPurchase(tokenId)}
             className="w-full border-2 hover:shadow-md hover:transition transition bg-white rounded-md px-4 py-2 col-span-2"
           >
