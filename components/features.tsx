@@ -1,23 +1,12 @@
 import classNames from "classnames";
 import React from "react";
-import StyledLink from "../styled-link/styled-link";
+import StyledLink from "components/styled-link";
 
-type HeroIcon = (props: React.ComponentProps<"svg">) => JSX.Element;
-
-type Action = {
-  title: string;
-  href: string;
-  icon: HeroIcon;
-  iconForeground: string;
-  iconBackground: string;
-  description: string;
-};
-
-interface GridListProps {
+interface Props {
   actions: Action[];
 }
 
-const GridList: React.FC<GridListProps> = ({ actions }) => {
+export default function Features({ actions }: Props) {
   return (
     <div className=" mt-24 px-4 py-4 mx-auto max-w-7xl">
       <h1 className="m-4 p-12 text-4xl text-center">
@@ -79,6 +68,4 @@ const GridList: React.FC<GridListProps> = ({ actions }) => {
       </div>
     </div>
   );
-};
-
-export default GridList;
+}

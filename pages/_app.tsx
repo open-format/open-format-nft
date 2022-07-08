@@ -1,20 +1,23 @@
-import "../styles/globals.css";
-import type { AppProps } from "next/app";
-import Layout from "../components/layout/layout";
+import "styles/globals.css";
 import { OpenFormatProvider } from "@simpleweb/open-format-react";
+import Footer from "components/footer";
+import Header from "components/header";
+import type { AppProps } from "next/app";
 import { Toaster } from "react-hot-toast";
 
-const MyApp = ({ Component, pageProps }: AppProps) => {
+const App = ({ Component, pageProps }: AppProps) => {
   return (
     <>
       <OpenFormatProvider config={{ network: "mumbai" }}>
-        <Layout>
+        <Header />
+        <main>
           <Toaster />
           <Component {...pageProps} />
-        </Layout>
+        </main>
+        <Footer />
       </OpenFormatProvider>
     </>
   );
 };
 
-export default MyApp;
+export default App;

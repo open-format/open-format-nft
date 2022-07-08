@@ -1,14 +1,14 @@
 import {
-  UsersIcon,
-  SearchCircleIcon,
-  LightningBoltIcon,
   CurrencyDollarIcon,
+  LightningBoltIcon,
+  SearchCircleIcon,
+  UsersIcon,
 } from "@heroicons/react/solid";
+import Features from "components/features";
+import Hero from "components/hero";
+import Resources from "components/resources";
 import type { NextPage } from "next";
 import Head from "next/head";
-import Resources from "../components/resources/resources";
-import Hero from "../components/hero/hero";
-import GridList from "../components/grid-lists/grid-list";
 
 const actions = [
   {
@@ -78,7 +78,7 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Hero />
-      <GridList {...{ actions }} />
+      <Features {...{ actions }} />
       <div className="mt-12 relative px-4 py-4">
         <Resources {...{ resources }} />
       </div>
