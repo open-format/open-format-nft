@@ -57,13 +57,18 @@ export default function Hero() {
                   </span>{" "}
                   <span className="text-blue-400">open-format</span>
                 </h1>
-                <p className="mt-3 text-gray-300 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
+                <p className="mt-3 bg-transparent text-slate-900 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
                   Build your own NFT ecosystem Trustless, permissionless and
                   collaborative
                 </p>
-                <p className="mt-8 text-sm text-blue-500 uppercase tracking-wide font-semibold sm:mt-10">
+                <StyledLink
+                  openInNewTab={true}
+                  href="https://openformat.simpleweb.co.uk/"
+                  className="mt-8 text-sm text-blue-500 uppercase tracking-wide font-semibold sm:mt-10"
+                >
                   Learn more about open format
-                </p>
+                </StyledLink>
+
                 <div className="mt-5 w-full sm:mx-auto sm:max-w-lg lg:ml-0">
                   <div className="mt-10 sm:flex sm:justify-center lg:justify-start">
                     <div className="rounded-md shadow">
