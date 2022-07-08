@@ -9,7 +9,6 @@ import { GetServerSideProps } from "next";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import useInterval from "hooks/useInterval";
-import usePoll from "hooks/usePoll";
 
 interface Props {
   tokenId: string;
