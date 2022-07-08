@@ -290,7 +290,7 @@ export default function CreateReleaseForm() {
       </div>
       <div className="pt-5">
         <div className="flex justify-end">
-          {isConnected && (
+          {isConnected ? (
             <Button
               isLoading={loadingToIPFS || isLoading}
               type="submit"
@@ -304,6 +304,15 @@ export default function CreateReleaseForm() {
               ) : (
                 "Create"
               )}
+            </Button>
+          ) : (
+            <Button
+              isLoading={loadingToIPFS || isLoading}
+              type="submit"
+              disabled={true}
+              className="bg-gray-500 text-white py-2 px-4 border rounded-md  text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 pointer-events-none"
+            >
+              Connect your wallet
             </Button>
           )}
         </div>
