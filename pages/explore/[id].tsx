@@ -8,12 +8,16 @@ import transformURL from "helpers/transform-url";
 import { GetServerSideProps } from "next";
 import React from "react";
 import toast from "react-hot-toast";
+import useInterval from "hooks/useInterval";
+import usePoll from "hooks/usePoll";
 
 interface Props {
   tokenId: string;
 }
 
 export default function Release({ tokenId }: Props) {
+  console.log(tokenId);
+
   const getTokenDataQuery = gql`
     query ($tokenId: String!) {
       token(id: $tokenId) {
@@ -34,7 +38,7 @@ export default function Release({ tokenId }: Props) {
     }
   `;
 
-  const { data: nftData } = useRawRequest({
+  const { data: nftData, refetch: refetchTokenData } = useRawRequest({
     query: getTokenDataQuery,
     variables: { tokenId },
   });
@@ -76,6 +80,11 @@ export default function Release({ tokenId }: Props) {
       console.log("handleDeploy", error);
     }
   };
+
+  const isData = nftData?.token !== undefined;
+  console.log({ isData });
+
+  usePoll(refetchTokenData, isData);
 
   const tokenData = nftData?.token;
   const createdBy = tokenData?.creator?.id;
@@ -147,7 +156,8 @@ export default function Release({ tokenId }: Props) {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const tokenId = context.query.id;
+  const id = context.query.id as string;
+  const tokenId = id.toLowerCase();
   return {
     props: {
       tokenId,
