@@ -6,7 +6,7 @@ import { gql } from "graphql-request";
 import getMetaValue from "helpers/get-meta-value";
 import transformURL from "helpers/transform-url";
 import { GetServerSideProps } from "next";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import useInterval from "hooks/useInterval";
 import usePoll from "hooks/usePoll";
@@ -16,8 +16,6 @@ interface Props {
 }
 
 export default function Release({ tokenId }: Props) {
-  console.log(tokenId);
-
   const getTokenDataQuery = gql`
     query ($tokenId: String!) {
       token(id: $tokenId) {
@@ -42,6 +40,20 @@ export default function Release({ tokenId }: Props) {
     query: getTokenDataQuery,
     variables: { tokenId },
   });
+
+  //Ensuring that the Data is always hydrated on load or redirect
+  const isData = nftData?.token !== undefined;
+  useEffect(() => {}, [isData]);
+
+  const [delay, setDelay] = useState<number>(1000);
+
+  useInterval(
+    () => {
+      refetchTokenData();
+    },
+
+    !nftData?.length ? delay : null
+  );
 
   const getTransactionHistory = gql`
     query ($tokenId: String!) {
@@ -80,11 +92,6 @@ export default function Release({ tokenId }: Props) {
       console.log("handleDeploy", error);
     }
   };
-
-  const isData = nftData?.token !== undefined;
-  console.log({ isData });
-
-  usePoll(refetchTokenData, isData);
 
   const tokenData = nftData?.token;
   const createdBy = tokenData?.creator?.id;
