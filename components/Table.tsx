@@ -1,6 +1,6 @@
 import React from "react";
 
-function Table({ children }: { children: React.ReactNode }) {
+export default function Table({ children }: { children: React.ReactNode }) {
   return (
     <div className="sm:px-4">
       <div className="mt-8 flex flex-col">
@@ -17,5 +17,3 @@ function Table({ children }: { children: React.ReactNode }) {
     </div>
   );
 }
-
-export default Table;
