@@ -24,11 +24,16 @@ function Card({
 }) {
   return (
     <div className="mt-16 sm:mt-24 lg:mt-0 lg:col-span-6">
-      <div className="sm:max-w-md shadow-md shadow-slate-500 sm:w-full sm:mx-auto sm:rounded-lg sm:overflow-hidden">
+      <div className="sm:max-w-md shadow-md xl:min-w-[600px] shadow-slate-500 sm:w-full sm:mx-auto sm:rounded-lg sm:overflow-hidden">
         <img src={image} alt="" className="object-center object-cover" />
-        <div className="py-4 px-2 bg-white">
-          <div>
-            <h3 className="mt-2 text-sm text-gray-700">{name}</h3>
+        <div className="flex py-4 px-2 bg-white">
+          <img
+            src={image}
+            alt=""
+            className="w-12 h-12 border-2 shadow-md shadow-slate-400 border-white flex justify-center items-center overflow-hidden relative rounded-full object-cover"
+          />
+          <div className="pl-2 flex flex-col">
+            <h2 className="text-gray-700 font-bold text-sm pr-4">{name}</h2>
             <p className="mt-1 text-sm text-blue-500">{creator}</p>
           </div>
         </div>
