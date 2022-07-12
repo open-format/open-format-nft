@@ -1,15 +1,22 @@
 import React from "react";
 import StyledLink from "components/styled-link";
+import { useMint } from "@simpleweb/open-format-react";
+import toast from "react-hot-toast";
+import Button from "./button";
+import ActivityIndicator from "./activity-indicator";
+import { BanIcon, TagIcon } from "@heroicons/react/solid";
 
 function Backdrop({ image }: { image: string }) {
   return (
-    <div className="absolute top-0 left-0 right-0 bottom-0 w-full h-full bg-white z-0 after:absolute after:left-0 after:bottom-0 after:right-0 after:z-10 after:w-full after:h-full after:bg-gradient-to-t after:from-white after:to-white-20 ">
-      <img
-        className="object-cover w-full blur-xl sm:scale-150 md:blur-lg"
-        src={image}
-        alt=""
-      />
-    </div>
+    <>
+      <div className="absolute top-0 left-0 right-0 bottom-0 w-full h-full bg-white z-0 after:absolute after:left-0 after:bottom-0 after:right-0 after:z-10 after:w-full after:h-full after:bg-gradient-to-t after:from-white after:to-white-20 ">
+        <img
+          className="object-cover w-full blur-xl sm:scale-150 md:blur-lg"
+          src={image}
+          alt=""
+        />
+      </div>
+    </>
   );
 }
 
@@ -22,9 +29,25 @@ function Card({
   creator: string;
   image: string;
 }) {
+  const { mint, isLoading: minting } = useMint();
+  const submitPurchase = async (address: string) => {
+    try {
+      if (typeof address !== "string") {
+        throw new Error("Contract address not sent");
+      }
+
+      await toast.promise(mint({ contractAddress: address }), {
+        loading: "Please confirm the transaction in your wallet",
+        success: "Purchase complete",
+        error: "Minting error",
+      });
+    } catch (error) {
+      console.log("handleDeploy", error);
+    }
+  };
   return (
     <div className="mt-16 sm:mt-24 lg:mt-0 lg:col-span-6">
-      <div className="sm:max-w-md shadow-md xl:min-w-[600px] shadow-slate-500 sm:w-full sm:mx-auto sm:rounded-lg sm:overflow-hidden">
+      <div className="sm:max-w-md shadow-md  shadow-slate-500 sm:w-full sm:mx-auto sm:rounded-lg sm:overflow-hidden">
         <img src={image} alt="" className="object-center object-cover" />
         <div className="flex py-4 px-2 bg-white">
           <img
@@ -36,6 +59,35 @@ function Card({
             <h2 className="text-gray-700 font-bold text-sm pr-4">{name}</h2>
             <p className="mt-1 text-sm text-blue-500">{creator}</p>
           </div>
+        </div>
+        <div className="p-4 col-span-2 bg-white border-t-2 border-slate-200">
+          <Button
+            type="button"
+            isLoading={minting}
+            disabled={false}
+            onClick={() => submitPurchase("tokenId")}
+            className="w-full border-2 hover:shadow-md hover:transition transition bg-white rounded-md px-4 py-2 col-span-2"
+          >
+            {minting ? (
+              // diplsay loading state whilst minting
+              <>
+                <ActivityIndicator className="h-5 w-5 inline mr-2 animate-spin text-blue-400" />
+                <span className="text-blue-400">Loading</span>
+              </>
+            ) : !false ? (
+              //If not loading and you are able to mint then show mint
+              <>
+                <TagIcon className="h-4 inline text-blue-400 mr-2" />
+                <span className="text-blue-400">Mint</span>
+              </>
+            ) : (
+              //If sold out then show to the user that all nfts are sold
+              <>
+                <BanIcon className="h-4 inline text-red-400 mr-2" />
+                <span className="text-red-400">Sold Out</span>
+              </>
+            )}
+          </Button>
         </div>
       </div>
     </div>

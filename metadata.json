@@ -1,0 +1,9 @@
+{
+  "name": "Eternal Waterfall",
+  "artist": "Distinct Mind",
+  "description": "This is our example NFT, we have generated this so you can immediately start getting comfortable with blockchain interactions. The original creator of the image is Distinct Mind whose work can be found at Unsplash",
+  "blockchain": "Polygon",
+  "image": "ipfs://bafybeibya2umo3jny7dkt5axajrpd2jk32p5fqxim4kolbzltez6rgq6hm",
+  "release_type": "art",
+  "factory_id": "a24a5f47-f1c4-45b0-8805-c854b5dc4443"
+}
