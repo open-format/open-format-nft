@@ -51,7 +51,7 @@ export default function Release({ tokenId }: Props) {
       refetchTokenData();
     },
 
-    !nftData?.length ? delay : null
+    !nftData?.token ? delay : null
   );
 
   const getTransactionHistory = gql`
