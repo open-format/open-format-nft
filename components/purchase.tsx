@@ -45,7 +45,7 @@ export default function Puchase({
     <>
       <h2 className="sr-only">NFT</h2>
       <div>
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-center pb-6">
           <h1 className="font-extrabold text-3xl">{name}</h1>
           <span className="flex">
             <button
