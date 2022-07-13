@@ -45,46 +45,39 @@ export default function Puchase({
     <>
       <h2 className="sr-only">NFT</h2>
       <div>
-        <div className="flex justify-between items-center">
-          <StyledLink className="text-blue-500" href={"#"}>
-            {createdBy}
-          </StyledLink>
-          <div className="flex">
-            <span className="flex">
-              <button
-                type="button"
-                className="flex justify-center items-center p-4 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500"
-              >
-                <RefreshIcon
-                  className="h-5 w-5 text-slate-900"
-                  aria-hidden="true"
-                />
-              </button>
-              <button
-                type="button"
-                className="-ml-px flex justify-center p-4 items-center border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500"
-              >
-                <ShareIcon
-                  className="h-5 w-5 text-slate-900"
-                  aria-hidden="true"
-                />
-              </button>
-              <button
-                type="button"
-                className="-ml-px flex justify-center items-center pl-5 pr-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500"
-              >
-                <DotsVerticalIcon
-                  className="-ml-1 mr-2 h-5 w-5 text-slate-900"
-                  aria-hidden="true"
-                />
-              </button>
-            </span>
-          </div>
+        <div className="flex justify-between items-center pb-6">
+          <h1 className="font-extrabold text-3xl">{name}</h1>
+          <span className="flex">
+            <button
+              type="button"
+              className="flex justify-center items-center p-4 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500"
+            >
+              <RefreshIcon
+                className="h-5 w-5 text-slate-900"
+                aria-hidden="true"
+              />
+            </button>
+            <button
+              type="button"
+              className="-ml-px flex justify-center p-4 items-center border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500"
+            >
+              <ShareIcon
+                className="h-5 w-5 text-slate-900"
+                aria-hidden="true"
+              />
+            </button>
+            <button
+              type="button"
+              className="-ml-px flex justify-center items-center pl-5 pr-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500"
+            >
+              <DotsVerticalIcon
+                className="-ml-1 mr-2 h-5 w-5 text-slate-900"
+                aria-hidden="true"
+              />
+            </button>
+          </span>
         </div>
 
-        <div className="py-4">
-          <h1 className="font-extrabold text-3xl">{name}</h1>
-        </div>
         <div className="py-4">
           <p>
             Owned By{" "}
