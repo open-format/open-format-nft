@@ -23,6 +23,8 @@ export default function Meta({
 }: Props) {
   const contractAddress: string = addressSplitter(tokenId);
   const creatorAddress: string = addressSplitter(createdBy);
+  const isExampleNftAddress =
+    "0xc922b16f4e9d299fd5fc5b8375928fa761484042" === tokenId;
 
   return (
     <div className="border-[1px] mt-4 bg-slate-100 border-slate-200 rounded-lg">
@@ -32,18 +34,34 @@ export default function Meta({
         </p>
       </div>
       <div className="border-t bg-slate-50 border-slate-200">
-        <div className="flex justify-between">
-          <p className="text-gray-900 text-sm font-medium pt-6 pb-2 px-6">
-            By{" "}
-          </p>
-          <StyledLink
-            openInNewTab={true}
-            href={`${process.env.NEXT_PUBLIC_POLYGON_SCAN}/address/${tokenId}`}
-            className="text-sm text-blue-500  pt-6 pb-2 px-6"
-          >
-            {creatorAddress}
-          </StyledLink>
-        </div>
+        {isExampleNftAddress ? (
+          <div className="flex justify-between">
+            <p className="text-gray-900 text-sm font-medium pt-6 pb-2 px-6">
+              By{" "}
+            </p>
+            <StyledLink
+              openInNewTab={true}
+              href={`${process.env.NEXT_PUBLIC_EXAMPLE_NFT_LINK}`}
+              className="text-sm text-blue-500  pt-6 pb-2 px-6"
+            >
+              {"Distinct Mind"}
+            </StyledLink>
+          </div>
+        ) : (
+          <div className="flex justify-between">
+            <p className="text-gray-900 text-sm font-medium pt-6 pb-2 px-6">
+              By{" "}
+            </p>
+            <StyledLink
+              openInNewTab={true}
+              href={`${process.env.NEXT_PUBLIC_POLYGON_SCAN}/address/${tokenId}`}
+              className="text-sm text-blue-500  pt-6 pb-2 px-6"
+            >
+              {creatorAddress}
+            </StyledLink>
+          </div>
+        )}
+
         <p className="px-6 pb-8 text-sm italic">{description}</p>
       </div>
 
