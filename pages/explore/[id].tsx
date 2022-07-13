@@ -8,6 +8,7 @@ import transformURL from "helpers/transform-url";
 import { GetServerSideProps } from "next";
 import React from "react";
 import toast from "react-hot-toast";
+import { ethers } from "ethers";
 
 interface Props {
   tokenId: string;
@@ -63,8 +64,8 @@ export default function Release({ tokenId }: Props) {
   const { mint, isLoading: minting } = useMint();
   const submitPurchase = async (address: string) => {
     try {
-      if (typeof address !== "string") {
-        throw new Error("Contract address not sent");
+      if (!ethers.utils.isAddress(address)) {
+        throw new Error("Wallet address not valid");
       }
 
       await toast.promise(mint({ contractAddress: address }), {

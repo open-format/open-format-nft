@@ -40,6 +40,8 @@ export default function Puchase({
 
   const convertedPrice = useMaticPriceCalculation(parseFloat(formattedPrice));
   const soldOut = parseInt(maxSupply) === parseInt(totalSold);
+  const isExampleNftAddress =
+    process.env.NEXT_PUBLIC_EXAMPLE_NFT_TOKEN_ADDRESS === tokenId;
 
   return (
     <>
@@ -79,16 +81,30 @@ export default function Puchase({
         </div>
 
         <div className="py-4">
-          <p>
-            Owned By{" "}
-            <StyledLink
-              openInNewTab={true}
-              href={`${process.env.NEXT_PUBLIC_POLYGON_SCAN}/address/${createdBy}`}
-              className="text-blue-500"
-            >
-              {createdBy}
-            </StyledLink>
-          </p>
+          {isExampleNftAddress ? (
+            <>
+              <p className="inline">Owned By </p>
+
+              <StyledLink
+                openInNewTab={true}
+                href={`${process.env.NEXT_PUBLIC_EXAMPLE_NFT_LINK}`}
+                className="text-blue-500"
+              >
+                Distinct Mind
+              </StyledLink>
+            </>
+          ) : (
+            <p>
+              Owned By{" "}
+              <StyledLink
+                openInNewTab={true}
+                href={`${process.env.NEXT_PUBLIC_POLYGON_SCAN}/address/${createdBy}`}
+                className="text-blue-500"
+              >
+                {createdBy}
+              </StyledLink>
+            </p>
+          )}
         </div>
       </div>
       <div className="grid bg-slate-50 lg:grid-cols-4 border-[1px] border-b-slate-200 rounded-md">
