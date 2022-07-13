@@ -27,46 +27,13 @@ function Card({
   name,
   creator,
   image,
+  token,
 }: {
   name: string;
   creator: string;
   image: string;
+  token: string;
 }) {
-  const token = "0xc922b16f4e9d299fd5fc5b8375928fa761484042";
-  const rawQuery = gql`
-    query ($tokenId: String!) {
-      token(id: $tokenId) {
-        id
-        creator {
-          id
-        }
-        properties {
-          key
-          value
-        }
-      }
-    }
-  `;
-
-  const { data: exampleNft } = useRawRequest({
-    query: rawQuery,
-    variables: { tokenId: token as string },
-  });
-
-  const exampleNftToken = exampleNft?.token;
-
-  const description = getMetaValue(
-    exampleNftToken?.properties,
-    "description"
-  ) as string;
-  const exampleNftName = getMetaValue(
-    exampleNftToken?.properties,
-    "name"
-  ) as string;
-  const exampleNftImage = transformURL(
-    getMetaValue(exampleNftToken?.properties, "image") as string
-  ) as string;
-
   const { mint, isLoading: minting } = useMint();
   const submitPurchase = async (address: string) => {
     try {
@@ -86,19 +53,17 @@ function Card({
   return (
     <div className="mt-16 sm:mt-24 lg:mt-0 lg:col-span-6">
       <div className="flex flex-col sm:max-w-md shadow-md  shadow-slate-500 sm:w-full sm:mx-auto sm:rounded-lg sm:overflow-hidden">
-        <div className=" max-h-96">
-          <img src={exampleNftImage} alt="" className="object-cover" />
+        <div className="max-h-96">
+          <img src={image} alt="" className="object-cover" />
         </div>
         <div className="flex py-4 px-2 bg-white">
           <img
-            src={exampleNftImage}
+            src={image}
             alt=""
             className="w-12 h-12 border-2 shadow-md shadow-slate-400 border-white flex justify-center items-center overflow-hidden relative rounded-full object-cover"
           />
           <div className="pl-2 flex flex-col">
-            <h2 className="text-gray-700 font-bold text-sm pr-4">
-              {exampleNftName}
-            </h2>
+            <h2 className="text-gray-700 font-bold text-sm pr-4">{name}</h2>
             <p className="mt-1 text-sm text-blue-500">{creator}</p>
           </div>
         </div>
@@ -136,7 +101,15 @@ function Card({
   );
 }
 
-export default function Hero() {
+export default function Hero({
+  image,
+  name,
+  token,
+}: {
+  image: string;
+  name: string;
+  token: string;
+}) {
   return (
     <>
       <div className="relative overflow-hidden py-12">
@@ -186,9 +159,10 @@ export default function Hero() {
               </div>
             </div>
             <Card
-              image="/images/drip.jpeg"
+              {...{ token }}
+              {...{ image }}
               creator="0x2858b738580644D607af792bD0dd8430D20FF334"
-              name="Drip"
+              {...{ name }}
             />
           </div>
         </div>

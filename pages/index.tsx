@@ -4,9 +4,13 @@ import {
   SearchCircleIcon,
   UsersIcon,
 } from "@heroicons/react/solid";
+import { useRawRequest } from "@simpleweb/open-format-react";
 import Features from "components/features";
 import Hero from "components/hero";
 import Resources from "components/resources";
+import { gql } from "graphql-request";
+import getMetaValue from "helpers/get-meta-value";
+import transformURL from "helpers/transform-url";
 import type { NextPage } from "next";
 import Head from "next/head";
 
@@ -71,13 +75,45 @@ const resources = [
 ];
 
 const Home: NextPage = () => {
+  const token = "0xc922b16f4e9d299fd5fc5b8375928fa761484042";
+  const rawQuery = gql`
+    query ($tokenId: String!) {
+      token(id: $tokenId) {
+        id
+        creator {
+          id
+        }
+        properties {
+          key
+          value
+        }
+      }
+    }
+  `;
+
+  const { data: exampleNft } = useRawRequest({
+    query: rawQuery,
+    variables: { tokenId: token as string },
+  });
+
+  const exampleNftToken = exampleNft?.token;
+
+  // const description = getMetaValue(
+  //   exampleNftToken?.properties,
+  //   "description"
+  // ) as string;
+  const name = getMetaValue(exampleNftToken?.properties, "name") as string;
+  const image = transformURL(
+    getMetaValue(exampleNftToken?.properties, "image") as string
+  ) as string;
+
   return (
     <>
       <Head>
         <title>Open-Format-NFT</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Hero />
+      <Hero {...{ name }} {...{ image }} {...{ token }} />
       <Features {...{ actions }} />
       <div className="mt-12 relative px-4 py-4">
         <Resources {...{ resources }} />
