@@ -64,7 +64,7 @@ export default function Release({ tokenId }: Props) {
   const { mint, isLoading: minting } = useMint();
   const submitPurchase = async (address: string) => {
     try {
-      if (ethers.utils.isAddress(address)) {
+      if (!ethers.utils.isAddress(address)) {
         throw new Error("Wallet address not valid");
       }
 

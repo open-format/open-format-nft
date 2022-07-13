@@ -1,13 +1,11 @@
 import React from "react";
 import StyledLink from "components/styled-link";
-import { useMint, useRawRequest } from "@simpleweb/open-format-react";
+import { useMint } from "@simpleweb/open-format-react";
 import toast from "react-hot-toast";
 import Button from "./button";
 import ActivityIndicator from "./activity-indicator";
 import { BanIcon, TagIcon } from "@heroicons/react/solid";
 import { gql } from "graphql-request";
-import getMetaValue from "helpers/get-meta-value";
-import transformURL from "helpers/transform-url";
 import { useRouter } from "next/router";
 import { ethers } from "ethers";
 
