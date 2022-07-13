@@ -110,8 +110,6 @@ const Home: NextPage = () => {
   const maxSupply = exampleNft?.token?.saleData?.maxSupply as string;
   const totalSold = exampleNft?.token?.saleData?.totalSold as string;
 
-  console.log({ exampleNftToken });
-
   return (
     <>
       <Head>
