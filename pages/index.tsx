@@ -84,6 +84,10 @@ const Home: NextPage = () => {
         creator {
           id
         }
+        saleData {
+          totalSold
+          maxSupply
+        }
         properties {
           key
           value
@@ -103,6 +107,10 @@ const Home: NextPage = () => {
     getMetaValue(exampleNftToken?.properties, "image") as string
   ) as string;
   const creator = exampleNft?.token?.creator?.id as string;
+  const maxSupply = exampleNft?.token?.saleData?.maxSupply as string;
+  const totalSold = exampleNft?.token?.saleData?.totalSold as string;
+
+  console.log({ exampleNftToken });
 
   return (
     <>
@@ -110,7 +118,14 @@ const Home: NextPage = () => {
         <title>Open-Format-NFT</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Hero {...{ name }} {...{ image }} {...{ token }} {...{ creator }} />
+      <Hero
+        {...{ name }}
+        {...{ image }}
+        {...{ token }}
+        {...{ creator }}
+        {...{ maxSupply }}
+        {...{ totalSold }}
+      />
       <Features {...{ actions }} />
       <div className="mt-12 relative px-4 py-4">
         <Resources {...{ resources }} />

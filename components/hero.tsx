@@ -28,11 +28,15 @@ function Card({
   creator,
   image,
   token,
+  maxSupply,
+  totalSold,
 }: {
   name: string;
   creator: string;
   image: string;
   token: string;
+  maxSupply: string;
+  totalSold: string;
 }) {
   const { mint, isLoading: minting } = useMint();
   const submitPurchase = async (address: string) => {
@@ -56,17 +60,30 @@ function Card({
         <div className="max-h-96">
           <img src={image} alt="" className="object-cover" />
         </div>
-        <div className="flex py-4 px-2 bg-white">
-          <img
-            src={image}
-            alt=""
-            className="w-12 h-12 border-2 shadow-md shadow-slate-400 border-white flex justify-center items-center overflow-hidden relative rounded-full object-cover"
-          />
-          <div className="pl-2 flex flex-col">
-            <h2 className="text-gray-700 font-bold text-sm pr-4">{name}</h2>
-            <p className="mt-1 text-sm text-blue-500">{creator}</p>
+        <div className="flex flex-col py-4 px-2 bg-white">
+          <div className="flex">
+            <img
+              src={image}
+              alt=""
+              className="object-cover border-2 rounded-full h-12 w-12 shadow-md shadow-slate-400 border-white"
+            />
+            <div className="pl-2">
+              <div className="pb-2">
+                <h2 className="text-gray-700 font-bold text-sm pr-4">{name}</h2>
+                <p className="mt-1 text-sm text-blue-500">{creator}</p>
+              </div>
+              <div className="border-t-2 flex justify-between border-slate-300 py-4">
+                <p className="text-sm">Total Sold</p>
+                <p className="text-sm">{totalSold}</p>
+              </div>
+              <div className="border-t-2 flex justify-between border-slate-300 py-4">
+                <p className="text-sm">Total Available</p>
+                <p className="text-sm">{maxSupply}</p>
+              </div>
+            </div>
           </div>
         </div>
+
         <div className="p-4 col-span-2 bg-white border-t-2 border-slate-200">
           <Button
             type="button"
@@ -106,11 +123,15 @@ export default function Hero({
   name,
   token,
   creator,
+  maxSupply,
+  totalSold,
 }: {
   image: string;
   name: string;
   token: string;
   creator: string;
+  maxSupply: string;
+  totalSold: string;
 }) {
   return (
     <>
@@ -161,6 +182,8 @@ export default function Hero({
               </div>
             </div>
             <Card
+              {...{ totalSold }}
+              {...{ maxSupply }}
               {...{ token }}
               {...{ image }}
               {...{ creator }}
