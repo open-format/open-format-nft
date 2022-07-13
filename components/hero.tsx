@@ -8,6 +8,7 @@ import { BanIcon, TagIcon } from "@heroicons/react/solid";
 import { gql } from "graphql-request";
 import getMetaValue from "helpers/get-meta-value";
 import transformURL from "helpers/transform-url";
+import { useRouter } from "next/router";
 
 function Backdrop({ image }: { image: string }) {
   return (
@@ -39,6 +40,7 @@ function Card({
   totalSold: string;
 }) {
   const { mint, isLoading: minting } = useMint();
+  const router = useRouter();
   const submitPurchase = async (address: string) => {
     try {
       if (typeof address !== "string") {
@@ -57,8 +59,11 @@ function Card({
   return (
     <div className="mt-16 sm:mt-24 lg:mt-0 lg:col-span-6">
       <div className="flex flex-col sm:max-w-md shadow-md  shadow-slate-500 sm:w-full sm:mx-auto sm:rounded-lg sm:overflow-hidden">
-        <div className="max-h-96">
-          <img src={image} alt="" className="object-cover" />
+        <div
+          onClick={() => router.push(`/explore/${token}`)}
+          className="max-h-96"
+        >
+          <img src={image} alt="" className="object-cover cursor-pointer" />
         </div>
         <div className="flex flex-col py-4 px-2 bg-white">
           <div className="flex">
