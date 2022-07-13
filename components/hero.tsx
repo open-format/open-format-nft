@@ -105,10 +105,12 @@ export default function Hero({
   image,
   name,
   token,
+  creator,
 }: {
   image: string;
   name: string;
   token: string;
+  creator: string;
 }) {
   return (
     <>
@@ -161,7 +163,7 @@ export default function Hero({
             <Card
               {...{ token }}
               {...{ image }}
-              creator="0x2858b738580644D607af792bD0dd8430D20FF334"
+              {...{ creator }}
               {...{ name }}
             />
           </div>

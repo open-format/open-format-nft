@@ -75,6 +75,7 @@ const resources = [
 ];
 
 const Home: NextPage = () => {
+  //Hard coded token we have generated for you to interact with
   const token = "0xc922b16f4e9d299fd5fc5b8375928fa761484042";
   const rawQuery = gql`
     query ($tokenId: String!) {
@@ -97,15 +98,11 @@ const Home: NextPage = () => {
   });
 
   const exampleNftToken = exampleNft?.token;
-
-  // const description = getMetaValue(
-  //   exampleNftToken?.properties,
-  //   "description"
-  // ) as string;
   const name = getMetaValue(exampleNftToken?.properties, "name") as string;
   const image = transformURL(
     getMetaValue(exampleNftToken?.properties, "image") as string
   ) as string;
+  const creator = exampleNft?.token?.creator?.id as string;
 
   return (
     <>
@@ -113,7 +110,7 @@ const Home: NextPage = () => {
         <title>Open-Format-NFT</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Hero {...{ name }} {...{ image }} {...{ token }} />
+      <Hero {...{ name }} {...{ image }} {...{ token }} {...{ creator }} />
       <Features {...{ actions }} />
       <div className="mt-12 relative px-4 py-4">
         <Resources {...{ resources }} />
