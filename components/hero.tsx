@@ -1,10 +1,13 @@
 import React from "react";
 import StyledLink from "components/styled-link";
-import { useMint } from "@simpleweb/open-format-react";
+import { useMint, useRawRequest } from "@simpleweb/open-format-react";
 import toast from "react-hot-toast";
 import Button from "./button";
 import ActivityIndicator from "./activity-indicator";
 import { BanIcon, TagIcon } from "@heroicons/react/solid";
+import { gql } from "graphql-request";
+import getMetaValue from "helpers/get-meta-value";
+import transformURL from "helpers/transform-url";
 
 function Backdrop({ image }: { image: string }) {
   return (
@@ -29,6 +32,41 @@ function Card({
   creator: string;
   image: string;
 }) {
+  const token = "0xc922b16f4e9d299fd5fc5b8375928fa761484042";
+  const rawQuery = gql`
+    query ($tokenId: String!) {
+      token(id: $tokenId) {
+        id
+        creator {
+          id
+        }
+        properties {
+          key
+          value
+        }
+      }
+    }
+  `;
+
+  const { data: exampleNft } = useRawRequest({
+    query: rawQuery,
+    variables: { tokenId: token as string },
+  });
+
+  const exampleNftToken = exampleNft?.token;
+
+  const description = getMetaValue(
+    exampleNftToken?.properties,
+    "description"
+  ) as string;
+  const exampleNftName = getMetaValue(
+    exampleNftToken?.properties,
+    "name"
+  ) as string;
+  const exampleNftImage = transformURL(
+    getMetaValue(exampleNftToken?.properties, "image") as string
+  ) as string;
+
   const { mint, isLoading: minting } = useMint();
   const submitPurchase = async (address: string) => {
     try {
@@ -47,16 +85,20 @@ function Card({
   };
   return (
     <div className="mt-16 sm:mt-24 lg:mt-0 lg:col-span-6">
-      <div className="sm:max-w-md shadow-md  shadow-slate-500 sm:w-full sm:mx-auto sm:rounded-lg sm:overflow-hidden">
-        <img src={image} alt="" className="object-center object-cover" />
+      <div className="flex flex-col sm:max-w-md shadow-md  shadow-slate-500 sm:w-full sm:mx-auto sm:rounded-lg sm:overflow-hidden">
+        <div className=" max-h-96">
+          <img src={exampleNftImage} alt="" className="object-cover" />
+        </div>
         <div className="flex py-4 px-2 bg-white">
           <img
-            src={image}
+            src={exampleNftImage}
             alt=""
             className="w-12 h-12 border-2 shadow-md shadow-slate-400 border-white flex justify-center items-center overflow-hidden relative rounded-full object-cover"
           />
           <div className="pl-2 flex flex-col">
-            <h2 className="text-gray-700 font-bold text-sm pr-4">{name}</h2>
+            <h2 className="text-gray-700 font-bold text-sm pr-4">
+              {exampleNftName}
+            </h2>
             <p className="mt-1 text-sm text-blue-500">{creator}</p>
           </div>
         </div>
@@ -65,7 +107,7 @@ function Card({
             type="button"
             isLoading={minting}
             disabled={false}
-            onClick={() => submitPurchase("tokenId")}
+            onClick={() => submitPurchase(token)}
             className="w-full border-2 hover:shadow-md hover:transition transition bg-white rounded-md px-4 py-2 col-span-2"
           >
             {minting ? (
