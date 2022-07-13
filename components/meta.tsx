@@ -24,7 +24,7 @@ export default function Meta({
   const contractAddress: string = addressSplitter(tokenId);
   const creatorAddress: string = addressSplitter(createdBy);
   const isExampleNftAddress =
-    "0xc922b16f4e9d299fd5fc5b8375928fa761484042" === tokenId;
+    process.env.NEXT_PUBLIC_EXAMPLE_NFT_TOKEN_ADDRESS === tokenId;
 
   return (
     <div className="border-[1px] mt-4 bg-slate-100 border-slate-200 rounded-lg">
@@ -44,7 +44,7 @@ export default function Meta({
               href={`${process.env.NEXT_PUBLIC_EXAMPLE_NFT_LINK}`}
               className="text-sm text-blue-500  pt-6 pb-2 px-6"
             >
-              {"Distinct Mind"}
+              Distinct Mind
             </StyledLink>
           </div>
         ) : (

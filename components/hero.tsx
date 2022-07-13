@@ -9,6 +9,7 @@ import { gql } from "graphql-request";
 import getMetaValue from "helpers/get-meta-value";
 import transformURL from "helpers/transform-url";
 import { useRouter } from "next/router";
+import { ethers } from "ethers";
 
 function Backdrop({ image }: { image: string }) {
   return (
@@ -43,8 +44,8 @@ function Card({
   const router = useRouter();
   const submitPurchase = async (address: string) => {
     try {
-      if (typeof address !== "string") {
-        throw new Error("Contract address not sent");
+      if (!ethers.utils.isAddress(address)) {
+        throw new Error("Wallet address not valid");
       }
 
       await toast.promise(mint({ contractAddress: address }), {
@@ -98,19 +99,16 @@ function Card({
             className="w-full border-2 hover:shadow-md hover:transition transition bg-white rounded-md px-4 py-2 col-span-2"
           >
             {minting ? (
-              // diplsay loading state whilst minting
               <>
                 <ActivityIndicator className="h-5 w-5 inline mr-2 animate-spin text-blue-400" />
                 <span className="text-blue-400">Loading</span>
               </>
             ) : !false ? (
-              //If not loading and you are able to mint then show mint
               <>
                 <TagIcon className="h-4 inline text-blue-400 mr-2" />
                 <span className="text-blue-400">Mint</span>
               </>
             ) : (
-              //If sold out then show to the user that all nfts are sold
               <>
                 <BanIcon className="h-4 inline text-red-400 mr-2" />
                 <span className="text-red-400">Sold Out</span>

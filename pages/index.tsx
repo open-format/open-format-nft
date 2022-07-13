@@ -75,8 +75,7 @@ const resources = [
 ];
 
 const Home: NextPage = () => {
-  //Hard coded token we have generated for you to interact with
-  const token = "0xc922b16f4e9d299fd5fc5b8375928fa761484042";
+  const token = process.env.NEXT_PUBLIC_EXAMPLE_NFT_TOKEN_ADDRESS as string;
   const rawQuery = gql`
     query ($tokenId: String!) {
       token(id: $tokenId) {
@@ -96,6 +95,8 @@ const Home: NextPage = () => {
     }
   `;
 
+  // @TODO we will type all of this out correctly once the new version of the SDK is installed.
+
   const { data: exampleNft } = useRawRequest({
     query: rawQuery,
     variables: { tokenId: token as string },
@@ -107,8 +108,8 @@ const Home: NextPage = () => {
     getMetaValue(exampleNftToken?.properties, "image") as string
   ) as string;
   const creator = exampleNft?.token?.creator?.id as string;
-  const maxSupply = exampleNft?.token?.saleData?.maxSupply as string;
-  const totalSold = exampleNft?.token?.saleData?.totalSold as string;
+  const maxSupply = exampleNft?.token?.saleData?.maxSupply;
+  const totalSold = exampleNft?.token?.saleData?.totalSold;
 
   return (
     <>
@@ -116,14 +117,9 @@ const Home: NextPage = () => {
         <title>Open-Format-NFT</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Hero
-        {...{ name }}
-        {...{ image }}
-        {...{ token }}
-        {...{ creator }}
-        {...{ maxSupply }}
-        {...{ totalSold }}
-      />
+      {exampleNft && (
+        <Hero {...{ name, creator, image, totalSold, maxSupply, token }} />
+      )}
       <Features {...{ actions }} />
       <div className="mt-12 relative px-4 py-4">
         <Resources {...{ resources }} />

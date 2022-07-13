@@ -41,7 +41,7 @@ export default function Puchase({
   const convertedPrice = useMaticPriceCalculation(parseFloat(formattedPrice));
   const soldOut = parseInt(maxSupply) === parseInt(totalSold);
   const isExampleNftAddress =
-    "0xc922b16f4e9d299fd5fc5b8375928fa761484042" === tokenId;
+    process.env.NEXT_PUBLIC_EXAMPLE_NFT_TOKEN_ADDRESS === tokenId;
 
   return (
     <>
