@@ -52,12 +52,17 @@ export default function CreateReleaseForm() {
         image: yup
           .mixed()
           .test("required", "You need to provide a file", (file: [File]) => {
-            console.log("file in validator", file);
-
+            if (file === undefined) {
+              return false;
+            }
             if (file[0]) return true;
+
             return false;
           })
           .test("fileSize", "The image file is too large", (file: [File]) => {
+            if (file === undefined) {
+              return false;
+            }
             return file[0] && file[0].size <= 10000000;
           }),
       })
