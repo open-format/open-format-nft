@@ -55,7 +55,7 @@ const actions = [
 
 const resources = [
   {
-    title: "open-format-documentation",
+    title: "Open Format documentation",
     href: "https://docs.openformat.simpleweb.co.uk/protocol-overview/overview",
     category: { name: "Documentation", href: "#" },
     description:
@@ -114,7 +114,7 @@ const Home: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Open-Format-NFT</title>
+        <title>Open Format NFT</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {exampleNft && (

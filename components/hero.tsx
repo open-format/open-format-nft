@@ -149,7 +149,7 @@ export default function Hero({
                     Create, release, monetise and analyse your NFT collections
                     using
                   </span>{" "}
-                  <span className="text-blue-400">open-format</span>
+                  <span className=" text-blue-500">Open Format</span>
                 </h1>
                 <p className="mt-3 bg-transparent text-slate-900 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
                   Build your own NFT ecosystem Trustless, permissionless and
