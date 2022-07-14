@@ -5,7 +5,6 @@ import toast from "react-hot-toast";
 import {
   Control,
   Controller,
-  FieldValues,
   FormProvider,
   useForm,
   useFormContext,
@@ -16,6 +15,7 @@ import { useDeploy, useWallet } from "@simpleweb/open-format-react";
 import { useRouter } from "next/router";
 import ActivityIndicator from "components/activity-indicator";
 import { useDropzone } from "react-dropzone";
+import { buildMetadata, uploadToIPFS } from "helpers/ipfs";
 
 type FormValues = {
   name: string;
@@ -53,7 +53,7 @@ function Dropzone({
 }: {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }) {
-  const onDrop = useCallback((acceptedFiles) => {
+  const onDrop = useCallback((acceptedFiles: any) => {
     // Do something with the files
     onChange(acceptedFiles);
   }, []);
@@ -160,46 +160,44 @@ export default function CreateReleaseForm() {
   } = form;
 
   const onSubmit = async (data: FormValues) => {
-    console.log({ data });
+    const metaUpload = {
+      name: data.name,
+      description: data.description,
+      image: data.image,
+    };
 
-    // const metaUpload = {
-    //   name: data.name,
-    //   description: data.description,
-    //   image: data.image,
-    // };
+    const meta = await buildMetadata(metaUpload);
 
-    // const meta = await buildMetadata(metaUpload);
+    try {
+      setLoadingToIPFS(true);
 
-    // try {
-    //   setLoadingToIPFS(true);
+      const ipfsSuccess = await toast.promise(uploadToIPFS(meta), {
+        loading: "Uploading your creation to IPFS",
+        success: "Upload complete",
+        error: "Upload error",
+      });
 
-    //   const ipfsSuccess = await toast.promise(uploadToIPFS(meta), {
-    //     loading: "Uploading your creation to IPFS",
-    //     success: "Upload complete",
-    //     error: "Upload error",
-    //   });
+      setLoadingToIPFS(false);
 
-    //   setLoadingToIPFS(false);
-
-    //   const response = await toast.promise(
-    //     deploy({
-    //       maxSupply: parseInt(data.totalSupply),
-    //       mintingPrice: parseFloat(data.mintPrice),
-    //       name: meta.name,
-    //       symbol: "TEST",
-    //       url: ipfsSuccess.url,
-    //     }),
-    //     {
-    //       loading:
-    //         "Uploading your creation to the blockhain, please check your wallet for further instructions",
-    //       success: "Contract deployed",
-    //       error: "Upload error",
-    //     }
-    //   );
-    //   router.push(`/explore/${response.contractAddress}`);
-    // } catch (error) {
-    //   console.log(error);
-    // }
+      const response = await toast.promise(
+        deploy({
+          maxSupply: parseInt(data.totalSupply),
+          mintingPrice: parseFloat(data.mintPrice),
+          name: meta.name,
+          symbol: "TEST",
+          url: ipfsSuccess.url,
+        }),
+        {
+          loading:
+            "Uploading your creation to the blockhain, please check your wallet for further instructions",
+          success: "Contract deployed",
+          error: "Upload error",
+        }
+      );
+      router.push(`/explore/${response.contractAddress}`);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
