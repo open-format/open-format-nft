@@ -67,6 +67,8 @@ export default function CreateReleaseForm() {
           }),
       })
     ),
+    mode: "onSubmit",
+    reValidateMode: "onChange",
   });
 
   const {

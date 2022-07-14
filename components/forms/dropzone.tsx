@@ -37,7 +37,7 @@ export default function Dropzone({
   return (
     <>
       {image ? (
-        <div className="sm:col-span-6 cursor-pointer ">
+        <div className="sm:col-span-6 cursor-pointer">
           <label
             htmlFor="cover-photo"
             className="block text-sm font-medium text-gray-900"
@@ -48,12 +48,12 @@ export default function Dropzone({
             </p>
           </label>
 
-          <div className="mt-1 flex flex-col justify-center p-2 border-2 border-gray-300 border-dashed rounded-md">
-            <div className="pb-2 flex justify-end">
+          <div className="mt-1 relative justify-center p-2 border-2 border-gray-300 border-dashed rounded-md">
+            <div className="pb-2 absolute top-0 right-0 p-2 m-3 z-10 bg-white/30 rounded-sm hover:bg-white-80">
               <svg
                 onClick={() => handleImageEnterAndExit()}
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6  hover:opacity-50"
+                className="h-6 w-6"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"

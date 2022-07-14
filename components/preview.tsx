@@ -5,7 +5,7 @@ export default function UploadPreview({ image }: { image: File }) {
     <>
       {image && (
         <img
-          className="rounded-md  hover:opacity-50"
+          className="rounded-md w-full h-auto"
           src={URL.createObjectURL(image)}
         />
       )}
