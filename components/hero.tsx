@@ -8,6 +8,7 @@ import { BanIcon, TagIcon } from "@heroicons/react/solid";
 import { gql } from "graphql-request";
 import { useRouter } from "next/router";
 import { ethers } from "ethers";
+import { addressSplitter } from "helpers/address-splitter";
 
 function Backdrop({ image }: { image: string }) {
   return (
@@ -57,33 +58,35 @@ function Card({
   };
   return (
     <div className="mt-16 sm:mt-24 lg:mt-0 lg:col-span-6">
-      <div className="flex flex-col sm:max-w-md shadow-md  shadow-slate-500 sm:w-full sm:mx-auto sm:rounded-lg sm:overflow-hidden">
+      <div className="flex flex-col sm:max-w-md shadow-md rounded-lg shadow-slate-500 sm:w-full sm:mx-auto sm:overflow-hidden">
         <div
           onClick={() => router.push(`/explore/${token}`)}
           className="max-h-96"
         >
           <img src={image} alt="" className="object-cover cursor-pointer" />
         </div>
-        <div className="flex flex-col py-4 px-2 bg-white">
-          <div className="flex">
+        <div className="py-4 px-2 bg-white">
+          <div className="pb-2">
             <img
               src={image}
               alt=""
               className="object-cover border-2 rounded-full h-12 w-12 shadow-md shadow-slate-400 border-white"
             />
-            <div className="pl-2">
-              <div className="pb-2">
-                <h2 className="text-gray-700 font-bold text-sm pr-4">{name}</h2>
-                <p className="mt-1 text-sm text-blue-500">{creator}</p>
-              </div>
-              <div className="border-t-2 flex justify-between border-slate-300 py-4">
-                <p className="text-sm">Total Sold</p>
-                <p className="text-sm">{totalSold}</p>
-              </div>
-              <div className="border-t-2 flex justify-between border-slate-300 py-4">
-                <p className="text-sm">Total Available</p>
-                <p className="text-sm">{maxSupply}</p>
-              </div>
+          </div>
+          <div className="px-2">
+            <div className="pb-2">
+              <h2 className="text-gray-700 font-bold text-sm pr-4">{name}</h2>
+              <p className="mt-1 text-sm text-blue-500">
+                {addressSplitter(creator)}
+              </p>
+            </div>
+            <div className="border-t-2 flex justify-between border-slate-300 py-4">
+              <p className="text-sm">Total Sold</p>
+              <p className="text-sm">{totalSold}</p>
+            </div>
+            <div className="border-t-2 flex justify-between border-slate-300 py-4">
+              <p className="text-sm">Total Available</p>
+              <p className="text-sm">{maxSupply}</p>
             </div>
           </div>
         </div>
