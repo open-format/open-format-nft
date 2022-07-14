@@ -16,6 +16,7 @@ import { useRouter } from "next/router";
 import ActivityIndicator from "components/activity-indicator";
 import { useDropzone } from "react-dropzone";
 import { buildMetadata, uploadToIPFS } from "helpers/ipfs";
+import UploadPreview from "components/preview";
 
 type FormValues = {
   name: string;
@@ -57,7 +58,7 @@ function Dropzone({
     // Do something with the files
     onChange(acceptedFiles);
   }, []);
-  const { setValue } = useFormContext();
+  const { setValue, watch } = useFormContext();
   const { getRootProps, getInputProps, acceptedFiles } = useDropzone({
     onDrop: (files) => setValue("image", files),
     accept: {
@@ -68,53 +69,86 @@ function Dropzone({
     ...options,
   });
 
-  const [file] = acceptedFiles;
-
-  console.log(acceptedFiles);
+  const image = watch("image");
 
   return (
-    <div {...getRootProps()} className="sm:col-span-6 cursor-pointer">
-      <label
-        htmlFor="cover-photo"
-        className="block text-sm font-medium text-gray-900"
-      >
-        <p>Image, Video, or Audio</p>
-        <p className="text-xs text-gray-500">
-          File types supported: JPEG, PNG MP3
-        </p>
-      </label>
-
-      <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
-        <div className="space-y-1 text-center">
-          <svg
-            className="mx-auto h-48 w-12 text-gray-400"
-            stroke="currentColor"
-            fill="none"
-            viewBox="0 0 48 48"
-            aria-hidden="true"
+    <>
+      {image ? (
+        <div className="sm:col-span-6 cursor-pointer ">
+          <label
+            htmlFor="cover-photo"
+            className="block text-sm font-medium text-gray-900"
           >
-            <path
-              d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
-              strokeWidth={2}
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-          <div className="flex text-sm text-gray-600">
-            <label
-              htmlFor="image"
-              className="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
-            >
-              <span>Upload a file</span>
-              <input {...getInputProps({ onDrop })} />
-            </label>
-            <p className="pl-1">or drag and drop</p>
+            <p>Image, Video, or Audio</p>
+            <p className="text-xs text-gray-500">
+              File types supported: JPEG, PNG MP3
+            </p>
+          </label>
+
+          <div className="mt-1 flex flex-col justify-center p-2 border-2 border-gray-300 border-dashed rounded-md">
+            <div className="pb-2 flex justify-end">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6  hover:opacity-50"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </div>
+            <UploadPreview {...{ image: image[0] }} />
           </div>
-          <p className="text-xs text-gray-500">JPEG, PNG, MP3 Max 20MB</p>
         </div>
-      </div>
-      <div></div>
-    </div>
+      ) : (
+        <div {...getRootProps()} className="sm:col-span-6 cursor-pointer">
+          <label
+            htmlFor="cover-photo"
+            className="block text-sm font-medium text-gray-900"
+          >
+            <p>Image, Video, or Audio</p>
+            <p className="text-xs text-gray-500">
+              File types supported: JPEG, PNG MP3
+            </p>
+          </label>
+
+          <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+            <div className="space-y-1 text-center">
+              <svg
+                className="mx-auto h-48 w-12 text-gray-400"
+                stroke="currentColor"
+                fill="none"
+                viewBox="0 0 48 48"
+                aria-hidden="true"
+              >
+                <path
+                  d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
+                  strokeWidth={2}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+              <div className="flex text-sm text-gray-600">
+                <label
+                  htmlFor="image"
+                  className="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
+                >
+                  <span>Upload a file</span>
+                  <input {...getInputProps({ onDrop })} />
+                </label>
+                <p className="pl-1">or drag and drop</p>
+              </div>
+              <p className="text-xs text-gray-500">JPEG, PNG, MP3 Max 20MB</p>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
   );
 }
 
@@ -205,7 +239,7 @@ export default function CreateReleaseForm() {
       <FormProvider {...form}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="grid grid-cols-2">
-            <div className="col-span-1 mt-6 gap-y-6 gap-x-4 sm:grid-cols-6">
+            <div className="col-span-2 mt-6 gap-y-6 gap-x-4 md:col-span-2 lg:col-span-1">
               <DropzoneField name="image" control={control} />
             </div>
             <ErrorMessage
