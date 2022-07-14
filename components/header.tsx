@@ -23,7 +23,7 @@ const Header: React.FC = () => {
               <div className="items-center h-16 flex justify-between">
                 <Link href="/">
                   <a className="flex cursor-pointer items-center p-6 font-sans font-bold text-lg lg:text-2xl">
-                    <h1>Open Format NFT.</h1>
+                    <h1>Open Format NFT</h1>
                   </a>
                 </Link>
                 <div className="px-2 flex flex-1 items-center justify-center">
