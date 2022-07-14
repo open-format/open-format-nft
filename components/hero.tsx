@@ -143,7 +143,7 @@ export default function Hero({
         <div className="relative px-4 py-4 mx-auto max-w-7xl z-10">
           <div className="lg:grid lg:grid-cols-12 lg:gap-8">
             <div className="px-4 sm:px-6 sm:text-center md:max-w-2xl md:mx-auto lg:col-span-6 lg:text-left lg:flex lg:items-center">
-              <div>
+              <div className="flex flex-col">
                 <h1 className="mt-4 text-4xl font-bold text-black sm:mt-5 lg:mt-6">
                   <span>
                     Create, release, monetise and analyse your NFT collections
@@ -158,7 +158,7 @@ export default function Hero({
                 <StyledLink
                   openInNewTab={true}
                   href="https://openformat.simpleweb.co.uk/"
-                  className="mt-8 text-sm text-blue-500 uppercase tracking-wide font-semibold sm:mt-10"
+                  className="text-sm text-blue-500 uppercase tracking-wide font-semibold sm:mt-10"
                 >
                   Learn more about open format
                 </StyledLink>
