@@ -148,7 +148,9 @@ export default function Release({ tokenId }: Props) {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const tokenId = context.query.id;
+  const id = context.query.id as string;
+  const tokenId = id.toLowerCase();
+
   return {
     props: {
       tokenId,
