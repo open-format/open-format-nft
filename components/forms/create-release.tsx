@@ -17,6 +17,7 @@ import ActivityIndicator from "components/activity-indicator";
 import { useDropzone } from "react-dropzone";
 import { buildMetadata, uploadToIPFS } from "helpers/ipfs";
 import UploadPreview from "components/preview";
+import classNames from "classnames";
 
 type FormValues = {
   name: string;
@@ -55,12 +56,14 @@ function Dropzone({
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }) {
   const onDrop = useCallback((acceptedFiles: any) => {
-    // Do something with the files
     onChange(acceptedFiles);
   }, []);
-  const { setValue, watch } = useFormContext();
-  const { getRootProps, getInputProps, acceptedFiles } = useDropzone({
+  const { setValue, watch, resetField } = useFormContext();
+  const [entered, setEntered] = useState<boolean>();
+  const { getRootProps, getInputProps } = useDropzone({
     onDrop: (files) => setValue("image", files),
+    onDragEnter: () => setEntered(true),
+    onDragLeave: () => setEntered(false),
     accept: {
       "image/jpeg": [],
       "image/jpg": [],
@@ -70,6 +73,12 @@ function Dropzone({
   });
 
   const image = watch("image");
+
+  console.log({ entered });
+  function handleImageEnterAndExit() {
+    resetField("image");
+    setEntered(false);
+  }
 
   return (
     <>
@@ -88,6 +97,7 @@ function Dropzone({
           <div className="mt-1 flex flex-col justify-center p-2 border-2 border-gray-300 border-dashed rounded-md">
             <div className="pb-2 flex justify-end">
               <svg
+                onClick={() => handleImageEnterAndExit()}
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-6 w-6  hover:opacity-50"
                 fill="none"
@@ -117,7 +127,15 @@ function Dropzone({
             </p>
           </label>
 
-          <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+          <div
+            className={classNames(
+              {
+                "opacity-50": entered,
+                "opacity-100": !entered,
+              },
+              "mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md"
+            )}
+          >
             <div className="space-y-1 text-center">
               <svg
                 className="mx-auto h-48 w-12 text-gray-400"
