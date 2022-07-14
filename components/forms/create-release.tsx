@@ -8,6 +8,7 @@ import {
   FieldValues,
   FormProvider,
   useForm,
+  useFormContext,
 } from "react-hook-form";
 import * as yup from "yup";
 import Button from "components/button";
@@ -35,11 +36,13 @@ function DropzoneField({
   return (
     <Controller
       render={({ field: { onChange } }) => (
-        <Dropzone onChange={(e: any) => onChange(e.target.files)} {...rest} />
+        <Dropzone
+          onChange={(e: any) => onChange(e.target.files[0])}
+          {...rest}
+        />
       )}
       name={name}
       control={control}
-      defaultValue=""
     />
   );
 }
@@ -52,25 +55,26 @@ function Dropzone({
 }) {
   const onDrop = useCallback((acceptedFiles) => {
     // Do something with the files
-    console.log(acceptedFiles[0]);
-    onChange(acceptedFiles[0]);
+    onChange(acceptedFiles);
   }, []);
+  const { setValue } = useFormContext();
   const { getRootProps, getInputProps, acceptedFiles } = useDropzone({
-    ...options,
-    onDrop,
+    onDrop: (files) => setValue("image", files),
     accept: {
       "image/jpeg": [],
+      "image/jpg": [],
       "image/png": [],
     },
+    ...options,
   });
 
   const [file] = acceptedFiles;
+
+  console.log(acceptedFiles);
+
   return (
-    <div
-      {...getRootProps()}
-      className="sm:col-span-6 border-2 h-12 w-12 border-slate-500"
-    >
-      {/* <label
+    <div {...getRootProps()} className="sm:col-span-6 cursor-pointer">
+      <label
         htmlFor="cover-photo"
         className="block text-sm font-medium text-gray-900"
       >
@@ -97,9 +101,9 @@ function Dropzone({
           </svg>
           <p className="text-xs text-gray-500">JPEG, PNG, MP3 Max 20MB</p>
         </div>
-      </div> */}
+      </div>
       <div>
-        <input {...getInputProps({ onChange })} />
+        <input {...getInputProps({ onDrop })} />
       </div>
     </div>
   );
@@ -126,15 +130,15 @@ export default function CreateReleaseForm() {
           .required()
           .min(0, "Cannot be less than 0")
           .typeError("You must provide a mint price"),
-        // image: yup
-        //   .mixed()
-        //   .test("required", "You need to provide a file", (file: [File]) => {
-        //     if (file[0]) return true;
-        //     return false;
-        //   })
-        // .test("fileSize", "The image file is too large", (file: [File]) => {
-        //   return file[0] && file[0].size <= 10000000;
-        // }),
+        image: yup
+          .mixed()
+          .test("required", "You need to provide a file", (file: [File]) => {
+            if (file[0]) return true;
+            return false;
+          })
+          .test("fileSize", "The image file is too large", (file: [File]) => {
+            return file[0] && file[0].size <= 10000000;
+          }),
       })
     ),
   });
