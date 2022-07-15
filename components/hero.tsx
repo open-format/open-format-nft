@@ -75,9 +75,12 @@ function Card({
           <div className="px-2">
             <div className="pb-2">
               <h2 className="text-gray-700 font-bold text-sm pr-4">{name}</h2>
-              <p className="mt-1 text-sm text-blue-500">
+              <StyledLink
+                href={`${process.env.NEXT_PUBLIC_POLYGON_SCAN}/address/${token}/`}
+                className="mt-1 text-sm text-blue-500"
+              >
                 {addressSplitter(creator)}
-              </p>
+              </StyledLink>
             </div>
             <div className="border-t-2 flex justify-between border-slate-300 py-4">
               <p className="text-sm">Total Sold</p>

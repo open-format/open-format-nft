@@ -2,6 +2,7 @@ import Link from "next/link";
 import React from "react";
 import Card from "components/card";
 import StyledLink from "components/styled-link";
+import { addressSplitter } from "helpers/address-splitter";
 
 interface Props {
   name: string;
@@ -35,7 +36,7 @@ export default function ItemOverview({
             <p className="w-full truncate">
               by{" "}
               <span title={creator} className="text-blue-500">
-                {creator}
+                {addressSplitter(creator)}
               </span>
             </p>
             <p className="mt-2 w-full truncate">{description}</p>
