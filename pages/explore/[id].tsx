@@ -10,8 +10,8 @@ import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { ethers } from "ethers";
 import PolygonLogo from "components/logo/polygon-logo";
-import HeartIcon from "components/icons/heart-icon";
 import ReactTooltip from "react-tooltip";
+import { HeartIcon } from "@heroicons/react/outline";
 
 interface Props {
   tokenId: string;
@@ -137,7 +137,7 @@ export default function Release({ tokenId }: Props) {
                       setTimeout(() => showTooltip(true), 100);
                     }}
                   >
-                    <HeartIcon />
+                    <HeartIcon className="w-6 h-6 text-slate-500" />
                     {isMounted && tooltip && (
                       <ReactTooltip
                         id={"likes"}
