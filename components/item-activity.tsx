@@ -14,9 +14,9 @@ export default function ItemActivity({ transactions }: Props) {
   return (
     <Disclosure defaultOpen as="div">
       {({ open }) => (
-        <div className="border-[1px] rounded-md mt-12 border-slate-200">
+        <div className="border rounded-md border-slate-200">
           <h3>
-            <Disclosure.Button className="group relative w-full p-6 bg-white flex justify-between items-center text-left">
+            <Disclosure.Button className="group rounded-md relative w-full p-6 bg-white flex justify-between items-center text-left">
               <span className="text-gray-900 text-sm font-medium">
                 Item Activity
               </span>

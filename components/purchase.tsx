@@ -8,12 +8,13 @@ import {
 import classNames from "classnames";
 import ActivityIndicator from "components/activity-indicator";
 import Button from "components/button";
-import EthLogo from "components/logo/eth-logo";
 import StyledLink from "components/styled-link";
 import { ethers } from "ethers";
+import { addressSplitter } from "helpers/address-splitter";
 import useMaticPriceCalculation from "hooks/useMaticPriceCalculation";
 import React, { useEffect, useState } from "react";
 import ReactTooltip from "react-tooltip";
+import PolygonLogo from "./logo/polygon-logo";
 
 interface Props {
   createdBy?: string;
@@ -56,7 +57,7 @@ export default function Puchase({
       <h2 className="sr-only">NFT</h2>
       <div>
         <div className="flex justify-between items-center pb-6">
-          <h1 className="font-extrabold text-3xl">{name}</h1>
+          <h1 className="font-extrabold text-2xl md:text-3xl">{name}</h1>
           <span className="flex">
             <button
               type="button"
@@ -136,19 +137,20 @@ export default function Puchase({
               <StyledLink
                 openInNewTab={true}
                 href={`${process.env.NEXT_PUBLIC_POLYGON_SCAN}/address/${createdBy}`}
-                className="text-blue-500"
+                className="text-blue-500 w-full truncate"
               >
-                {createdBy}
+                {createdBy && addressSplitter(createdBy)}
               </StyledLink>
             </p>
           )}
         </div>
       </div>
-      <div className="grid bg-slate-50 lg:grid-cols-4 border-[1px] border-b-slate-200 rounded-md">
+      <div className="grid bg-slate-50 lg:grid-cols-4 border border-b-slate-200 rounded-md">
         <div className="lg:col-span-7 p-4">
           <p>Mint Price</p>
-          <div className="flex items-center">
-            <EthLogo />
+          <div className="flex items-center pt-2">
+            <PolygonLogo />
+
             <p className="ml-2 text-2xl font-bold">
               {formattedPrice}
               <span className="font-normal text-sm text-gray-400">
