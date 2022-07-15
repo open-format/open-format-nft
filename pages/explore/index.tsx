@@ -5,6 +5,8 @@ import { gql } from "graphql-request";
 import getMetaValue from "helpers/get-meta-value";
 import transformURL from "helpers/transform-url";
 import Head from "next/head";
+import { useEffect, useState } from "react";
+import ReactTooltip from "react-tooltip";
 
 type Token = {
   id: string;
@@ -26,6 +28,12 @@ const navigation = [
 ];
 
 export default function Releases() {
+  const [isMounted, setIsMounted] = useState(false); // Need this for the react-tooltip
+  const [tooltip, showTooltip] = useState(false);
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   const rawQuery = gql`
     query ($factory_id: String!) {
       tokens(where: { factory_id: $factory_id }) {
@@ -81,7 +89,7 @@ export default function Releases() {
         <div className=" my-12 flex justify-center items-center">
           <div className="flex flex-col justify-center items-center">
             <h1 className="text-5xl font-bold tracking-tight text-gray-900">
-              Explore Collections.
+              Explore Collections
             </h1>
           </div>
         </div>
@@ -95,8 +103,16 @@ export default function Releases() {
                 {navigation.map((link) => (
                   <StyledLink
                     key={link.name}
-                    href={link.href}
-                    className="text-base font-medium text-slate-500 hover:text-slate-900"
+                    href={""}
+                    data-for={"categories"}
+                    data-tip={"Coming soon"}
+                    disabled={true}
+                    className="cursor-not-allowed text-base font-medium text-slate-500 hover:text-slate-900"
+                    onMouseEnter={() => showTooltip(true)}
+                    onMouseLeave={() => {
+                      showTooltip(false);
+                      setTimeout(() => showTooltip(true), 100);
+                    }}
                   >
                     {link.name}
                   </StyledLink>
@@ -104,17 +120,41 @@ export default function Releases() {
               </div>
             </div>
           </div>
+          {isMounted && tooltip && (
+            <ReactTooltip
+              id={"categories"}
+              effect={"solid"}
+              type={"dark"}
+              place={"bottom"}
+            />
+          )}
           <div className="py-4 flex flex-wrap justify-center space-x-6 lg:hidden">
             {navigation.map((link) => (
               <StyledLink
                 key={link.name}
-                href={link.href}
-                className="text-base font-medium text-slate-500 hover:text-slate-700"
+                href={""}
+                data-for={"categories-mobile"}
+                data-tip={"Coming soon"}
+                disabled={true}
+                onMouseEnter={() => showTooltip(true)}
+                onMouseLeave={() => {
+                  showTooltip(false);
+                  setTimeout(() => showTooltip(true), 100);
+                }}
+                className="cursor-not-allowed text-base font-medium text-slate-500 hover:text-slate-700"
               >
                 {link.name}
               </StyledLink>
             ))}
           </div>
+          {isMounted && tooltip && (
+            <ReactTooltip
+              id={"categories-mobile"}
+              effect={"solid"}
+              type={"dark"}
+              place={"bottom"}
+            />
+          )}
           <hr className="divide-y"></hr>
         </nav>
         <div className="mt-12 px-6 grid grid-cols-1 gap-y-10 gap-x-10 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 md:gap-y-4">
