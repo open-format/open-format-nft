@@ -64,11 +64,11 @@ function Card({
       <div className="flex flex-col sm:max-w-md shadow-md rounded-lg shadow-slate-500 sm:w-full sm:mx-auto sm:overflow-hidden">
         <div
           onClick={() => router.push(`/explore/${token}`)}
-          className="max-h-96"
+          className="md:max-h-96"
         >
           <img src={image} alt="" className="object-cover cursor-pointer" />
         </div>
-        <div className="py-4 px-2 bg-white">
+        <div className="py-4 px-2 flex justify-start items-center bg-white">
           <div className="pb-2">
             <img
               src={image}
@@ -77,26 +77,15 @@ function Card({
             />
           </div>
           <div className="px-2">
-            <div className="pb-2">
-              <h2 className="text-gray-700 font-bold text-sm pr-4">{name}</h2>
-              <StyledLink
-                href={`${process.env.NEXT_PUBLIC_POLYGON_SCAN}/address/${token}/`}
-                className="mt-1 text-sm text-blue-500"
-              >
-                {addressSplitter(creator)}
-              </StyledLink>
-            </div>
-            <div className="border-t-2 flex justify-between border-slate-300 py-4">
-              <p className="text-sm">Total Sold</p>
-              <p className="text-sm">{totalSold}</p>
-            </div>
-            <div className="border-t-2 flex justify-between border-slate-300 py-4">
-              <p className="text-sm">Total Available</p>
-              <p className="text-sm">{maxSupply}</p>
-            </div>
+            <h2 className="text-gray-700 font-bold text-sm pr-4">{name}</h2>
+            <StyledLink
+              href={`${process.env.NEXT_PUBLIC_POLYGON_SCAN}/address/${token}/`}
+              className="mt-1 text-sm text-blue-500"
+            >
+              {addressSplitter(creator)}
+            </StyledLink>
           </div>
         </div>
-
         <div className="p-4 col-span-2 bg-white border-t-2 border-slate-200">
           <Button
             type="button"
