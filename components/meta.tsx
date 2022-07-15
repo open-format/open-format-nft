@@ -27,7 +27,7 @@ export default function Meta({
     process.env.NEXT_PUBLIC_EXAMPLE_NFT_TOKEN_ADDRESS === tokenId;
 
   return (
-    <div className="border-[1px] rounded-md mt-4 bg-slate-100 border-slate-200">
+    <div className="border rounded-md mt-4 bg-slate-100 border-slate-200">
       <div>
         <p className="text-gray-900 rounded-t-md bg-white text-sm font-bold p-6">
           Description

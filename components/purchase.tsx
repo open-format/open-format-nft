@@ -144,7 +144,7 @@ export default function Puchase({
           )}
         </div>
       </div>
-      <div className="grid bg-slate-50 lg:grid-cols-4 border-[1px] border-b-slate-200 rounded-md">
+      <div className="grid bg-slate-50 lg:grid-cols-4 border border-b-slate-200 rounded-md">
         <div className="lg:col-span-7 p-4">
           <p>Mint Price</p>
           <div className="flex items-center pt-2">
