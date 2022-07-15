@@ -106,7 +106,7 @@ export default function Release({ tokenId }: Props) {
             <h2 className="sr-only">NFT</h2>
             <div className="py-4">
               <div className="border-[1px] rounded-lg flex flex-col border-slate-200">
-                <div className="flex justify-between px-4 py-6">
+                <div className="flex items-center justify-between px-4 py-6">
                   <div
                     className="cursor-pointer"
                     data-for={"network"}
