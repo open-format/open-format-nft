@@ -8,6 +8,7 @@ import { BanIcon, PlayIcon, TagIcon } from "@heroicons/react/solid";
 import { useRouter } from "next/router";
 import { ethers } from "ethers";
 import { addressSplitter } from "helpers/address-splitter";
+import classNames from "classnames";
 
 function Backdrop({ image }: { image: string }) {
   return (
@@ -55,6 +56,9 @@ function Card({
       console.log("handleDeploy", error);
     }
   };
+
+  const soldOut = parseInt(maxSupply) === parseInt(totalSold);
+
   return (
     <div className="mt-16 sm:mt-24 lg:mt-0 lg:col-span-6">
       <div className="flex flex-col sm:max-w-md shadow-md rounded-lg shadow-slate-500 sm:w-full sm:mx-auto sm:overflow-hidden">
@@ -99,14 +103,24 @@ function Card({
             isLoading={minting}
             disabled={false}
             onClick={() => submitPurchase(token)}
-            className="w-full border-2 hover:shadow-md hover:transition transition bg-white rounded-md px-4 py-2 col-span-2"
+            className={classNames(
+              {
+                "cursor-not-allowed opacity-60 bg-slate-300": minting,
+              },
+              {
+                "cursor-not-allowed opacity-60 bg-slate-300 hover:shadow-none":
+                  soldOut,
+              },
+
+              "w-full border-2 hover:shadow-md hover:transition transition bg-white rounded-md px-4 py-2 col-span-2"
+            )}
           >
             {minting ? (
               <>
                 <ActivityIndicator className="h-5 w-5 inline mr-2 animate-spin text-blue-400" />
                 <span className="text-blue-400">Loading</span>
               </>
-            ) : !false ? (
+            ) : !soldOut ? (
               <>
                 <TagIcon className="h-4 inline text-blue-400 mr-2" />
                 <span className="text-blue-400">Mint</span>
@@ -114,7 +128,9 @@ function Card({
             ) : (
               <>
                 <BanIcon className="h-4 inline text-red-400 mr-2" />
-                <span className="text-red-400">Sold Out</span>
+                <span className="text-red-400 opacity-60 bg-slate-300">
+                  Sold Out
+                </span>
               </>
             )}
           </Button>
