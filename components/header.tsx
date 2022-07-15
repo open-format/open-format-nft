@@ -1,10 +1,11 @@
-import { Fragment } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { Menu, Transition, Disclosure } from "@headlessui/react";
 import { SearchIcon } from "@heroicons/react/solid";
 import { MenuIcon, XIcon } from "@heroicons/react/outline";
 import classNames from "classnames";
 import Link from "next/link";
 import { ConnectButton } from "@simpleweb/open-format-react";
+import ReactTooltip from "react-tooltip";
 
 const navigation = [
   { name: "Explore", href: "/explore", current: false },
@@ -12,6 +13,12 @@ const navigation = [
 ];
 
 const Header: React.FC = () => {
+  const [isMounted, setIsMounted] = useState(false); // Need this for the react-tooltip
+  const [tooltip, showTooltip] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
   return (
     <>
       {/* When the mobile menu is open, add `overflow-hidden` to the `body` element to prevent double scrollbars */}
@@ -31,7 +38,16 @@ const Header: React.FC = () => {
                     <label htmlFor="search" className="sr-only">
                       Search
                     </label>
-                    <div className="relative">
+                    <div
+                      data-for={"search"}
+                      data-tip={"Coming soon"}
+                      className="relative"
+                      onMouseEnter={() => showTooltip(true)}
+                      onMouseLeave={() => {
+                        showTooltip(false);
+                        setTimeout(() => showTooltip(true), 100);
+                      }}
+                    >
                       <div className="pointer-events-none absolute inset-y-0 left-0 pl-3 flex items-center">
                         <SearchIcon
                           className="h-5 w-5 text-gray-400"
@@ -41,6 +57,7 @@ const Header: React.FC = () => {
                       <input
                         id="search"
                         name="search"
+                        disabled={true}
                         className="block w-full bg-white border border-gray-300 rounded-md py-2 pl-10 pr-3 text-sm placeholder-gray-500 focus:outline-none focus:text-gray-900 focus:placeholder-gray-400 focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                         placeholder="Search"
                         type="search"
@@ -48,6 +65,12 @@ const Header: React.FC = () => {
                     </div>
                   </div>
                 </div>
+                <div>
+                  {isMounted && tooltip && (
+                    <ReactTooltip id={"search"} effect={"solid"} />
+                  )}
+                </div>
+
                 <div className="relative z-10 flex items-center lg:hidden">
                   {/* Mobile menu button */}
                   <Disclosure.Button className="rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
