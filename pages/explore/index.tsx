@@ -54,7 +54,7 @@ export default function Releases() {
     variables: { factory_id: process.env.NEXT_PUBLIC_FACTORY_ID as string },
   });
 
-  const renderToken = (token: Token) => {
+  function renderToken(token: Token) {
     const description = getMetaValue(token.properties, "description") as string;
 
     const name = getMetaValue(token.properties, "name") as string;
@@ -77,7 +77,7 @@ export default function Releases() {
         }}
       />
     );
-  };
+  }
 
   return (
     <>
