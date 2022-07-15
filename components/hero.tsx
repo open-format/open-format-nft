@@ -4,8 +4,7 @@ import { useMint } from "@simpleweb/open-format-react";
 import toast from "react-hot-toast";
 import Button from "./button";
 import ActivityIndicator from "./activity-indicator";
-import { BanIcon, TagIcon } from "@heroicons/react/solid";
-import { gql } from "graphql-request";
+import { BanIcon, PlayIcon, TagIcon } from "@heroicons/react/solid";
 import { useRouter } from "next/router";
 import { ethers } from "ethers";
 import { addressSplitter } from "helpers/address-splitter";
@@ -160,7 +159,10 @@ export default function Hero({
                   href="https://openformat.simpleweb.co.uk/"
                   className="text-sm text-blue-500 uppercase tracking-wide font-semibold sm:mt-10"
                 >
-                  Learn more about open format
+                  <div className="flex justify-start sm:justify-center md:justify-center lg:justify-start pt-4 sm:pt-2 items-center">
+                    <PlayIcon className="w-6 mr-2 inline" />
+                    Learn more about open format
+                  </div>
                 </StyledLink>
 
                 <div className="mt-5 w-full sm:mx-auto sm:max-w-lg lg:ml-0">
