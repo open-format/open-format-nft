@@ -5,7 +5,6 @@ import toast from "react-hot-toast";
 import Button from "./button";
 import ActivityIndicator from "./activity-indicator";
 import { BanIcon, PlayIcon, TagIcon } from "@heroicons/react/solid";
-import { gql } from "graphql-request";
 import { useRouter } from "next/router";
 import { ethers } from "ethers";
 import { addressSplitter } from "helpers/address-splitter";
