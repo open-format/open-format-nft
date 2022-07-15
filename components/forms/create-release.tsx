@@ -273,7 +273,13 @@ export default function CreateReleaseForm() {
                 <Button
                   isLoading={loadingToIPFS || isLoading}
                   type="submit"
-                  className="bg-blue-500 text-white py-2 px-4 border rounded-md  text-sm font-medium hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  className={classNames(
+                    {
+                      "cursor-not-allowed opacity-70":
+                        loadingToIPFS || isLoading,
+                    },
+                    "bg-blue-500 text-white py-2 px-4 border rounded-md  text-sm font-medium hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  )}
                 >
                   {isLoading || loadingToIPFS ? (
                     <>
