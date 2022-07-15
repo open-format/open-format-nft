@@ -13,8 +13,8 @@ const navigation = [
 ];
 
 const Header: React.FC = () => {
-  const [isMounted, setIsMounted] = useState(false); // Need this for the react-tooltip
-  const [tooltip, showTooltip] = useState(false);
+  const [isMounted, setIsMounted] = useState<boolean>(false); // Need this for the react-tooltip
+  const [tooltip, showTooltip] = useState<boolean>(false);
 
   useEffect(() => {
     setIsMounted(true);

@@ -6,15 +6,25 @@ import { gql } from "graphql-request";
 import getMetaValue from "helpers/get-meta-value";
 import transformURL from "helpers/transform-url";
 import { GetServerSideProps } from "next";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { ethers } from "ethers";
+import PolygonLogo from "components/logo/polygon-logo";
+import HeartIcon from "components/icons/heart-icon";
+import ReactTooltip from "react-tooltip";
 
 interface Props {
   tokenId: string;
 }
 
 export default function Release({ tokenId }: Props) {
+  const [isMounted, setIsMounted] = useState<boolean>(false); // Need this for the react-tooltip
+  const [tooltip, showTooltip] = useState<boolean>(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   const getTokenDataQuery = gql`
     query ($tokenId: String!) {
       token(id: $tokenId) {
@@ -95,10 +105,56 @@ export default function Release({ tokenId }: Props) {
           <div className="mt-2 col-span-12 md:col-span-4 lg:row-start-1">
             <h2 className="sr-only">NFT</h2>
             <div className="py-4">
-              <img
-                src={image}
-                className="object-cover min-w-full col-span-2 row-span-2 rounded-lg"
-              />
+              <div className="border-[1px] rounded-lg flex flex-col border-slate-200">
+                <div className="flex justify-between px-4 py-6">
+                  <div
+                    className="cursor-pointer"
+                    data-for={"network"}
+                    data-tip={"Polygon"}
+                    onMouseEnter={() => showTooltip(true)}
+                    onMouseLeave={() => {
+                      showTooltip(false);
+                      setTimeout(() => showTooltip(true), 100);
+                    }}
+                  >
+                    <PolygonLogo />
+                    {isMounted && tooltip && (
+                      <ReactTooltip
+                        id={"network"}
+                        effect={"float"}
+                        type={"dark"}
+                        place={"bottom"}
+                      />
+                    )}
+                  </div>
+                  <div
+                    className="cursor-pointer"
+                    data-for={"likes"}
+                    data-tip={"Coming soon"}
+                    onMouseEnter={() => showTooltip(true)}
+                    onMouseLeave={() => {
+                      showTooltip(false);
+                      setTimeout(() => showTooltip(true), 100);
+                    }}
+                  >
+                    <HeartIcon />
+                    {isMounted && tooltip && (
+                      <ReactTooltip
+                        id={"likes"}
+                        effect={"float"}
+                        type={"dark"}
+                        place={"bottom"}
+                      />
+                    )}
+                  </div>
+                </div>
+                <div className="px-4 pb-4">
+                  <img
+                    src={image}
+                    className="object-cover min-w-full col-span-2 row-span-2 rounded-lg"
+                  />
+                </div>
+              </div>
             </div>
 
             <Meta
