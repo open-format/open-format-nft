@@ -203,7 +203,7 @@ export default function Release({ tokenId }: Props) {
         ) : (
           <div className="flex items-center justify-center">
             <div className="flex w-10/12 flex-col bg-slate-200 items-center rounded-sm py-24">
-              <h2 className=" text-center text-colors-ds-pink">
+              <h2 className="text-center">
                 We are retrieving the data for this NFT, this shouldn{"'"}t take
                 to long please wait....
               </h2>
