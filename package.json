@@ -29,6 +29,7 @@
     "react-dropzone": "^14.2.2",
     "react-hook-form": "^7.33.0",
     "react-hot-toast": "^2.2.0",
+    "react-tooltip": "^4.2.21",
     "yup": "^0.32.11"
   },
   "devDependencies": {

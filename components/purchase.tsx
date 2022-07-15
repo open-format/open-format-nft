@@ -11,7 +11,8 @@ import EthLogo from "components/logo/eth-logo";
 import StyledLink from "components/styled-link";
 import { ethers } from "ethers";
 import useMaticPriceCalculation from "hooks/useMaticPriceCalculation";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import ReactTooltip from "react-tooltip";
 
 interface Props {
   createdBy?: string;
@@ -34,6 +35,12 @@ export default function Puchase({
   totalSold,
   maxSupply,
 }: Props) {
+  const [isMounted, setIsMounted] = useState(false); // Need this for the react-tooltip
+  const [tooltip, showTooltip] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
   const formattedPrice = price
     ? ethers.utils.formatEther(price.toString())
     : "";
@@ -52,7 +59,14 @@ export default function Puchase({
           <span className="flex">
             <button
               type="button"
-              className="flex justify-center items-center p-4 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500"
+              className="flex cursor-not-allowed justify-center items-center p-4 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 "
+              data-for={"buttons"}
+              data-tip={"Coming soon"}
+              onMouseOver={() => showTooltip(true)}
+              onMouseLeave={() => {
+                showTooltip(false);
+                setTimeout(() => showTooltip(true), 100);
+              }}
             >
               <RefreshIcon
                 className="h-5 w-5 text-slate-900"
@@ -61,7 +75,14 @@ export default function Puchase({
             </button>
             <button
               type="button"
-              className="-ml-px flex justify-center p-4 items-center border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500"
+              className="cursor-not-allowed -ml-px flex justify-center p-4 items-center border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 "
+              data-for={"buttons"}
+              data-tip={"Coming soon"}
+              onMouseOver={() => showTooltip(true)}
+              onMouseLeave={() => {
+                showTooltip(false);
+                setTimeout(() => showTooltip(true), 100);
+              }}
             >
               <ShareIcon
                 className="h-5 w-5 text-slate-900"
@@ -70,13 +91,28 @@ export default function Puchase({
             </button>
             <button
               type="button"
-              className="-ml-px flex justify-center items-center pl-5 pr-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500"
+              className="cursor-not-allowed -ml-px flex justify-center items-center pl-5 pr-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1"
+              data-for={"buttons"}
+              data-tip={"Coming soon"}
+              onMouseOver={() => showTooltip(true)}
+              onMouseLeave={() => {
+                showTooltip(false);
+                setTimeout(() => showTooltip(true), 100);
+              }}
             >
               <DotsVerticalIcon
                 className="-ml-1 mr-2 h-5 w-5 text-slate-900"
                 aria-hidden="true"
               />
             </button>
+            {isMounted && tooltip && (
+              <ReactTooltip
+                id={"buttons"}
+                effect={"float"}
+                type={"dark"}
+                place={"bottom"}
+              />
+            )}
           </span>
         </div>
 
