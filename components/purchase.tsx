@@ -9,6 +9,7 @@ import ActivityIndicator from "components/activity-indicator";
 import Button from "components/button";
 import StyledLink from "components/styled-link";
 import { ethers } from "ethers";
+import { addressSplitter } from "helpers/address-splitter";
 import useMaticPriceCalculation from "hooks/useMaticPriceCalculation";
 import React, { useEffect, useState } from "react";
 import ReactTooltip from "react-tooltip";
@@ -135,9 +136,9 @@ export default function Puchase({
               <StyledLink
                 openInNewTab={true}
                 href={`${process.env.NEXT_PUBLIC_POLYGON_SCAN}/address/${createdBy}`}
-                className="text-blue-500"
+                className="text-blue-500 w-full truncate"
               >
-                {createdBy}
+                {createdBy && addressSplitter(createdBy)}
               </StyledLink>
             </p>
           )}
