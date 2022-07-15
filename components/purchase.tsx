@@ -7,12 +7,12 @@ import {
 } from "@heroicons/react/solid";
 import ActivityIndicator from "components/activity-indicator";
 import Button from "components/button";
-import EthLogo from "components/logo/eth-logo";
 import StyledLink from "components/styled-link";
 import { ethers } from "ethers";
 import useMaticPriceCalculation from "hooks/useMaticPriceCalculation";
 import React, { useEffect, useState } from "react";
 import ReactTooltip from "react-tooltip";
+import PolygonLogo from "./logo/polygon-logo";
 
 interface Props {
   createdBy?: string;
@@ -146,8 +146,9 @@ export default function Puchase({
       <div className="grid bg-slate-50 lg:grid-cols-4 border-[1px] border-b-slate-200 rounded-md">
         <div className="lg:col-span-7 p-4">
           <p>Mint Price</p>
-          <div className="flex items-center">
-            <EthLogo />
+          <div className="flex items-center pt-2">
+            <PolygonLogo />
+
             <p className="ml-2 text-2xl font-bold">
               {formattedPrice}
               <span className="font-normal text-sm text-gray-400">
