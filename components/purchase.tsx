@@ -55,7 +55,7 @@ export default function Puchase({
       <h2 className="sr-only">NFT</h2>
       <div>
         <div className="flex justify-between items-center pb-6">
-          <h1 className="font-extrabold text-3xl">{name}</h1>
+          <h1 className="font-extrabold text-2xl md:text-3xl">{name}</h1>
           <span className="flex">
             <button
               type="button"
@@ -167,19 +167,16 @@ export default function Puchase({
             className="w-full border-2 hover:shadow-md hover:transition transition bg-white rounded-md px-4 py-2 col-span-2"
           >
             {minting ? (
-              // diplsay loading state whilst minting
               <>
                 <ActivityIndicator className="h-5 w-5 inline mr-2 animate-spin text-blue-400" />
                 <span className="text-blue-400">Loading</span>
               </>
             ) : !soldOut ? (
-              //If not loading and you are able to mint then show mint
               <>
                 <TagIcon className="h-4 inline text-blue-400 mr-2" />
                 <span className="text-blue-400">Mint</span>
               </>
             ) : (
-              //If sold out then show to the user that all nfts are sold
               <>
                 <BanIcon className="h-4 inline text-red-400 mr-2" />
                 <span className="text-red-400">Sold Out</span>

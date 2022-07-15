@@ -91,13 +91,13 @@ export default function Release({ tokenId }: Props) {
   return (
     <>
       <div className="mt-8 max-w-4xl mx-auto px-4 sm:px-6 lg:max-w-6xl lg:px-8">
-        <div className="lg:grid lg:grid-cols-12 lg:gap-x-8">
-          <div className="mt-2 lg:col-span-4 lg:row-start-1">
+        <div className="grid grid-cols-12 gap-x-8">
+          <div className="mt-2 col-span-12 md:col-span-4 lg:row-start-1">
             <h2 className="sr-only">NFT</h2>
-            <div>
+            <div className="py-4">
               <img
                 src={image}
-                className="object-cover min-w-full lg:col-span-2 lg:row-span-2 rounded-lg"
+                className="object-cover min-w-full col-span-2 row-span-2 rounded-lg"
               />
             </div>
 
@@ -112,7 +112,7 @@ export default function Release({ tokenId }: Props) {
               }}
             />
           </div>
-          <div className="mt-2 lg:col-span-8">
+          <div className="py-4 order-first md:order-none col-span-12 md:col-span-8">
             <Puchase
               {...{
                 createdBy,
@@ -126,7 +126,7 @@ export default function Release({ tokenId }: Props) {
               }}
             />
           </div>
-          <div className="col-span-12">
+          <div className="col-span-12 py-8">
             <ItemActivity
               transactions={transactionData?.transactions?.map(
                 (transaction: RawTransaction) => {
