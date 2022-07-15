@@ -2,6 +2,7 @@ import Link from "next/link";
 import React from "react";
 import Card from "components/card";
 import StyledLink from "components/styled-link";
+import { addressSplitter } from "helpers/address-splitter";
 
 interface Props {
   name: string;
@@ -21,24 +22,28 @@ export default function ItemOverview({
   return (
     <StyledLink href={`/explore/${tokenId}`} className="cursor-pointer">
       <Card>
-        <div className="flex flex-col">
-          <img src={image} alt="" className="h-52 object-cover" />
-          <div className="-m-6 flex justify-start items-center flex-col">
+        <div className="relative">
+          <div className="flex flex-col">
+            <img src={image} alt="" className="object-cover max-h-96" />
             <img
               src={image}
               alt=""
-              className="w-12 h-12 border-2 shadow-md shadow-slate-400 border-white flex justify-center items-center overflow-hidden relative rounded-full object-cover"
+              className="absolute left-6 top-[350px] w-16 h-16 border-2 shadow-md shadow-slate-400 border-white flex justify-center items-center overflow-hidden rounded-lg object-cover"
             />
-          </div>
-          <div className="flex h-48 flex-col text-center p-2 sm:-12 md:p-8 lg:p-8 mt-2 justify-center items-center">
-            <p className="pb-4">{name}</p>
-            <p className="w-full truncate">
-              by{" "}
-              <span title={creator} className="text-blue-500">
-                {creator}
-              </span>
-            </p>
-            <p className="mt-2 w-full truncate">{description}</p>
+
+            <div className="pt-10 p-4">
+              <div className="flex justify-start items-center">
+                <div className="flex pl-2 flex-col">
+                  <p className="font-bold">{name}</p>
+                  <p className="w-full truncate">
+                    By{" "}
+                    <span title={creator} className="text-blue-500">
+                      {addressSplitter(creator)}
+                    </span>
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </Card>

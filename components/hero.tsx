@@ -4,11 +4,11 @@ import { useMint } from "@simpleweb/open-format-react";
 import toast from "react-hot-toast";
 import Button from "./button";
 import ActivityIndicator from "./activity-indicator";
-import { BanIcon, TagIcon } from "@heroicons/react/solid";
-import { gql } from "graphql-request";
+import { BanIcon, PlayIcon, TagIcon } from "@heroicons/react/solid";
 import { useRouter } from "next/router";
 import { ethers } from "ethers";
 import { addressSplitter } from "helpers/address-splitter";
+import classNames from "classnames";
 
 function Backdrop({ image }: { image: string }) {
   return (
@@ -56,16 +56,19 @@ function Card({
       console.log("handleDeploy", error);
     }
   };
+
+  const soldOut = parseInt(maxSupply) === parseInt(totalSold);
+
   return (
     <div className="mt-16 sm:mt-24 lg:mt-0 lg:col-span-6">
       <div className="flex flex-col sm:max-w-md shadow-md rounded-lg shadow-slate-500 sm:w-full sm:mx-auto sm:overflow-hidden">
         <div
           onClick={() => router.push(`/explore/${token}`)}
-          className="max-h-96"
+          className="md:max-h-96"
         >
           <img src={image} alt="" className="object-cover cursor-pointer" />
         </div>
-        <div className="py-4 px-2 bg-white">
+        <div className="py-4 px-2 flex justify-start items-center bg-white">
           <div className="pb-2">
             <img
               src={image}
@@ -74,37 +77,39 @@ function Card({
             />
           </div>
           <div className="px-2">
-            <div className="pb-2">
-              <h2 className="text-gray-700 font-bold text-sm pr-4">{name}</h2>
-              <p className="mt-1 text-sm text-blue-500">
-                {addressSplitter(creator)}
-              </p>
-            </div>
-            <div className="border-t-2 flex justify-between border-slate-300 py-4">
-              <p className="text-sm">Total Sold</p>
-              <p className="text-sm">{totalSold}</p>
-            </div>
-            <div className="border-t-2 flex justify-between border-slate-300 py-4">
-              <p className="text-sm">Total Available</p>
-              <p className="text-sm">{maxSupply}</p>
-            </div>
+            <h2 className="text-gray-700 font-bold text-sm pr-4">{name}</h2>
+            <StyledLink
+              href={`${process.env.NEXT_PUBLIC_POLYGON_SCAN}/address/${token}/`}
+              className="mt-1 text-sm text-blue-500"
+            >
+              {addressSplitter(creator)}
+            </StyledLink>
           </div>
         </div>
-
         <div className="p-4 col-span-2 bg-white border-t-2 border-slate-200">
           <Button
             type="button"
             isLoading={minting}
             disabled={false}
             onClick={() => submitPurchase(token)}
-            className="w-full border-2 hover:shadow-md hover:transition transition bg-white rounded-md px-4 py-2 col-span-2"
+            className={classNames(
+              {
+                "cursor-not-allowed opacity-60 bg-slate-300": minting,
+              },
+              {
+                "cursor-not-allowed opacity-60 bg-slate-300 hover:shadow-none":
+                  soldOut,
+              },
+
+              "w-full border-2 hover:shadow-md hover:transition transition bg-white rounded-md px-4 py-2 col-span-2"
+            )}
           >
             {minting ? (
               <>
                 <ActivityIndicator className="h-5 w-5 inline mr-2 animate-spin text-blue-400" />
                 <span className="text-blue-400">Loading</span>
               </>
-            ) : !false ? (
+            ) : !soldOut ? (
               <>
                 <TagIcon className="h-4 inline text-blue-400 mr-2" />
                 <span className="text-blue-400">Mint</span>
@@ -112,7 +117,9 @@ function Card({
             ) : (
               <>
                 <BanIcon className="h-4 inline text-red-400 mr-2" />
-                <span className="text-red-400">Sold Out</span>
+                <span className="text-red-400 opacity-60 bg-slate-300">
+                  Sold Out
+                </span>
               </>
             )}
           </Button>
@@ -143,24 +150,27 @@ export default function Hero({
         <div className="relative px-4 py-4 mx-auto max-w-7xl z-10">
           <div className="lg:grid lg:grid-cols-12 lg:gap-8">
             <div className="px-4 sm:px-6 sm:text-center md:max-w-2xl md:mx-auto lg:col-span-6 lg:text-left lg:flex lg:items-center">
-              <div>
+              <div className="flex flex-col">
                 <h1 className="mt-4 text-4xl font-bold text-black sm:mt-5 lg:mt-6">
                   <span>
                     Create, release, monetise and analyse your NFT collections
                     using
                   </span>{" "}
-                  <span className="text-blue-400">open-format</span>
+                  <span className=" text-blue-500">Open Format</span>
                 </h1>
                 <p className="mt-3 bg-transparent text-slate-900 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
-                  Build your own NFT ecosystem Trustless, permissionless and
-                  collaborative
+                  Build your own NFT ecosystems. Trustless, permissionless and
+                  collaborative.
                 </p>
                 <StyledLink
                   openInNewTab={true}
                   href="https://openformat.simpleweb.co.uk/"
-                  className="mt-8 text-sm text-blue-500 uppercase tracking-wide font-semibold sm:mt-10"
+                  className="text-sm text-blue-500 uppercase tracking-wide font-semibold sm:mt-10"
                 >
-                  Learn more about open format
+                  <div className="flex justify-start sm:justify-center md:justify-center lg:justify-start pt-4 sm:pt-2 items-center">
+                    <PlayIcon className="w-6 mr-2 inline" />
+                    Learn more about open format
+                  </div>
                 </StyledLink>
 
                 <div className="mt-5 w-full sm:mx-auto sm:max-w-lg lg:ml-0">

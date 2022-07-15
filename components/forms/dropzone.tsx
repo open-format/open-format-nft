@@ -42,7 +42,7 @@ export default function Dropzone({
             htmlFor="cover-photo"
             className="block text-sm font-medium text-gray-900"
           >
-            <p>Image, Video, or Audio</p>
+            <p>Image</p>
             <p className="text-xs text-gray-500">
               File types supported: JPEG, PNG MP3
             </p>
@@ -75,7 +75,7 @@ export default function Dropzone({
             htmlFor="cover-photo"
             className="block text-sm font-medium text-gray-900"
           >
-            <p>Image, Video, or Audio</p>
+            <p>Image</p>
             <p className="text-xs text-gray-500">
               File types supported: JPEG, PNG MP3
             </p>

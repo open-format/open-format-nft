@@ -27,9 +27,9 @@ export default function Meta({
     process.env.NEXT_PUBLIC_EXAMPLE_NFT_TOKEN_ADDRESS === tokenId;
 
   return (
-    <div className="border-[1px] mt-4 bg-slate-100 border-slate-200 rounded-lg">
+    <div className="border rounded-md mt-4 bg-slate-100 border-slate-200">
       <div>
-        <p className="text-gray-900 bg-white text-sm font-bold p-6">
+        <p className="text-gray-900 rounded-t-md bg-white text-sm font-bold p-6">
           Description
         </p>
       </div>
@@ -70,7 +70,7 @@ export default function Meta({
           {({ open }) => (
             <div className="border-t divide-y border-slate-200">
               <h3>
-                <Disclosure.Button className="group relative w-full p-6 bg-white flex justify-between items-center text-left">
+                <Disclosure.Button className="group rounded-b-md relative w-full p-6 bg-white flex justify-between items-center text-left">
                   <span className="text-gray-900 text-sm font-bold">
                     Details
                   </span>
