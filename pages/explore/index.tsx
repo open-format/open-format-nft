@@ -82,8 +82,8 @@ export default function Releases() {
   return (
     <>
       <Head>
-        <title>Releases</title>
-        <link rel="icon" href="/favicon.ico" />
+        <title>Explore NFTs | Open Format</title>
+        <link rel="icon" href="/icons/logo_small.png" />
       </Head>
       <div>
         <div className=" my-12 flex justify-center items-center">

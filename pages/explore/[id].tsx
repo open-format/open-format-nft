@@ -12,6 +12,7 @@ import { ethers } from "ethers";
 import PolygonLogo from "components/logo/polygon-logo";
 import ReactTooltip from "react-tooltip";
 import { HeartIcon } from "@heroicons/react/outline";
+import Head from "next/head";
 
 interface Props {
   tokenId: string;
@@ -101,6 +102,10 @@ export default function Release({ tokenId }: Props) {
 
   return (
     <>
+      <Head>
+        <title>NFT | Open Format</title>
+        <link rel="icon" href="/icons/logo_small.png" />
+      </Head>
       <div className="mt-8 max-w-4xl mx-auto px-4 sm:px-6 lg:max-w-6xl lg:px-8">
         {isFreshDataAfterChanging ? (
           <div className="grid grid-cols-12 gap-x-8">
