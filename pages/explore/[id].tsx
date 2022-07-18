@@ -55,8 +55,6 @@ export default function Release({ tokenId }: Props) {
       },
     });
 
-  console.log({ nftData });
-
   const getTransactionHistory = gql`
     query ($tokenId: String!) {
       transactions(where: { token: $tokenId }) {
