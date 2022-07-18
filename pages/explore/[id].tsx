@@ -49,7 +49,13 @@ export default function Release({ tokenId }: Props) {
     useRawRequest({
       query: getTokenDataQuery,
       variables: { tokenId },
+      config: {
+        refetchInterval: (nftData) =>
+          !nftData?.token || nftData?.progress < 100 ? 500 : undefined,
+      },
     });
+
+  console.log({ nftData });
 
   const getTransactionHistory = gql`
     query ($tokenId: String!) {

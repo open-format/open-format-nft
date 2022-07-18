@@ -1075,21 +1075,21 @@
   resolved "https://registry.yarnpkg.com/@simpleweb/open-format-contracts/-/open-format-contracts-0.3.0.tgz#408e880b42d5c9808ed11f3d877162e8c91bc760"
   integrity sha512-Kr1tL7Yegs0shP/49pQcfm+6c450b7SVpf8NGsJjblXetWQpW8crGEuGkHFUkO1MLQyuvUIysRphDUtJPJP0EQ==
 
-"@simpleweb/open-format-react@^0.2.0":
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/@simpleweb/open-format-react/-/open-format-react-0.2.0.tgz#b8c67925ab02795ecc03f1bff2eef00a5880e713"
-  integrity sha512-Q1nLa6503+9krsZUrUCDVVSHGkhqbHvhMQyuIam2OKFZoiXCFDdGPEF/+M+XN14zNJJPoG1oLhh2nmo3vD46nQ==
+"@simpleweb/open-format-react@^0.3.0":
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/@simpleweb/open-format-react/-/open-format-react-0.3.0.tgz#4a4eea47ad41555324055b5b2b561075ecb6847b"
+  integrity sha512-/TSruzdFIjVKnrerL+1FtAzYYZi62DpJT6CBXd9IS5G0hifHI3739TW+VEMevTR+pnrCSIz2t6yLFgl0S03CwQ==
   dependencies:
-    "@simpleweb/open-format" "^0.2.0"
+    "@simpleweb/open-format" "^0.3.0"
     "@web3-onboard/injected-wallets" "^2.0.12"
     "@web3-onboard/react" "^2.2.2"
     "@web3-onboard/walletconnect" "^2.0.5"
     react-query "^3.39.1"
 
-"@simpleweb/open-format@^0.2.0":
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/@simpleweb/open-format/-/open-format-0.2.0.tgz#ba156d6c2f9b8b4b37695df33d18e0c112b2b30b"
-  integrity sha512-S/7yaEhzSaI3g41nE24AnTHM1lxmIhGdwf5nOTFg9bJvfbJ4Z4Bp1wntIE7mk6M1M4zefJ0L702O1U2IN7A4DA==
+"@simpleweb/open-format@^0.3.0":
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/@simpleweb/open-format/-/open-format-0.3.0.tgz#f639f76917f0a064bc23f8e2b06bfd1a33b7e086"
+  integrity sha512-9L8fYiIvm9cowJnzl8gixcSzyWBcYEfv/Rg59tPUa+nJyEiM6ZECenahJ/io+yb9KmbfTWFk14NIpnfV605f5Q==
   dependencies:
     "@simpleweb/open-format-contracts" "^0.3.0"
     graphql "^16.5.0"
