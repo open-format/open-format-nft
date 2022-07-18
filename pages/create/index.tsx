@@ -8,7 +8,6 @@ const Create: NextPage = () => {
     <>
       <Head>
         <title>Create your very own NFT | Open Format</title>
-        <link rel="icon" href="/icons/logo_small.png" />
       </Head>
       <div className="grid grid-auto lg:grid-cols-12">
         <div className="px-12 lg:col-start-4 lg:col-end-10 mt-12 col-span-6">
