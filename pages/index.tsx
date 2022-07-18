@@ -74,7 +74,7 @@ const resources = [
       href: "https://discord.com/invite/8WV52tVqbZ",
     },
     description:
-      "Builiding a web 3 community that we can all be proud of, come say hi whatever it may be we're all here to help.",
+      "Builiding a web3 community that we can all be proud of, come say hi whatever it may be we're all here to help.",
     imageUrl: "/images/discord.jpg",
     alt: "",
   },
