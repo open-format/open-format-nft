@@ -96,14 +96,14 @@ const Header: React.FC = () => {
                       <a
                         key={item.name}
                         href={item.href}
-                        className="text-gray-900 hover:bg-gray-50 hover:text-gray-900 rounded-md py-2 px-3 inline-flex items-center text-sm font-medium"
+                        className="text-gray-900 hover:bg-gray-50 hover:text-gray-900 rounded-md py-2 px-3 inline-flex items-center text-sm font-medium "
                         aria-current={item.current ? "page" : undefined}
                       >
                         {item.name}
                       </a>
                     ))}
                   </nav>
-                  <ConnectButton className="flex-shrink-0 bg-blue-500 rounded-md  p-2 text-white hover:text-gray-200 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" />
+                  <ConnectButton className="flex-shrink-0 rounded-md  p-2 text-white hover:text-gray-200 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 bg-blue-600 hover:bg-blue-700" />
                   {/* Profile dropdown */}
                   <Menu as="div" className="flex-shrink-0 relative ml-4">
                     <div></div>
