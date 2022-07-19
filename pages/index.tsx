@@ -113,10 +113,6 @@ const Home: NextPage = () => {
 
   return (
     <>
-      <Head>
-        <title>Open Format NFT</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
       {exampleNft && (
         <Hero {...{ name, creator, image, totalSold, maxSupply, token }} />
       )}

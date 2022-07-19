@@ -108,7 +108,7 @@ export default function CreateReleaseForm() {
         }),
         {
           loading:
-            "Uploading your creation to the blockhain, please check your wallet for further instructions",
+            "Uploading your creation to the blockchain, please check your wallet for further instructions",
           success: "Contract deployed",
           error: "Upload error",
         }
