@@ -1,4 +1,15 @@
 {
-  "title": "Hello world",
-  "variable-example": "Using a variable {{count}}"
+  "header": {
+    "title": "Open Format NFT",
+    "navigation": {
+      "itemOne": {
+        "name": "Explore",
+        "href": "/explore"
+      },
+      "itemTwo": {
+        "name": "Create",
+        "href": "/create"
+      }
+    }
+  }
 }

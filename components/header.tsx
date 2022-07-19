@@ -7,24 +7,34 @@ import Link from "next/link";
 import { ConnectButton } from "@simpleweb/open-format-react";
 import ReactTooltip from "react-tooltip";
 import useTranslation from "next-translate/useTranslation";
-
-const navigation = [
-  { name: "Explore", href: "/explore", current: false },
-  { name: "Create", href: "/create", current: false },
-];
+import Button from "./button";
 
 const Header: React.FC = () => {
-  const [isMounted, setIsMounted] = useState<boolean>(false); // Need this for the react-tooltip
+  const [isMounted, setIsMounted] = useState<boolean>(false);
   const [tooltip, showTooltip] = useState<boolean>(false);
 
   const { t } = useTranslation("common");
-  const title = t("title");
-  console.log(title);
-  console.log(t);
 
   useEffect(() => {
     setIsMounted(true);
   }, []);
+
+  const navigation = [
+    {
+      name: t("header.navigation.itemOne.name"),
+      href: "/explore",
+      current: false,
+    },
+    {
+      name: t("header.navigation.itemTwo.name"),
+      href: "/create",
+      current: false,
+    },
+  ];
+
+  const navItem = t("header.navigation.itemTwo.name");
+  console.log(navItem);
+
   return (
     <>
       {/* When the mobile menu is open, add `overflow-hidden` to the `body` element to prevent double scrollbars */}
@@ -35,7 +45,7 @@ const Header: React.FC = () => {
               <div className="items-center h-16 flex justify-between">
                 <Link href="/">
                   <a className="flex cursor-pointer items-center p-6 font-sans font-bold text-lg lg:text-2xl">
-                    <h1>{t("title")}</h1>
+                    <h1>{t("header.title")}</h1>
                   </a>
                 </Link>
                 <div className="px-2 flex flex-1 items-center justify-center">
@@ -108,7 +118,7 @@ const Header: React.FC = () => {
                       </a>
                     ))}
                   </nav>
-                  <ConnectButton className="flex-shrink-0 rounded-md  p-2 text-white hover:text-gray-200 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 bg-blue-600 hover:bg-blue-700" />
+                  <ConnectButton className="flex-shrink-0 rounded-md  p-2 text-white hover:text-gray-200 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 bg-blue-600" />
                   {/* Profile dropdown */}
                   <Menu as="div" className="flex-shrink-0 relative ml-4">
                     <div></div>
@@ -154,13 +164,6 @@ const Header: React.FC = () => {
                   <div className="flex-shrink-0">
                     <ConnectButton />
                   </div>
-
-                  <button
-                    type="button"
-                    className="ml-auto flex-shrink-0 bg-white rounded-full p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                  >
-                    <span className="sr-only">View notifications</span>
-                  </button>
                 </div>
               </div>
             </Disclosure.Panel>
