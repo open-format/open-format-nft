@@ -49,13 +49,7 @@ export default function Releases() {
     }
   `;
 
-  const {
-    data: historicTokens,
-    isFetchedAfterMount,
-    isFetching,
-    isFetched,
-    isLoading,
-  } = useRawRequest({
+  const { data: historicTokens } = useRawRequest({
     query: rawQuery,
     variables: { factory_id: process.env.NEXT_PUBLIC_FACTORY_ID as string },
   });
@@ -79,9 +73,6 @@ export default function Releases() {
           description,
           creator,
           tokenId,
-          isFetched,
-          isFetching,
-          isFetchedAfterMount,
         }}
       />
     );
