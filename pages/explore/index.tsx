@@ -54,6 +54,7 @@ export default function Releases() {
     isFetchedAfterMount,
     isFetching,
     isFetched,
+    isLoading,
   } = useRawRequest({
     query: rawQuery,
     variables: { factory_id: process.env.NEXT_PUBLIC_FACTORY_ID as string },
@@ -69,6 +70,10 @@ export default function Releases() {
 
     const creator = token.creator.id as string;
     const tokenId = token.id;
+    // console.log({ isFetched });
+    // console.log({ isFetchedAfterMount });
+    // console.log({ isFetching });
+    console.log({ isLoading });
 
     return (
       <ItemOverview
