@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import StyledLink from "components/styled-link";
 import { useMint, useWallet } from "@simpleweb/open-format-react";
 import toast from "react-hot-toast";
@@ -40,6 +40,8 @@ function Card({
   maxSupply: string;
   totalSold: string;
 }) {
+  const [heroImageIsLoaded, setHeroImageIsLoaded] = useState(false);
+  const [heroIconIsLoaded, setHeroIconIsLoaded] = useState(false);
   const { mint, isLoading: minting } = useMint();
   const router = useRouter();
   const { isConnected } = useWallet();
@@ -64,20 +66,33 @@ function Card({
   return (
     <div className="mt-16 sm:mt-24 lg:mt-0 lg:col-span-6">
       <div className="flex flex-col sm:max-w-md shadow-md rounded-lg shadow-slate-500 sm:w-full sm:mx-auto sm:overflow-hidden">
-        <div
+        <img
           onClick={() => router.push(`/explore/${token}`)}
-          className="md:max-h-96"
-        >
-          <img src={image} alt="" className="object-cover cursor-pointer" />
-        </div>
+          onLoad={() => setHeroImageIsLoaded(true)}
+          src={image}
+          alt=""
+          className={classNames(
+            {
+              "animate-pulse": !heroImageIsLoaded,
+            },
+            "object-fit h-[455px] cursor-pointer"
+          )}
+        />
+
         <div className="py-4 px-2 flex justify-start items-center bg-white">
-          <div className="pb-2">
-            <img
-              src={image}
-              alt=""
-              className="object-cover border-2 rounded-full h-12 w-12 shadow-md shadow-slate-400 border-white"
-            />
-          </div>
+          <img
+            onClick={() => router.push(`/explore/${token}`)}
+            onLoad={() => setHeroIconIsLoaded(true)}
+            src={image}
+            alt=""
+            className={classNames(
+              {
+                "animate-pulse": !heroIconIsLoaded,
+              },
+              "object-cover border-2 cursor-pointer rounded-full h-12 w-12 shadow-md shadow-slate-400 border-white"
+            )}
+          />
+
           <div className="px-2">
             <h2 className="text-gray-700 font-bold text-sm pr-4">{name}</h2>
             <StyledLink
@@ -219,7 +234,7 @@ export default function Hero({
             />
           </div>
         </div>
-        <Backdrop image="/images/drip.jpeg" />
+        <Backdrop {...{ image }} />
       </div>
     </>
   );

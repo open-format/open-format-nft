@@ -62,7 +62,6 @@ export default function Releases() {
 
   function renderToken(token: Token) {
     const description = getMetaValue(token.properties, "description") as string;
-
     const name = getMetaValue(token.properties, "name") as string;
     const image = transformURL(
       getMetaValue(token.properties, "image") as string
@@ -70,10 +69,6 @@ export default function Releases() {
 
     const creator = token.creator.id as string;
     const tokenId = token.id;
-    // console.log({ isFetched });
-    // console.log({ isFetchedAfterMount });
-    // console.log({ isFetching });
-    console.log({ isLoading });
 
     return (
       <ItemOverview
