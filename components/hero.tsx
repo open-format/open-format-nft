@@ -1,6 +1,6 @@
 import React from "react";
 import StyledLink from "components/styled-link";
-import { useMint } from "@simpleweb/open-format-react";
+import { useMint, useWallet } from "@simpleweb/open-format-react";
 import toast from "react-hot-toast";
 import Button from "./button";
 import ActivityIndicator from "./activity-indicator";
@@ -9,6 +9,7 @@ import { useRouter } from "next/router";
 import { ethers } from "ethers";
 import { addressSplitter } from "helpers/address-splitter";
 import classNames from "classnames";
+import { LightningBoltIcon } from "@heroicons/react/outline";
 
 function Backdrop({ image }: { image: string }) {
   return (
@@ -41,6 +42,7 @@ function Card({
 }) {
   const { mint, isLoading: minting } = useMint();
   const router = useRouter();
+  const { isConnected } = useWallet();
   const submitPurchase = async (address: string) => {
     try {
       if (!ethers.utils.isAddress(address)) {
@@ -94,7 +96,12 @@ function Card({
             onClick={() => submitPurchase(token)}
             className={classNames(
               {
-                "cursor-not-allowed opacity-60 bg-slate-300": minting,
+                "cursor-not-allowed opacity-60 bg-slate-300 hover:shadow-none":
+                  !isConnected,
+              },
+              {
+                "cursor-not-allowed opacity-60 bg-slate-300 hover:shadow-none":
+                  minting,
               },
               {
                 "cursor-not-allowed opacity-60 bg-slate-300 hover:shadow-none":
@@ -104,7 +111,14 @@ function Card({
               "w-full border-2 hover:shadow-md hover:transition transition bg-white rounded-md px-4 py-2 col-span-2"
             )}
           >
-            {minting ? (
+            {!isConnected ? (
+              <>
+                <LightningBoltIcon className="h-4 inline text-slate-700 mr-2" />
+                <span className="text-slate-800 opacity-60 font-bold">
+                  Connect your wallet
+                </span>
+              </>
+            ) : minting ? (
               <>
                 <ActivityIndicator className="h-5 w-5 inline mr-2 animate-spin text-blue-400" />
                 <span className="text-blue-400">Loading</span>

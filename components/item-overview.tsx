@@ -36,7 +36,7 @@ export default function ItemOverview({
       <Card>
         {isDisplayed ? (
           <div className="relative">
-            <div className="flex flex-2 border border-slate-300 flex-col">
+            <div className="flex flex-2 border-b border-slate-300 flex-col">
               <img src={image} alt="" className="object-cover h-[400px]" />
               <img
                 src={image}

@@ -1,10 +1,12 @@
 import {
   BanIcon,
   DotsVerticalIcon,
+  LightningBoltIcon,
   RefreshIcon,
   ShareIcon,
   TagIcon,
-} from "@heroicons/react/solid";
+} from "@heroicons/react/outline";
+import { useWallet } from "@simpleweb/open-format-react";
 import classNames from "classnames";
 import ActivityIndicator from "components/activity-indicator";
 import Button from "components/button";
@@ -39,6 +41,7 @@ export default function Puchase({
 }: Props) {
   const [isMounted, setIsMounted] = useState(false); // Need this for the react-tooltip
   const [tooltip, showTooltip] = useState(false);
+  const { isConnected } = useWallet();
 
   useEffect(() => {
     setIsMounted(true);
@@ -168,7 +171,12 @@ export default function Puchase({
             onClick={() => submitPurchase(tokenId)}
             className={classNames(
               {
-                "cursor-not-allowed opacity-60 bg-slate-300": minting,
+                "cursor-not-allowed opacity-60 bg-slate-300 hover:shadow-none":
+                  !isConnected,
+              },
+              {
+                "cursor-not-allowed opacity-60 bg-slate-300 hover:shadow-none":
+                  minting,
               },
               {
                 "cursor-not-allowed opacity-60 bg-slate-300 hover:shadow-none":
@@ -178,7 +186,14 @@ export default function Puchase({
               "w-full border-2 hover:shadow-md hover:transition transition bg-white rounded-md px-4 py-2 col-span-2"
             )}
           >
-            {minting ? (
+            {!isConnected ? (
+              <>
+                <LightningBoltIcon className="h-4 inline text-slate-700 mr-2" />
+                <span className="text-slate-800 opacity-60 font-bold">
+                  Connect your wallet
+                </span>
+              </>
+            ) : minting ? (
               <>
                 <ActivityIndicator className="h-5 w-5 inline mr-2 animate-spin text-blue-400" />
                 <span className="text-blue-400">Loading</span>
@@ -191,7 +206,9 @@ export default function Puchase({
             ) : (
               <>
                 <BanIcon className="h-4 inline text-red-400 mr-2" />
-                <span className="text-red-400 ">Sold Out</span>
+                <span className="text-red-400 opacity-60 bg-slate-300">
+                  Sold Out
+                </span>
               </>
             )}
           </Button>
