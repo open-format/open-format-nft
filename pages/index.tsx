@@ -57,7 +57,10 @@ const resources = [
   {
     title: "Open Format documentation",
     href: "https://docs.openformat.simpleweb.co.uk/protocol-overview/overview",
-    category: { name: "Documentation", href: "#" },
+    category: {
+      name: "Documentation",
+      href: "https://docs.openformat.simpleweb.co.uk/protocol-overview/overview",
+    },
     description:
       "Enabling developers to build decentralised marketplaces and factories for digital assets in the metaverse.",
     imageUrl: "/images/nft-factory.png",
@@ -66,9 +69,12 @@ const resources = [
   {
     title: "Our Discord",
     href: "https://discord.com/invite/8WV52tVqbZ",
-    category: { name: "Community", href: "#" },
+    category: {
+      name: "Community",
+      href: "https://discord.com/invite/8WV52tVqbZ",
+    },
     description:
-      "Builiding a web 3 community that we can all be proud of, come say hi whatever it may be we're all here to help.",
+      "Builiding a web3 community that we can all be proud of, come say hi whatever it may be we're all here to help.",
     imageUrl: "/images/discord.jpg",
     alt: "",
   },
