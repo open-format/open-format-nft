@@ -12,7 +12,6 @@ import { gql } from "graphql-request";
 import getMetaValue from "helpers/get-meta-value";
 import transformURL from "helpers/transform-url";
 import type { NextPage } from "next";
-import Head from "next/head";
 
 const actions = [
   {

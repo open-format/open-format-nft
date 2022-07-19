@@ -6,6 +6,7 @@ import classNames from "classnames";
 import Link from "next/link";
 import { ConnectButton } from "@simpleweb/open-format-react";
 import ReactTooltip from "react-tooltip";
+import useTranslation from "next-translate/useTranslation";
 
 const navigation = [
   { name: "Explore", href: "/explore", current: false },
@@ -16,13 +17,17 @@ const Header: React.FC = () => {
   const [isMounted, setIsMounted] = useState<boolean>(false); // Need this for the react-tooltip
   const [tooltip, showTooltip] = useState<boolean>(false);
 
+  const { t } = useTranslation("common");
+  const title = t("title");
+  console.log(title);
+  console.log(t);
+
   useEffect(() => {
     setIsMounted(true);
   }, []);
   return (
     <>
       {/* When the mobile menu is open, add `overflow-hidden` to the `body` element to prevent double scrollbars */}
-
       <Disclosure as="header" className="bg-white shadow">
         {({ open }) => (
           <>
@@ -30,7 +35,7 @@ const Header: React.FC = () => {
               <div className="items-center h-16 flex justify-between">
                 <Link href="/">
                   <a className="flex cursor-pointer items-center p-6 font-sans font-bold text-lg lg:text-2xl">
-                    <h1>Open Format NFT</h1>
+                    <h1>{t("title")}</h1>
                   </a>
                 </Link>
                 <div className="px-2 flex flex-1 items-center justify-center">
