@@ -194,9 +194,28 @@
         "key": "Total Sold"
       }
     },
-
     "exampleNft": {
       "artistName": "Distinct Mind"
     }
+  },
+  "purchases": {
+    "srHeading": "NFT",
+    "exampleNft": {
+      "heading": "Owned By",
+      "owner": "Distinct Mind"
+    },
+    "nft": {
+      "heading": "Owned By"
+    },
+    "cardHeading": "Mint Price",
+    "mintingButtonState": {
+      "notConnected": "Connect your wallet",
+      "loading": "Loading",
+      "initial": "Mint",
+      "soldOut": "Sold Out"
+    }
+  },
+  "tooltip": {
+    "message": "Coming Soon"
   }
 }
