@@ -1,4 +1,61 @@
 {
+  "app": {
+    "head": {
+      "title": "Open Format NFT"
+    }
+  },
+  "create": {
+    "head": {
+      "title": "Create your very own NFT | Open Format"
+    },
+    "title": "Create New NFT"
+  },
+  "nft": {
+    "head": {
+      "title": "| Open Format"
+    }
+  },
+  "explore": {
+    "head": {
+      "title": "Explore NFTs | Open Format"
+    },
+    "title": "Explore Collections",
+    "navigation": {
+      "itemOne": {
+        "name": "Trending",
+        "value": "trending"
+      },
+      "itemTwo": {
+        "name": "Top",
+        "value": "top"
+      },
+      "itemThree": {
+        "name": "Collectables",
+        "value": "collectable"
+      },
+      "itemFour": {
+        "name": "Art",
+        "value": "art"
+      },
+
+      "itemFive": {
+        "name": "Photography",
+        "value": "photography"
+      },
+      "itemSix": {
+        "name": "Articles",
+        "value": "article"
+      },
+      "itemSevern": {
+        "name": "Sports",
+        "value": "sport"
+      },
+      "itemEight": {
+        "name": "Music",
+        "value": "music"
+      }
+    }
+  },
   "header": {
     "title": "Open Format NFT",
     "navigation": {
@@ -221,46 +278,5 @@
   "resources": {
     "title": "Resources",
     "subTitle": "Here are some links to help you get started."
-  },
-  "explore": {
-    "head": {
-      "title": "Explore NFTs | Open Format"
-    },
-    "title": "Explore Collections",
-    "navigation": {
-      "itemOne": {
-        "name": "Trending",
-        "value": "trending"
-      },
-      "itemTwo": {
-        "name": "Top",
-        "value": "top"
-      },
-      "itemThree": {
-        "name": "Collectables",
-        "value": "collectable"
-      },
-      "itemFour": {
-        "name": "Art",
-        "value": "art"
-      },
-
-      "itemFive": {
-        "name": "Photography",
-        "value": "photography"
-      },
-      "itemSix": {
-        "name": "Articles",
-        "value": "article"
-      },
-      "itemSevern": {
-        "name": "Sports",
-        "value": "sport"
-      },
-      "itemEight": {
-        "name": "Music",
-        "value": "music"
-      }
-    }
   }
 }

@@ -13,6 +13,7 @@ import PolygonLogo from "components/logo/polygon-logo";
 import ReactTooltip from "react-tooltip";
 import { HeartIcon } from "@heroicons/react/outline";
 import Head from "next/head";
+import useTranslation from "next-translate/useTranslation";
 
 interface Props {
   tokenId: string;
@@ -21,6 +22,7 @@ interface Props {
 export default function Release({ tokenId }: Props) {
   const [isMounted, setIsMounted] = useState<boolean>(false); // Need this for the react-tooltip
   const [tooltip, showTooltip] = useState<boolean>(false);
+  const { t } = useTranslation("common");
 
   useEffect(() => {
     setIsMounted(true);
@@ -103,7 +105,9 @@ export default function Release({ tokenId }: Props) {
   return (
     <>
       <Head>
-        <title>{name} | Open Format</title>
+        <title>
+          {name} {t("nft.head.title")}
+        </title>
       </Head>
       <div className="mt-8 max-w-4xl mx-auto px-4 sm:px-6 lg:max-w-6xl lg:px-8">
         {isFreshDataAfterChanging ? (
