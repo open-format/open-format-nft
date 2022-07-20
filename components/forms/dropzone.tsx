@@ -1,5 +1,6 @@
 import classNames from "classnames";
 import UploadPreview from "components/preview";
+import useTranslation from "next-translate/useTranslation";
 import { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { useFormContext } from "react-hook-form";
@@ -26,6 +27,7 @@ export default function Dropzone({
     },
     ...options,
   });
+  const { t } = useTranslation("common");
 
   function handleImageEnterAndExit() {
     resetField("image");
@@ -42,9 +44,9 @@ export default function Dropzone({
             htmlFor="cover-photo"
             className="block text-sm font-medium text-gray-900"
           >
-            <p>Image</p>
+            <p>{t("forms.deploy.labels.image.heading")}</p>
             <p className="text-xs text-gray-500">
-              File types supported: JPEG, PNG MP3
+              {t("forms.deploy.labels.image.subHeading")}
             </p>
           </label>
 
@@ -75,9 +77,9 @@ export default function Dropzone({
             htmlFor="cover-photo"
             className="block text-sm font-medium text-gray-900"
           >
-            <p>Image</p>
+            <p>{t("forms.deploy.labels.image.heading")}</p>
             <p className="text-xs text-gray-500">
-              File types supported: JPEG, PNG MP3
+              {t("forms.deploy.labels.image.subHeading")}
             </p>
           </label>
 
@@ -110,11 +112,13 @@ export default function Dropzone({
                   htmlFor="image"
                   className="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
                 >
-                  <span>Upload a file or drag and drop</span>
+                  <span>{t("forms.deploy.labels.image.internalCopy")}</span>
                   <input {...getInputProps({ onDrop })} />
                 </label>
               </div>
-              <p className="text-xs text-gray-500">JPEG, PNG, MP3 Max 20MB</p>
+              <p className="text-xs text-gray-500">
+                {t("forms.deploy.labels.image.supportedFileTypes")}
+              </p>
             </div>
           </div>
         </div>

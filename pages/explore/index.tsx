@@ -95,8 +95,8 @@ export default function Releases() {
       value: t("explore.navigation.itemSix.value"),
     },
     {
-      name: t("explore.navigation.itemSevern.name"),
-      value: t("explore.navigation.itemSevern.value"),
+      name: t("explore.navigation.itemSeven.name"),
+      value: t("explore.navigation.itemSeven.value"),
     },
     {
       name: t("explore.navigation.itemEight.name"),

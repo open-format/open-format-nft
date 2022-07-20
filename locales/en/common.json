@@ -46,7 +46,7 @@
         "name": "Articles",
         "value": "article"
       },
-      "itemSevern": {
+      "itemSeven": {
         "name": "Sports",
         "value": "sport"
       },
@@ -140,10 +140,10 @@
           "subHeading": "The chain you would like to use"
         },
         "image": {
-          "heading": "",
-          "subHeading": "",
-          "internalCopy": "",
-          "supportedFileTypes": ""
+          "heading": "Image",
+          "subHeading": "File types supported: JPEG, PNG MP3",
+          "internalCopy": "Upload a file or drag and drop",
+          "supportedFileTypes": "JPEG, PNG, MP3 Max 20MB"
         },
         "bolckchain": {
           "heading": "",
