@@ -1,22 +1,27 @@
 import StyledLink from "./styled-link";
-import {
-  DISCORD_URL,
-  OPENFORMAT_URL,
-  INSTAGRAM_URL,
-  TWITTER_URL,
-} from "../constants";
+import useTranslation from "next-translate/useTranslation";
 
 const Footer: React.FC = () => {
+  const { t } = useTranslation("common");
   const navigation = {
     main: [
-      { name: "Docs", href: OPENFORMAT_URL },
-      { name: "Explore", href: "/explore" },
-      { name: "Create", href: "/create" },
+      {
+        name: t("footer.navigation.itemOne.name"),
+        href: t("footer.navigation.itemOne.href"),
+      },
+      {
+        name: t("footer.navigation.itemTwo.name"),
+        href: t("footer.navigation.itemTwo.href"),
+      },
+      {
+        name: t("footer.navigation.itemThree.name"),
+        href: t("footer.navigation.itemThree.href"),
+      },
     ],
     social: [
       {
-        name: "Instagram",
-        href: INSTAGRAM_URL,
+        name: t("footer.navigation.socialOne.name"),
+        href: t("footer.navigation.socialOne.href"),
         icon: (props: any) => (
           <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
             <path
@@ -28,8 +33,8 @@ const Footer: React.FC = () => {
         ),
       },
       {
-        name: "Discord",
-        href: DISCORD_URL,
+        name: t("footer.navigation.socialTwo.name"),
+        href: t("footer.navigation.socialTwo.href"),
         icon: (props: any) => (
           <svg
             width="31"
@@ -54,8 +59,8 @@ const Footer: React.FC = () => {
         ),
       },
       {
-        name: "Twitter",
-        href: TWITTER_URL,
+        name: t("footer.navigation.socialThree.name"),
+        href: t("footer.navigation.socialThree.href"),
         icon: (props: any) => (
           <svg fill="currentColor" viewBox="0 0 24 24" {...props}>
             <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />
@@ -97,7 +102,7 @@ const Footer: React.FC = () => {
             ))}
           </div>
           <p className="mt-8 text-center text-base text-gray-400">
-            &copy; Powered by Simpleweb.
+            &copy; {t("footer.navigation.companyDetails")}
           </p>
         </div>
       </footer>

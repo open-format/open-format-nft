@@ -4,6 +4,7 @@ import StyledLink from "components/styled-link";
 import { gql } from "graphql-request";
 import getMetaValue from "helpers/get-meta-value";
 import transformURL from "helpers/transform-url";
+import useTranslation from "next-translate/useTranslation";
 import Head from "next/head";
 import { useEffect, useState } from "react";
 import ReactTooltip from "react-tooltip";
@@ -16,20 +17,10 @@ type Token = {
   properties: Property[];
 };
 
-const navigation = [
-  { name: "Trending", href: "/" },
-  { name: "Top", href: "/about" },
-  { name: "Art", href: "/art" },
-  { name: "Collectables", href: "/events" },
-  { name: "Music", href: "/articles" },
-  { name: "Photography", href: "/contribute-art" },
-  { name: "Articles", href: "/contribute-audio" },
-  { name: "Sports", href: "/contribute-event" },
-];
-
 export default function Releases() {
   const [isMounted, setIsMounted] = useState(false); // Need this for the react-tooltip
   const [tooltip, showTooltip] = useState(false);
+  const { t } = useTranslation("common");
   useEffect(() => {
     setIsMounted(true);
   }, []);
@@ -78,33 +69,64 @@ export default function Releases() {
       />
     );
   }
+  const navigation = [
+    {
+      name: t("explore.navigation.itemOne.name"),
+      value: t("explore.navigation.itemOne.value"),
+    },
+    {
+      name: t("explore.navigation.itemTwo.name"),
+      value: t("explore.navigation.itemTwo.value"),
+    },
+    {
+      name: t("explore.navigation.itemThree.name"),
+      value: t("explore.navigation.itemThree.value"),
+    },
+    {
+      name: t("explore.navigation.itemFour.name"),
+      value: t("explore.navigation.itemFour.value"),
+    },
+    {
+      name: t("explore.navigation.itemFive.name"),
+      value: t("explore.navigation.itemFive.value"),
+    },
+    {
+      name: t("explore.navigation.itemSix.name"),
+      value: t("explore.navigation.itemSix.value"),
+    },
+    {
+      name: t("explore.navigation.itemSeven.name"),
+      value: t("explore.navigation.itemSeven.value"),
+    },
+    {
+      name: t("explore.navigation.itemEight.name"),
+      value: t("explore.navigation.itemEight.value"),
+    },
+  ];
 
   return (
     <>
       <Head>
-        <title>Explore NFTs | Open Format</title>
+        <title>{t("explore.head.title")}</title>
       </Head>
       <div>
         <div className=" my-12 flex justify-center items-center">
           <div className="flex flex-col justify-center items-center">
             <h1 className="text-5xl font-bold tracking-tight text-gray-900">
-              Explore Collections
+              {t("explore.title")}
             </h1>
           </div>
         </div>
         <nav aria-label="Top">
           <div className="w-full py-6 flex items-center justify-center">
             <div className="flex items-center">
-              <a href="#">
-                <span className="sr-only">Workflow</span>
-              </a>
               <div className="hidden space-x-8 lg:block">
                 {navigation.map((link) => (
                   <StyledLink
                     key={link.name}
                     href={""}
                     data-for={"categories"}
-                    data-tip={"Coming soon"}
+                    data-tip={t("tooltip.message")}
                     disabled={true}
                     className="cursor-not-allowed text-base font-medium text-slate-500 hover:text-slate-900"
                     onMouseEnter={() => showTooltip(true)}
@@ -133,7 +155,7 @@ export default function Releases() {
                 key={link.name}
                 href={""}
                 data-for={"categories-mobile"}
-                data-tip={"Coming soon"}
+                data-tip={t("tooltip.message")}
                 disabled={true}
                 onMouseEnter={() => showTooltip(true)}
                 onMouseLeave={() => {

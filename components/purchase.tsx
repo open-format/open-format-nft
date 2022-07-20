@@ -14,6 +14,7 @@ import StyledLink from "components/styled-link";
 import { ethers } from "ethers";
 import { addressSplitter } from "helpers/address-splitter";
 import useMaticPriceCalculation from "hooks/useMaticPriceCalculation";
+import useTranslation from "next-translate/useTranslation";
 import React, { useEffect, useState } from "react";
 import ReactTooltip from "react-tooltip";
 import PolygonLogo from "./logo/polygon-logo";
@@ -49,7 +50,7 @@ export default function Puchase({
   const formattedPrice = price
     ? ethers.utils.formatEther(price.toString())
     : "";
-
+  const { t } = useTranslation("common");
   const convertedPrice = useMaticPriceCalculation(parseFloat(formattedPrice));
   const soldOut = parseInt(maxSupply) === parseInt(totalSold);
   const isExampleNftAddress =
@@ -57,7 +58,7 @@ export default function Puchase({
 
   return (
     <>
-      <h2 className="sr-only">NFT</h2>
+      <h2 className="sr-only">{t("purchases.srHeading")}</h2>
       <div>
         <div className="flex justify-between items-center pb-6">
           <h1 className="font-extrabold text-2xl md:text-3xl">{name}</h1>
@@ -66,7 +67,7 @@ export default function Puchase({
               type="button"
               className="flex cursor-not-allowed justify-center items-center p-4 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 "
               data-for={"buttons"}
-              data-tip={"Coming soon"}
+              data-tip={t("tooltip.message")}
               onMouseOver={() => showTooltip(true)}
               onMouseLeave={() => {
                 showTooltip(false);
@@ -82,7 +83,7 @@ export default function Puchase({
               type="button"
               className="cursor-not-allowed -ml-px flex justify-center p-4 items-center border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 "
               data-for={"buttons"}
-              data-tip={"Coming soon"}
+              data-tip={t("tooltip.message")}
               onMouseOver={() => showTooltip(true)}
               onMouseLeave={() => {
                 showTooltip(false);
@@ -98,7 +99,7 @@ export default function Puchase({
               type="button"
               className="cursor-not-allowed -ml-px flex justify-center items-center pl-5 pr-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1"
               data-for={"buttons"}
-              data-tip={"Coming soon"}
+              data-tip={t("tooltip.message")}
               onMouseOver={() => showTooltip(true)}
               onMouseLeave={() => {
                 showTooltip(false);
@@ -124,19 +125,19 @@ export default function Puchase({
         <div className="py-4">
           {isExampleNftAddress ? (
             <>
-              <p className="inline">Owned By </p>
+              <p className="inline">{t("purchases.exampleNft.heading")}</p>
 
               <StyledLink
                 openInNewTab={true}
                 href={`${process.env.NEXT_PUBLIC_EXAMPLE_NFT_LINK}`}
                 className="text-blue-500"
               >
-                Distinct Mind
+                {t("purchases.exampleNft.owner")}
               </StyledLink>
             </>
           ) : (
             <p>
-              Owned By{" "}
+              {t("purchases.nft.heading")}{" "}
               <StyledLink
                 openInNewTab={true}
                 href={`${process.env.NEXT_PUBLIC_POLYGON_SCAN}/address/${createdBy}`}
@@ -150,7 +151,7 @@ export default function Puchase({
       </div>
       <div className="grid bg-slate-50 lg:grid-cols-4 border border-b-slate-200 rounded-md">
         <div className="lg:col-span-7 p-4">
-          <p>Mint Price</p>
+          <p>{t("purchases.cardHeading")}</p>
           <div className="flex items-center pt-2">
             <PolygonLogo />
 
@@ -190,24 +191,28 @@ export default function Puchase({
               <>
                 <LightningBoltIcon className="h-4 inline text-slate-700 mr-2" />
                 <span className="text-slate-800 opacity-60 font-bold">
-                  Connect your wallet
+                  {t("purchases.mintingButtonState.notConnected")}
                 </span>
               </>
             ) : minting ? (
               <>
                 <ActivityIndicator className="h-5 w-5 inline mr-2 animate-spin text-blue-400" />
-                <span className="text-blue-400">Loading</span>
+                <span className="text-blue-400">
+                  {t("purchases.mintingButtonState.loading")}
+                </span>
               </>
             ) : !soldOut ? (
               <>
                 <TagIcon className="h-4 inline text-blue-400 mr-2" />
-                <span className="text-blue-400">Mint</span>
+                <span className="text-blue-400">
+                  {t("purchases.mintingButtonState.initial")}
+                </span>
               </>
             ) : (
               <>
                 <BanIcon className="h-4 inline text-red-400 mr-2" />
                 <span className="text-red-400 opacity-60 bg-slate-300">
-                  Sold Out
+                  {t("purchases.mintingButtonState.soldOut")}
                 </span>
               </>
             )}

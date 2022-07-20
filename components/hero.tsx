@@ -10,6 +10,7 @@ import { ethers } from "ethers";
 import { addressSplitter } from "helpers/address-splitter";
 import classNames from "classnames";
 import { LightningBoltIcon } from "@heroicons/react/outline";
+import useTranslation from "next-translate/useTranslation";
 
 function Backdrop({ image }: { image: string }) {
   return (
@@ -43,6 +44,7 @@ function Card({
   const { mint, isLoading: minting } = useMint();
   const router = useRouter();
   const { isConnected } = useWallet();
+  const { t } = useTranslation("common");
   const submitPurchase = async (address: string) => {
     try {
       if (!ethers.utils.isAddress(address)) {
@@ -115,24 +117,28 @@ function Card({
               <>
                 <LightningBoltIcon className="h-4 inline text-slate-700 mr-2" />
                 <span className="text-slate-800 opacity-60 font-bold">
-                  Connect your wallet
+                  {t("hero.mintingButtonState.notConnected")}
                 </span>
               </>
             ) : minting ? (
               <>
                 <ActivityIndicator className="h-5 w-5 inline mr-2 animate-spin text-blue-400" />
-                <span className="text-blue-400">Loading</span>
+                <span className="text-blue-400">
+                  {t("hero.mintingButtonState.loading")}
+                </span>
               </>
             ) : !soldOut ? (
               <>
                 <TagIcon className="h-4 inline text-blue-400 mr-2" />
-                <span className="text-blue-400">Mint</span>
+                <span className="text-blue-400">
+                  {t("hero.mintingButtonState.initial")}
+                </span>
               </>
             ) : (
               <>
                 <BanIcon className="h-4 inline text-red-400 mr-2" />
                 <span className="text-red-400 opacity-60 bg-slate-300">
-                  Sold Out
+                  {t("hero.mintingButtonState.soldOut")}
                 </span>
               </>
             )}
@@ -158,6 +164,7 @@ export default function Hero({
   maxSupply: string;
   totalSold: string;
 }) {
+  const { t } = useTranslation("common");
   return (
     <>
       <div className="relative overflow-hidden py-12">
@@ -166,15 +173,13 @@ export default function Hero({
             <div className="px-4 sm:px-6 sm:text-center md:max-w-2xl md:mx-auto lg:col-span-6 lg:text-left lg:flex lg:items-center">
               <div className="flex flex-col">
                 <h1 className="mt-4 text-4xl font-bold text-black sm:mt-5 lg:mt-6">
-                  <span>
-                    Create, release, monetise and analyse your NFT collections
-                    using
-                  </span>{" "}
-                  <span className=" text-blue-500">Open Format</span>
+                  <span>{t("hero.title")}</span>{" "}
+                  <span className=" text-blue-500">
+                    {t("hero.titleBoldColor")}
+                  </span>
                 </h1>
                 <p className="mt-3 bg-transparent text-slate-900 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
-                  Build your own NFT ecosystems. Trustless, permissionless and
-                  collaborative.
+                  {t("hero.subTitle")}
                 </p>
                 <StyledLink
                   openInNewTab={true}
@@ -183,7 +188,7 @@ export default function Hero({
                 >
                   <div className="flex justify-start sm:justify-center md:justify-center lg:justify-start pt-4 sm:pt-2 items-center">
                     <PlayIcon className="w-6 mr-2 inline" />
-                    Learn more about open format
+                    {t("hero.playIconCopy")}
                   </div>
                 </StyledLink>
 
@@ -194,7 +199,7 @@ export default function Hero({
                         href="/explore"
                         className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 md:py-4 md:text-lg md:px-10"
                       >
-                        Explore
+                        {t("hero.ctaPrimary")}
                       </StyledLink>
                     </div>
                     <div className="mt-3 rounded-md shadow sm:mt-0 sm:ml-3">
@@ -202,7 +207,7 @@ export default function Hero({
                         href="/create"
                         className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-blue-600 bg-white hover:bg-gray-50 md:py-4 md:text-lg md:px-10"
                       >
-                        Create
+                        {t("hero.ctaSecondary")}
                       </StyledLink>
                     </div>
                   </div>

@@ -5,12 +5,14 @@ import { ethers } from "ethers";
 import React from "react";
 import StyledLink from "components/styled-link";
 import Table from "components/table";
+import useTranslation from "next-translate/useTranslation";
 
 interface Props {
   transactions: Transaction[];
 }
 
 export default function ItemActivity({ transactions }: Props) {
+  const { t } = useTranslation("common");
   return (
     <Disclosure defaultOpen as="div">
       {({ open }) => (
@@ -18,7 +20,7 @@ export default function ItemActivity({ transactions }: Props) {
           <h3>
             <Disclosure.Button className="group rounded-md relative w-full p-6 bg-white flex justify-between items-center text-left">
               <span className="text-gray-900 text-sm font-medium">
-                Item Activity
+                {t("itemActivity.title")}
               </span>
               <span className="ml-6 flex items-center">
                 {open ? (
@@ -43,31 +45,31 @@ export default function ItemActivity({ transactions }: Props) {
                     scope="col"
                     className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
                   >
-                    Event
+                    {t("itemActivity.tdOne")}
                   </th>
                   <th
                     scope="col"
                     className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
                   >
-                    Price
+                    {t("itemActivity.tdTwo")}
                   </th>
                   <th
                     scope="col"
                     className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
                   >
-                    From
+                    {t("itemActivity.tdThree")}
                   </th>
                   <th
                     scope="col"
                     className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
                   >
-                    To
+                    {t("itemActivity.tdFour")}
                   </th>
                   <th
                     scope="col"
                     className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
                   >
-                    Date
+                    {t("itemActivity.tdFive")}
                   </th>
                 </tr>
               </thead>
@@ -75,7 +77,7 @@ export default function ItemActivity({ transactions }: Props) {
                 {transactions?.map((transaction, index) => (
                   <tr key={`${transaction.from}${index}`}>
                     <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-                      Minted
+                      {t("itemActivity.event")}
                     </td>
                     <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                       <a className="cursor-pointer" href="">

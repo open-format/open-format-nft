@@ -5,12 +5,14 @@ import Header from "components/header";
 import type { AppProps } from "next/app";
 import { Toaster } from "react-hot-toast";
 import Head from "next/head";
+import useTranslation from "next-translate/useTranslation";
 
 const App = ({ Component, pageProps }: AppProps) => {
+  const { t } = useTranslation("common");
   return (
     <>
       <Head>
-        <title>Open Format NFT</title>
+        <title>{t("app.head.title")}</title>
         <link rel="icon" href="/icons/logo_small.png" />
       </Head>
       <OpenFormatProvider config={{ network: "mumbai" }}>

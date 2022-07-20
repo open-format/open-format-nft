@@ -19,6 +19,7 @@ import { buildMetadata, uploadToIPFS } from "helpers/ipfs";
 import UploadPreview from "components/preview";
 import classNames from "classnames";
 import DropzoneField from "./dropzone-field";
+import useTranslation from "next-translate/useTranslation";
 
 type FormValues = {
   name: string;
@@ -32,26 +33,29 @@ export default function CreateReleaseForm() {
   const router = useRouter();
   const { deploy, isLoading } = useDeploy();
   const { isConnected } = useWallet();
+  const { t } = useTranslation("common");
   const [loadingToIPFS, setLoadingToIPFS] = useState<boolean>(false);
 
   const form = useForm<FormValues>({
     resolver: yupResolver(
       yup.object().shape({
-        name: yup.string().required("You must provide a name"),
-        description: yup.string().required("You must provide a description"),
+        name: yup.string().required(t("forms.deploy.errors.name")),
+        description: yup
+          .string()
+          .required(t("forms.deploy.errors.description")),
         totalSupply: yup
           .number()
           .required()
-          .min(1, "Must be at least 1")
-          .typeError("You must provide a supply e.g 100"),
+          .min(1, t("forms.deploy.errors.supplyMin"))
+          .typeError(t("forms.deploy.errors.totalSupply")),
         mintPrice: yup
           .number()
           .required()
-          .min(0, "Cannot be less than 0")
-          .typeError("You must provide a mint price"),
+          .min(0, t("forms.deploy.errors.priceMin"))
+          .typeError(t("forms.deploy.errors.mintPrice")),
         image: yup
           .mixed()
-          .test("required", "You need to provide a file", (file: [File]) => {
+          .test("required", t("forms.deploy.errors.image"), (file: [File]) => {
             if (file === undefined) {
               return false;
             }
@@ -59,12 +63,16 @@ export default function CreateReleaseForm() {
 
             return false;
           })
-          .test("fileSize", "The image file is too large", (file: [File]) => {
-            if (file === undefined) {
-              return false;
+          .test(
+            "fileSize",
+            t("forms.deploy.errors.imageSize"),
+            (file: [File]) => {
+              if (file === undefined) {
+                return false;
+              }
+              return file[0] && file[0].size <= 10000000;
             }
-            return file[0] && file[0].size <= 10000000;
-          }),
+          ),
       })
     ),
     mode: "onSubmit",
@@ -91,9 +99,9 @@ export default function CreateReleaseForm() {
       setLoadingToIPFS(true);
 
       const ipfsSuccess = await toast.promise(uploadToIPFS(meta), {
-        loading: "Uploading your creation to IPFS",
-        success: "Upload complete",
-        error: "Upload error",
+        loading: t("forms.deploy.toastMessages.ipfs.loading"),
+        success: t("forms.deploy.toastMessages.ipfs.success"),
+        error: t("forms.deploy.toastMessages.ipfs.error"),
       });
 
       setLoadingToIPFS(false);
@@ -107,10 +115,9 @@ export default function CreateReleaseForm() {
           url: ipfsSuccess.url,
         }),
         {
-          loading:
-            "Uploading your creation to the blockchain, please check your wallet for further instructions",
-          success: "Contract deployed",
-          error: "Upload error",
+          loading: t("forms.deploy.toastMessages.contract.loading"),
+          success: t("forms.deploy.toastMessages.contract.success"),
+          error: t("forms.deploy.toastMessages.contract.error"),
         }
       );
       router.push(`/explore/${response.contractAddress}`);
@@ -142,7 +149,10 @@ export default function CreateReleaseForm() {
                 htmlFor="name"
                 className="block text-sm font-medium text-gray-700"
               >
-                Name
+                <p>{t("forms.deploy.labels.name.heading")}</p>
+                <p className="mt-2 text-xs text-gray-500">
+                  {t("forms.deploy.labels.name.subHeading")}
+                </p>
               </label>
               <div className="mt-1">
                 <input
@@ -150,6 +160,8 @@ export default function CreateReleaseForm() {
                   type="text"
                   name="name"
                   id="name"
+                  defaultValue={t("forms.deploy.defaultValues.name")}
+                  placeholder={t("forms.deploy.placeholders.name")}
                   className=" focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
                 />
               </div>
@@ -167,10 +179,9 @@ export default function CreateReleaseForm() {
                 htmlFor="about"
                 className="block text-sm font-medium text-gray-700"
               >
-                <p>Description</p>
+                <p>{t("forms.deploy.labels.description.heading")}</p>
                 <p className="mt-2 text-xs text-gray-500">
-                  The description will be included on the item&apos;s detail
-                  page underneath its image.
+                  {t("forms.deploy.labels.description.subHeading")}
                 </p>
               </label>
               <div className="mt-1">
@@ -180,8 +191,8 @@ export default function CreateReleaseForm() {
                   name="description"
                   rows={3}
                   className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border border-gray-300 rounded-md"
-                  defaultValue={""}
-                  placeholder="Provide a detailed description of you item."
+                  defaultValue={t("forms.deploy.defaultValues.description")}
+                  placeholder={t("forms.deploy.placeholders.description")}
                 />
               </div>
               <ErrorMessage
@@ -197,16 +208,17 @@ export default function CreateReleaseForm() {
                 htmlFor="city"
                 className="block text-sm font-medium text-gray-700"
               >
-                <p>Mint Price</p>
+                <p>{t("forms.deploy.labels.mintPrice.heading")}</p>
                 <p className="mt-2 text-xs text-gray-500">
-                  The price that you wish to sell each NFT!
+                  {t("forms.deploy.labels.mintPrice.subHeading")}
                 </p>
               </label>
               <div className="mt-1">
                 <input
                   type="text"
                   {...register("mintPrice")}
-                  defaultValue="0.001"
+                  defaultValue={t("forms.deploy.defaultValues.mintPrice")}
+                  placeholder={t("forms.deploy.placeholders.mintPrice")}
                   className=" focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
                 />
               </div>
@@ -223,19 +235,19 @@ export default function CreateReleaseForm() {
                 htmlFor="region"
                 className="block text-sm font-medium text-gray-700"
               >
-                <p>Supply</p>
+                <p>{t("forms.deploy.labels.totalSupply.heading")}</p>
                 <p className="mt-2 text-xs text-gray-500">
-                  The number of items that can be minted.
+                  {t("forms.deploy.labels.totalSupply.subHeading")}
                 </p>
               </label>
               <div className="mt-1">
                 <input
                   {...register("totalSupply")}
-                  defaultValue="1"
+                  defaultValue={t("forms.deploy.defaultValues.totalSupply")}
                   type="text"
                   name="totalSupply"
                   id="totalSupply"
-                  autoComplete="address-level1"
+                  placeholder={t("forms.deploy.placeholders.totalSupply")}
                   className=" focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
                 />
               </div>
@@ -252,15 +264,17 @@ export default function CreateReleaseForm() {
                 htmlFor="blockchain"
                 className="block text-sm font-medium text-gray-700"
               >
-                Blockchain
+                <p>{t("forms.deploy.labels.blockchain.heading")}</p>
+                <p className="mt-2 text-xs text-gray-500">
+                  {t("forms.deploy.labels.blockchain.subHeading")}
+                </p>
               </label>
               <div className="mt-1">
                 <select
                   id="bolckchain"
                   name="blockchain"
-                  autoComplete="blockchain"
                   className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
-                  defaultValue="polygon"
+                  defaultValue={t("forms.deploy.defaultValues.blockchain")}
                 >
                   <option value="polygon">Polygon</option>
                 </select>
@@ -284,20 +298,21 @@ export default function CreateReleaseForm() {
                   {isLoading || loadingToIPFS ? (
                     <>
                       <ActivityIndicator className="h-5 w-5 inline mr-2 animate-spin text-white" />
-                      <span className="text-white">Loading</span>
+                      <span className="text-white">
+                        {t("forms.deploy.buttonState.loading")}
+                      </span>
                     </>
                   ) : (
-                    "Create"
+                    t("forms.deploy.buttonState.initial")
                   )}
                 </Button>
               ) : (
                 <Button
-                  isLoading={loadingToIPFS || isLoading}
                   type="submit"
                   disabled={true}
                   className="bg-gray-500 text-white py-2 px-4 border rounded-md  text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 pointer-events-none"
                 >
-                  Connect your wallet
+                  {t("forms.deploy.buttonState.disconnected")}
                 </Button>
               )}
             </div>
