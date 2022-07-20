@@ -217,5 +217,9 @@
   },
   "tooltip": {
     "message": "Coming Soon"
+  },
+  "resources": {
+    "title": "Resources",
+    "subTitle": "Here are some links to help you get started."
   }
 }
