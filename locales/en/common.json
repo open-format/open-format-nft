@@ -13,6 +13,35 @@
       "searchPlaceholder": "Search"
     }
   },
+  "footer": {
+    "navigation": {
+      "itemOne": {
+        "name": "Docs",
+        "href": "https://openformat.simpleweb.co.uk"
+      },
+      "itemTwo": {
+        "name": "Explore",
+        "href": "/explore"
+      },
+      "itemThree": {
+        "name": "Create",
+        "href": "/create"
+      },
+      "socialOne": {
+        "name": "Instagram",
+        "href": "https://www.instagram.com/simplewebhq"
+      },
+      "socialTwo": {
+        "name": "Discord",
+        "href": "https://discord.com/invite/8WV52tVqbZ"
+      },
+      "socialThree": {
+        "name": "Twitter",
+        "href": "https://twitter.com/simpleweb"
+      },
+      "companyDetails": "Powered by Simpleweb."
+    }
+  },
   "forms": {
     "deploy": {
       "errors": {
