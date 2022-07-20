@@ -9,6 +9,89 @@
       "itemTwo": {
         "name": "Create",
         "href": "/create"
+      },
+      "searchPlaceholder": "Search"
+    }
+  },
+  "forms": {
+    "deploy": {
+      "errors": {
+        "name": "You must provide a name",
+        "description": "You must provide a description",
+        "totalSupply": "You must provide a supply e.g 100",
+        "supplyMin": "Must be at least 1",
+        "mintPrice": "You must provide a mint price",
+        "priceMin": "Cannot be less than 0",
+        "image": "You need to provide a file ",
+        "imageSize": "The image file is too large"
+      },
+      "placeholders": {
+        "name": "",
+        "description": "Provide a detailed description of you item.",
+        "totalSupply": "",
+        "mintPrice": "",
+        "image": ""
+      },
+      "labels": {
+        "name": {
+          "heading": "Name",
+          "subHeading": "The title of the NFT"
+        },
+        "description": {
+          "heading": "Description",
+          "subHeading": "The description will be included on the item's detail page underneath its image."
+        },
+        "mintPrice": {
+          "heading": "Mint Price",
+          "subHeading": "The price that you wish to sell each NFT!"
+        },
+        "totalSupply": {
+          "heading": "Supply",
+          "subHeading": " The number of items that can be minted."
+        },
+        "blockchain": {
+          "heading": "Blockchain",
+          "subHeading": "The chain you would like to use"
+        },
+        "image": {
+          "heading": "",
+          "subHeading": "",
+          "internalCopy": "",
+          "supportedFileTypes": ""
+        },
+        "bolckchain": {
+          "heading": "",
+          "defaultValue": ""
+        },
+        "button": {
+          "loading": "loading",
+          "deploy": "create",
+          "notConnected": "Connect your wallet"
+        }
+      },
+      "toastMessages": {
+        "ipfs": {
+          "loading": "Uploading your creation to IPFS",
+          "success": "Upload complete",
+          "error": "Upload error"
+        },
+        "contract": {
+          "loading": "Uploading your creation to the blockchain, please check your wallet for further instructions",
+          "success": "Contract deployed",
+          "error": "Upload error"
+        }
+      },
+      "defaultValues": {
+        "name": "",
+        "description": "",
+        "totalSupply": "1",
+        "mintPrice": "0.001",
+        "blockchain": "Polygon"
+      },
+      "buttonState": {
+        "loading": "Loading",
+        "initial": "Create",
+        "disconnected": "Connect your wallet"
       }
     }
   }

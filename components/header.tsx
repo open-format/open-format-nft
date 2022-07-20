@@ -32,9 +32,6 @@ const Header: React.FC = () => {
     },
   ];
 
-  const navItem = t("header.navigation.itemTwo.name");
-  console.log(navItem);
-
   return (
     <>
       {/* When the mobile menu is open, add `overflow-hidden` to the `body` element to prevent double scrollbars */}
@@ -74,7 +71,7 @@ const Header: React.FC = () => {
                         name="search"
                         disabled={true}
                         className="cursor-not-allowed block w-full bg-white border border-gray-300 rounded-md py-2 pl-10 pr-3 text-sm placeholder-gray-500 focus:outline-none focus:text-gray-900 focus:placeholder-gray-400 focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                        placeholder="Search"
+                        placeholder={t("header.navigation.searchPlaceholder")}
                         type="search"
                       />
                     </div>
