@@ -94,5 +94,19 @@
         "disconnected": "Connect your wallet"
       }
     }
+  },
+  "hero": {
+    "mintingButtonState": {
+      "notConnected": "Connect your wallet",
+      "loading": "Loading",
+      "initial": "Mint",
+      "soldOut": "Sold Out"
+    },
+    "title": "Create, release, monetise and analyse your NFT collections using",
+    "titleBoldColor": "Open Format",
+    "subTitle": "Build your own NFT ecosystems. Trustless, permissionless and collaborative.",
+    "playIconCopy": "Learn more about open format",
+    "ctaPrimary": "Explore",
+    "ctaSecondary": "Create"
   }
 }
