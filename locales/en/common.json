@@ -156,5 +156,14 @@
       "title": "Sales Commission",
       "description": "Add a commission to allow developers and external sellers to benefit from your NFT sales."
     }
+  },
+  "itemActivity": {
+    "title": "Item Activity",
+    "tdOne": "Event",
+    "tdTwo": "Price",
+    "tdThree": "From",
+    "tdFour": "To",
+    "tdFive": "Date",
+    "event": "Minted"
   }
 }

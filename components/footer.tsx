@@ -1,10 +1,4 @@
 import StyledLink from "./styled-link";
-import {
-  DISCORD_URL,
-  OPENFORMAT_URL,
-  INSTAGRAM_URL,
-  TWITTER_URL,
-} from "../constants";
 import useTranslation from "next-translate/useTranslation";
 
 const Footer: React.FC = () => {
