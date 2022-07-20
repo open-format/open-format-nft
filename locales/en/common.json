@@ -165,5 +165,38 @@
     "tdFour": "To",
     "tdFive": "Date",
     "event": "Minted"
+  },
+  "meta": {
+    "description": {
+      "title": "Description"
+    },
+    "details": {
+      "title": "Details",
+      "optionOne": {
+        "key": "Contract Address"
+      },
+      "optionTwo": {
+        "key": "Token Standard",
+        "value": "ERC-20"
+      },
+      "optionThree": {
+        "key": "Blockchain",
+        "value": "Polygon"
+      },
+      "optionFour": {
+        "key": "Metadata",
+        "value": "IPFS"
+      },
+      "optionFive": {
+        "key": "Total Supply"
+      },
+      "optionSix": {
+        "key": "Total Sold"
+      }
+    },
+
+    "exampleNft": {
+      "artistName": "Distinct Mind"
+    }
   }
 }
