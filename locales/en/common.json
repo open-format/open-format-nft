@@ -221,5 +221,46 @@
   "resources": {
     "title": "Resources",
     "subTitle": "Here are some links to help you get started."
+  },
+  "explore": {
+    "head": {
+      "title": "Explore NFTs | Open Format"
+    },
+    "title": "Explore Collections",
+    "navigation": {
+      "itemOne": {
+        "name": "Trending",
+        "value": "trending"
+      },
+      "itemTwo": {
+        "name": "Top",
+        "value": "top"
+      },
+      "itemThree": {
+        "name": "Collectables",
+        "value": "collectable"
+      },
+      "itemFour": {
+        "name": "Art",
+        "value": "art"
+      },
+
+      "itemFive": {
+        "name": "Photography",
+        "value": "photography"
+      },
+      "itemSix": {
+        "name": "Articles",
+        "value": "article"
+      },
+      "itemSevern": {
+        "name": "Sports",
+        "value": "sport"
+      },
+      "itemEight": {
+        "name": "Music",
+        "value": "music"
+      }
+    }
   }
 }
