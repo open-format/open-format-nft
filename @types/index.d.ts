@@ -41,7 +41,6 @@ type HeroIcon = (props: React.ComponentProps<"svg">) => JSX.Element;
 
 type Action = {
   title: string;
-  href: string;
   icon: HeroIcon;
   iconForeground: string;
   iconBackground: string;

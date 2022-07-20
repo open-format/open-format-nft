@@ -108,5 +108,24 @@
     "playIconCopy": "Learn more about open format",
     "ctaPrimary": "Explore",
     "ctaSecondary": "Create"
+  },
+  "features": {
+    "title": "Create, release, monetise and analyse your NFT collections",
+    "actionOne": {
+      "title": "Supercharged NFTs",
+      "description": "Create data rich NFT collections with minting, selling, payment splitting and royalty functionality built in."
+    },
+    "actionTwo": {
+      "title": "Search, filter and sort data",
+      "description": "Use our subgraph to search, filter and sort NFT collections on open format to create unique marketplace experiences."
+    },
+    "actionThree": {
+      "title": "Reward NFT holders",
+      "description": "Deposit external revenue streams into a NFT collection that is split between NFT holders."
+    },
+    "actionFour": {
+      "title": "Sales Commission",
+      "description": "Add a commission to allow developers and external sellers to benefit from your NFT sales."
+    }
   }
 }

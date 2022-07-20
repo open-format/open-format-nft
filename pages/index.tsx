@@ -12,74 +12,69 @@ import { gql } from "graphql-request";
 import getMetaValue from "helpers/get-meta-value";
 import transformURL from "helpers/transform-url";
 import type { NextPage } from "next";
-
-const actions = [
-  {
-    title: "Supercharged NFTs",
-    href: "#",
-    icon: LightningBoltIcon,
-    iconForeground: "text-teal-700",
-    iconBackground: "bg-teal-50",
-    description:
-      "Create data rich NFT collections with minting, selling, payment splitting and royalty functionality built in.",
-  },
-  {
-    title: "Search, filter and sort data",
-    href: "#",
-    icon: SearchCircleIcon,
-    iconForeground: "text-purple-700",
-    iconBackground: "bg-purple-50",
-    description:
-      "Use our subgraph to search, filter and sort NFT collections on open format to create unique marketplace experiences.",
-  },
-  {
-    title: "Reward NFT holders",
-    href: "#",
-    icon: UsersIcon,
-    iconForeground: "text-sky-700",
-    iconBackground: "bg-sky-50",
-    description:
-      "Deposit external revenue streams into a NFT collection that is split between NFT holders.",
-  },
-  {
-    title: "Sales Commission",
-    href: "#",
-    icon: CurrencyDollarIcon,
-    iconForeground: "text-yellow-700",
-    iconBackground: "bg-yellow-50",
-    description:
-      "Add a commission to allow developers and external sellers to benefit from your NFT sales.",
-  },
-];
-
-const resources = [
-  {
-    title: "Open Format documentation",
-    href: "https://docs.openformat.simpleweb.co.uk/protocol-overview/overview",
-    category: {
-      name: "Documentation",
-      href: "https://docs.openformat.simpleweb.co.uk/protocol-overview/overview",
-    },
-    description:
-      "Enabling developers to build decentralised marketplaces and factories for digital assets in the metaverse.",
-    imageUrl: "/images/nft-factory.png",
-    alt: "",
-  },
-  {
-    title: "Our Discord",
-    href: "https://discord.com/invite/8WV52tVqbZ",
-    category: {
-      name: "Community",
-      href: "https://discord.com/invite/8WV52tVqbZ",
-    },
-    description:
-      "Builiding a web3 community that we can all be proud of, come say hi whatever it may be we're all here to help.",
-    imageUrl: "/images/discord.jpg",
-    alt: "",
-  },
-];
+import useTranslation from "next-translate/useTranslation";
 
 const Home: NextPage = () => {
+  const { t } = useTranslation("common");
+
+  const actions = [
+    {
+      title: t("features.actionOne.title"),
+      icon: LightningBoltIcon,
+      iconForeground: "text-teal-700",
+      iconBackground: "bg-teal-50",
+      description: t("features.actionOne.description"),
+    },
+    {
+      title: t("features.actionTwo.title"),
+      icon: SearchCircleIcon,
+      iconForeground: "text-purple-700",
+      iconBackground: "bg-purple-50",
+      description: t("features.actionTwo.description"),
+    },
+    {
+      title: t("features.actionThree.title"),
+      icon: UsersIcon,
+      iconForeground: "text-sky-700",
+      iconBackground: "bg-sky-50",
+      description: t("features.actionThree.description"),
+    },
+    {
+      title: t("features.actionFour.title"),
+      icon: CurrencyDollarIcon,
+      iconForeground: "text-yellow-700",
+      iconBackground: "bg-yellow-50",
+      description: t("features.actionFour.description"),
+    },
+  ];
+
+  const resources = [
+    {
+      title: "Open Format documentation",
+      href: "https://docs.openformat.simpleweb.co.uk/protocol-overview/overview",
+      category: {
+        name: "Documentation",
+        href: "https://docs.openformat.simpleweb.co.uk/protocol-overview/overview",
+      },
+      description:
+        "Enabling developers to build decentralised marketplaces and factories for digital assets in the metaverse.",
+      imageUrl: "/images/nft-factory.png",
+      alt: "",
+    },
+    {
+      title: "Our Discord",
+      href: "https://discord.com/invite/8WV52tVqbZ",
+      category: {
+        name: "Community",
+        href: "https://discord.com/invite/8WV52tVqbZ",
+      },
+      description:
+        "Builiding a web3 community that we can all be proud of, come say hi whatever it may be we're all here to help.",
+      imageUrl: "/images/discord.jpg",
+      alt: "",
+    },
+  ];
+
   const token = process.env.NEXT_PUBLIC_EXAMPLE_NFT_TOKEN_ADDRESS as string;
   const rawQuery = gql`
     query ($tokenId: String!) {
