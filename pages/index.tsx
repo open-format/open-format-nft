@@ -113,9 +113,8 @@ const Home: NextPage = () => {
 
   return (
     <>
-      {exampleNft && (
-        <Hero {...{ name, creator, image, totalSold, maxSupply, token }} />
-      )}
+      <Hero {...{ name, creator, image, totalSold, maxSupply, token }} />
+
       <Features {...{ actions }} />
       <div className="mt-12 relative px-4 py-4">
         <Resources {...{ resources }} />

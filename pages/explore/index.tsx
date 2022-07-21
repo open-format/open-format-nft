@@ -1,12 +1,13 @@
 import { useRawRequest } from "@simpleweb/open-format-react";
 import ItemOverview from "components/item-overview";
+import Skeleton from "components/skeletonCard";
 import StyledLink from "components/styled-link";
 import { gql } from "graphql-request";
 import getMetaValue from "helpers/get-meta-value";
 import transformURL from "helpers/transform-url";
 import useTranslation from "next-translate/useTranslation";
 import Head from "next/head";
-import { useEffect, useState } from "react";
+import { RefObject, useEffect, useRef, useState } from "react";
 import ReactTooltip from "react-tooltip";
 
 type Token = {
@@ -40,7 +41,7 @@ export default function Releases() {
     }
   `;
 
-  const { data: historicTokens } = useRawRequest({
+  const { data: historicTokens, isLoading } = useRawRequest({
     query: rawQuery,
     variables: { factory_id: process.env.NEXT_PUBLIC_FACTORY_ID as string },
   });
@@ -69,6 +70,7 @@ export default function Releases() {
       />
     );
   }
+
   const navigation = [
     {
       name: t("explore.navigation.itemOne.name"),
@@ -103,6 +105,8 @@ export default function Releases() {
       value: t("explore.navigation.itemEight.value"),
     },
   ];
+
+  const count = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
   return (
     <>
@@ -179,7 +183,17 @@ export default function Releases() {
           <hr className="divide-y"></hr>
         </nav>
         <div className="mt-12 px-6 grid grid-cols-1 gap-y-10 gap-x-10 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 md:gap-y-4">
-          {historicTokens?.tokens.map((token: Token) => renderToken(token))}
+          {!isLoading ? (
+            historicTokens.tokens.map((token: Token) => {
+              return renderToken(token);
+            })
+          ) : (
+            <>
+              {count.map((val) => (
+                <Skeleton key={val} />
+              ))}
+            </>
+          )}
         </div>
       </div>
     </>
