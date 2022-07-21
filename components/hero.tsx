@@ -30,7 +30,8 @@ function Backdrop({ image }: { image: string }) {
   return (
     <>
       <div className="absolute top-0 left-0 right-0 bottom-0 w-full h-full bg-white z-0 after:absolute after:left-0 after:bottom-0 after:right-0 after:z-10 after:w-full after:h-full after:bg-gradient-to-t after:from-white after:to-white-20 ">
-        <img
+        <Image
+          layout="fill"
           className="object-cover w-full blur-xl sm:scale-150 md:blur-lg"
           src={image}
           alt=""
@@ -101,7 +102,7 @@ function Card({
               src={image}
               alt=""
               className={
-                "object-cover border-2 cursor-pointer rounded-full h-12 w-12 shadow-md shadow-slate-400 border-white"
+                "object-fit border-2 cursor-pointer rounded-md h-16 w-16 shadow-md shadow-slate-400 border-white"
               }
             />
 
