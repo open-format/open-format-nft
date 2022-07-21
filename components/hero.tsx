@@ -24,39 +24,7 @@ import { LightningBoltIcon } from "@heroicons/react/outline";
 import useTranslation from "next-translate/useTranslation";
 import Image from "next/image";
 import Skeleton from "./skeletonCard";
-
-const useOnLoadImages = (ref: RefObject<HTMLElement>) => {
-  const [status, setStatus] = useState(false);
-
-  useEffect(() => {
-    const updateStatus = (images: HTMLImageElement[]) => {
-      setStatus(
-        images.map((image) => image.complete).every((item) => item === true)
-      );
-    };
-
-    if (!ref?.current) return;
-
-    const imagesLoaded = Array.from(ref.current.querySelectorAll("img"));
-
-    if (imagesLoaded.length === 0) {
-      setStatus(true);
-      return;
-    }
-
-    imagesLoaded.forEach((image) => {
-      image.addEventListener("load", () => updateStatus(imagesLoaded), {
-        once: true,
-      });
-      image.addEventListener("error", () => updateStatus(imagesLoaded), {
-        once: true,
-      });
-    });
-    return;
-  }, [ref]);
-
-  return status;
-};
+import ItemOverview from "./item-overview";
 
 function Backdrop({ image }: { image: string }) {
   return (
@@ -87,7 +55,6 @@ function Card({
   maxSupply?: string;
   totalSold?: string;
 }) {
-  const wrapperRef = useRef<HTMLDivElement>(null);
   const { mint, isLoading: minting } = useMint();
   const router = useRouter();
   const { isConnected } = useWallet();
@@ -107,10 +74,11 @@ function Card({
       console.log("handleDeploy", error);
     }
   };
-  const soldOut = parseInt(maxSupply) === parseInt(totalSold);
+  const soldOut =
+    maxSupply && totalSold && parseInt(maxSupply) === parseInt(totalSold);
 
   return (
-    <div ref={wrapperRef} className="mt-16 sm:mt-24 lg:mt-0 lg:col-span-6">
+    <div className="mt-16 sm:mt-24 lg:mt-0 lg:col-span-6">
       {!image ? (
         <div className="flex flex-col sm:max-w-md shadow-md rounded-lg shadow-slate-500 sm:w-full sm:mx-auto sm:overflow-hidden">
           <Skeleton />
@@ -121,6 +89,8 @@ function Card({
             alt=""
             height={450}
             width={350}
+            blurDataURL="/images/drip.jpeg"
+            placeholder="blur"
             src={image}
             className={"object-fit cursor-pointer"}
           />
@@ -141,7 +111,7 @@ function Card({
                 href={`${process.env.NEXT_PUBLIC_POLYGON_SCAN}/address/${token}/`}
                 className="mt-1 text-sm text-blue-500"
               >
-                {addressSplitter(creator)}
+                {creator && addressSplitter(creator)}
               </StyledLink>
             </div>
           </div>
@@ -150,7 +120,7 @@ function Card({
               type="button"
               isLoading={minting}
               disabled={false}
-              onClick={() => submitPurchase(token)}
+              onClick={() => token && submitPurchase(token)}
               className={classNames(
                 {
                   "cursor-not-allowed opacity-60 bg-slate-300 hover:shadow-none":

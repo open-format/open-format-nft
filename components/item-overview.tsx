@@ -6,8 +6,8 @@ import { addressSplitter } from "helpers/address-splitter";
 
 interface Props {
   name: string;
-  description: string;
-  creator: string;
+  description?: string;
+  creator?: string;
   image: string;
   tokenId: string;
 }
@@ -39,7 +39,7 @@ export default function ItemOverview({
                   <p className="w-full truncate">
                     By{" "}
                     <span title={creator} className="text-blue-500">
-                      {addressSplitter(creator)}
+                      {creator && addressSplitter(creator)}
                     </span>
                   </p>
                 </div>
