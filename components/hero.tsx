@@ -86,28 +86,31 @@ function Card({
         </div>
       ) : (
         <div className="flex flex-col sm:max-w-md shadow-md rounded-lg shadow-slate-500 sm:w-full sm:mx-auto sm:overflow-hidden">
-          <Image
-            alt=""
-            height={450}
-            width={350}
-            blurDataURL="/images/drip.jpeg"
-            placeholder="blur"
-            src={image}
-            className={"object-fit cursor-pointer"}
-          />
-
-          <div className="py-4 px-2 flex justify-start items-center bg-white">
-            <img
-              onClick={() => router.push(`/explore/${token}`)}
-              src={image}
-              alt=""
-              className={
-                "object-fit border-2 cursor-pointer rounded-md h-16 w-16 shadow-md shadow-slate-400 border-white"
-              }
-            />
-
-            <div className="px-2">
+          <div className="relative bg-white">
+            <div>
+              <Image
+                alt=""
+                height={450}
+                width={500}
+                blurDataURL="/images/drip.jpeg"
+                placeholder="blur"
+                src={image}
+                className={
+                  "object-fit cursor-pointer border-b border-slate-300"
+                }
+              />
+              <img
+                onClick={() => router.push(`/explore/${token}`)}
+                src={image}
+                alt=""
+                className={
+                  "absolute top-[370px] left-6 object-fit border-2 cursor-pointer rounded-md h-16 w-16 shadow-md shadow-slate-400 border-white"
+                }
+              />
+            </div>
+            <div className="px-4 pt-10 pb-4">
               <h2 className="text-gray-700 font-bold text-sm pr-4">{name}</h2>
+              <p className="inline text-sm ">By </p>
               <StyledLink
                 href={`${process.env.NEXT_PUBLIC_POLYGON_SCAN}/address/${token}/`}
                 className="mt-1 text-sm text-blue-500"
@@ -115,56 +118,55 @@ function Card({
                 {creator && addressSplitter(creator)}
               </StyledLink>
             </div>
-          </div>
-          <div className="p-4 col-span-2 bg-white border-t-2 border-slate-200">
-            <Button
-              type="button"
-              isLoading={minting}
-              disabled={false}
-              onClick={() => token && submitPurchase(token)}
-              className={classNames(
-                {
-                  "cursor-not-allowed opacity-60 bg-slate-300 hover:shadow-none":
-                    !isConnected,
-                },
-                {
-                  "cursor-not-allowed opacity-60 bg-slate-300 hover:shadow-none":
-                    minting,
-                },
-                {
-                  "cursor-not-allowed opacity-60 bg-slate-300 hover:shadow-none":
-                    soldOut,
-                },
-
-                "w-full border-2 hover:shadow-md hover:transition transition bg-white rounded-md px-4 py-2 col-span-2"
-              )}
-            >
-              {!isConnected ? (
-                <>
-                  <LightningBoltIcon className="h-4 inline text-slate-700 mr-2" />
-                  <span className="text-slate-800 opacity-60 font-bold">
-                    Connect your wallet
-                  </span>
-                </>
-              ) : minting ? (
-                <>
-                  <ActivityIndicator className="h-5 w-5 inline mr-2 animate-spin text-blue-400" />
-                  <span className="text-blue-400">Loading</span>
-                </>
-              ) : !soldOut ? (
-                <>
-                  <TagIcon className="h-4 inline text-blue-400 mr-2" />
-                  <span className="text-blue-400">Mint</span>
-                </>
-              ) : (
-                <>
-                  <BanIcon className="h-4 inline text-red-400 mr-2" />
-                  <span className="text-red-400 opacity-60 bg-slate-300">
-                    Sold Out
-                  </span>
-                </>
-              )}
-            </Button>
+            <div className="p-4 col-span-2 bg-white border-t-2 border-slate-200">
+              <Button
+                type="button"
+                isLoading={minting}
+                disabled={false}
+                onClick={() => token && submitPurchase(token)}
+                className={classNames(
+                  {
+                    "cursor-not-allowed opacity-60 bg-slate-300 hover:shadow-none":
+                      !isConnected,
+                  },
+                  {
+                    "cursor-not-allowed opacity-60 bg-slate-300 hover:shadow-none":
+                      minting,
+                  },
+                  {
+                    "cursor-not-allowed opacity-60 bg-slate-300 hover:shadow-none":
+                      soldOut,
+                  },
+                  "w-full border-2 hover:shadow-md hover:transition transition bg-white rounded-md px-4 py-2 col-span-2"
+                )}
+              >
+                {!isConnected ? (
+                  <>
+                    <LightningBoltIcon className="h-4 inline text-slate-700 mr-2" />
+                    <span className="text-slate-800 opacity-60 font-bold">
+                      Connect your wallet
+                    </span>
+                  </>
+                ) : minting ? (
+                  <>
+                    <ActivityIndicator className="h-5 w-5 inline mr-2 animate-spin text-blue-400" />
+                    <span className="text-blue-400">Loading</span>
+                  </>
+                ) : !soldOut ? (
+                  <>
+                    <TagIcon className="h-4 inline text-blue-400 mr-2" />
+                    <span className="text-blue-400">Mint</span>
+                  </>
+                ) : (
+                  <>
+                    <BanIcon className="h-4 inline text-red-400 mr-2" />
+                    <span className="text-red-400 opacity-60 bg-slate-300">
+                      Sold Out
+                    </span>
+                  </>
+                )}
+              </Button>
+            </div>
           </div>
         </div>
       )}
