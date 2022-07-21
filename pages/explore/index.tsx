@@ -106,8 +106,6 @@ export default function Releases() {
     },
   ];
 
-  const count = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
-
   return (
     <>
       <Head>
@@ -189,7 +187,7 @@ export default function Releases() {
             })
           ) : (
             <>
-              {count.map((val) => (
+              {Array.from(Array(12), (_, x) => x).map((val) => (
                 <Skeleton key={val} />
               ))}
             </>
