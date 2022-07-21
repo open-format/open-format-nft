@@ -1,16 +1,40 @@
-import React from "react";
+import React, { useState } from "react";
 import StyledLink from "components/styled-link";
 import { useMint, useWallet } from "@simpleweb/open-format-react";
 import toast from "react-hot-toast";
 import Button from "./button";
 import ActivityIndicator from "./activity-indicator";
-import { BanIcon, PlayIcon, TagIcon } from "@heroicons/react/solid";
+import {
+  BanIcon,
+  FastForwardIcon,
+  PlayIcon,
+  TagIcon,
+} from "@heroicons/react/solid";
 import { useRouter } from "next/router";
 import { ethers } from "ethers";
 import { addressSplitter } from "helpers/address-splitter";
 import classNames from "classnames";
 import { LightningBoltIcon } from "@heroicons/react/outline";
 import useTranslation from "next-translate/useTranslation";
+import Image from "next/image";
+
+function Skeleton() {
+  return (
+    <div className="w-full h-full">
+      <div className="h-[614px] relative space-y-5 overflow-hidden rounded-2xl bg-white/5 p-4 shadow-xl shadow-black/5 before:absolute before:inset-0 before:-translate-x-full before:animate-[shimmer_2s_infinite] before:border-t before:border-slate-200/10 before:bg-gradient-to-r before:from-transparent before:via-slate-100/10 before:to-transparent">
+        <div className="h-96 rounded-lg bg-slate-900/20"></div>
+        <div className="space-y-3">
+          <div className="h-3 w-3/5 rounded-lg bg-slate-400/50"></div>
+          <div className="h-3 w-4/5 rounded-lg bg-slate-400/20"></div>
+          <div className="h-3 w-2/5 rounded-lg bg-slate-400/20"></div>
+          <div className="h-3 w-3/5 rounded-lg bg-slate-400/50"></div>
+          <div className="h-3 w-4/5 rounded-lg bg-slate-400/20"></div>
+          <div className="h-3 w-2/5 rounded-lg bg-slate-400/20"></div>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 function Backdrop({ image }: { image: string }) {
   return (
@@ -41,6 +65,8 @@ function Card({
   maxSupply: string;
   totalSold: string;
 }) {
+  const [heroImageIsLoaded, setHeroImageIsLoaded] = useState(false);
+  const [heroIconIsLoaded, setHeroIconIsLoaded] = useState(false);
   const { mint, isLoading: minting } = useMint();
   const router = useRouter();
   const { isConnected } = useWallet();
@@ -60,26 +86,41 @@ function Card({
       console.log("handleDeploy", error);
     }
   };
-
   const soldOut = parseInt(maxSupply) === parseInt(totalSold);
 
   return (
     <div className="mt-16 sm:mt-24 lg:mt-0 lg:col-span-6">
       <div className="flex flex-col sm:max-w-md shadow-md rounded-lg shadow-slate-500 sm:w-full sm:mx-auto sm:overflow-hidden">
-        <div
-          onClick={() => router.push(`/explore/${token}`)}
-          className="md:max-h-96"
-        >
-          <img src={image} alt="" className="object-cover cursor-pointer" />
-        </div>
+        {!heroImageIsLoaded && <Skeleton />}
+        <Image
+          onLoadingComplete={() => setHeroImageIsLoaded(true)}
+          height={450}
+          placeholder="empty"
+          width={350}
+          src={image}
+          alt=""
+          className={classNames(
+            {
+              "animate-pulse": !heroImageIsLoaded,
+            },
+            "object-fit cursor-pointer"
+          )}
+        />
+
         <div className="py-4 px-2 flex justify-start items-center bg-white">
-          <div className="pb-2">
-            <img
-              src={image}
-              alt=""
-              className="object-cover border-2 rounded-full h-12 w-12 shadow-md shadow-slate-400 border-white"
-            />
-          </div>
+          <img
+            onClick={() => router.push(`/explore/${token}`)}
+            onLoad={() => setHeroIconIsLoaded(true)}
+            src={image}
+            alt=""
+            className={classNames(
+              {
+                "animate-pulse": !heroIconIsLoaded,
+              },
+              "object-cover border-2 cursor-pointer rounded-full h-12 w-12 shadow-md shadow-slate-400 border-white"
+            )}
+          />
+
           <div className="px-2">
             <h2 className="text-gray-700 font-bold text-sm pr-4">{name}</h2>
             <StyledLink
@@ -117,28 +158,24 @@ function Card({
               <>
                 <LightningBoltIcon className="h-4 inline text-slate-700 mr-2" />
                 <span className="text-slate-800 opacity-60 font-bold">
-                  {t("hero.mintingButtonState.notConnected")}
+                  Connect your wallet
                 </span>
               </>
             ) : minting ? (
               <>
                 <ActivityIndicator className="h-5 w-5 inline mr-2 animate-spin text-blue-400" />
-                <span className="text-blue-400">
-                  {t("hero.mintingButtonState.loading")}
-                </span>
+                <span className="text-blue-400">Loading</span>
               </>
             ) : !soldOut ? (
               <>
                 <TagIcon className="h-4 inline text-blue-400 mr-2" />
-                <span className="text-blue-400">
-                  {t("hero.mintingButtonState.initial")}
-                </span>
+                <span className="text-blue-400">Mint</span>
               </>
             ) : (
               <>
                 <BanIcon className="h-4 inline text-red-400 mr-2" />
                 <span className="text-red-400 opacity-60 bg-slate-300">
-                  {t("hero.mintingButtonState.soldOut")}
+                  Sold Out
                 </span>
               </>
             )}

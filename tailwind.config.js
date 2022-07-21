@@ -1,4 +1,6 @@
 /** @type {import('tailwindcss').Config} */
+const colors = require("tailwindcss/colors");
+
 module.exports = {
   content: [
     "./forms/*.{js,ts,jsx,tsx}",
@@ -17,6 +19,14 @@ module.exports = {
         "white-70": "rgba(255, 255, 255, 0.7)",
         "white-80": "rgba(255, 255, 255, 0.8)",
         "white-90": "rgba(255, 255, 255, 0.9)",
+        gray: colors.stone,
+      },
+    },
+    keyframes: {
+      shimmer: {
+        "100%": {
+          transform: "translateX(100%)",
+        },
       },
     },
   },
