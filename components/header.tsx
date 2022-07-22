@@ -1,13 +1,12 @@
-import { Fragment, useEffect, useState } from "react";
-import { Menu, Transition, Disclosure } from "@headlessui/react";
-import { SearchIcon } from "@heroicons/react/solid";
+import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { MenuIcon, XIcon } from "@heroicons/react/outline";
-import classNames from "classnames";
-import Link from "next/link";
+import { SearchIcon } from "@heroicons/react/solid";
 import { ConnectButton } from "@simpleweb/open-format-react";
-import ReactTooltip from "react-tooltip";
+import classNames from "classnames";
 import useTranslation from "next-translate/useTranslation";
-import Button from "./button";
+import Link from "next/link";
+import { Fragment, useEffect, useState } from "react";
+import ReactTooltip from "react-tooltip";
 
 const Header: React.FC = () => {
   const [isMounted, setIsMounted] = useState<boolean>(false);
@@ -115,7 +114,9 @@ const Header: React.FC = () => {
                       </a>
                     ))}
                   </nav>
+
                   <ConnectButton className="flex-shrink-0 rounded-md  p-2 text-white hover:text-gray-200 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 bg-blue-600" />
+
                   {/* Profile dropdown */}
                   <Menu as="div" className="flex-shrink-0 relative ml-4">
                     <div></div>

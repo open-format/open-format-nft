@@ -11,12 +11,16 @@ import { addressSplitter } from "helpers/address-splitter";
 import classNames from "classnames";
 import { LightningBoltIcon } from "@heroicons/react/outline";
 import useTranslation from "next-translate/useTranslation";
+import Image from "next/image";
+import ItemOverview from "components/item-overview";
+import Skeleton from "./skeletonCard";
 
 function Backdrop({ image }: { image: string }) {
   return (
     <>
       <div className="absolute top-0 left-0 right-0 bottom-0 w-full h-full bg-white z-0 after:absolute after:left-0 after:bottom-0 after:right-0 after:z-10 after:w-full after:h-full after:bg-gradient-to-t after:from-white after:to-white-20 ">
-        <img
+        <Image
+          layout="fill"
           className="object-cover w-full blur-xl sm:scale-150 md:blur-lg"
           src={image}
           alt=""
@@ -34,17 +38,21 @@ function Card({
   maxSupply,
   totalSold,
 }: {
-  name: string;
-  creator: string;
-  image: string;
-  token: string;
-  maxSupply: string;
-  totalSold: string;
+  name?: string;
+  creator?: string;
+  image?: string;
+  token?: string;
+  maxSupply?: string;
+  totalSold?: string;
 }) {
   const { mint, isLoading: minting } = useMint();
   const router = useRouter();
   const { isConnected } = useWallet();
   const { t } = useTranslation("common");
+  const soldOut =
+    maxSupply && totalSold && parseInt(maxSupply) === parseInt(totalSold);
+  const isReady = !isConnected || !minting || !soldOut;
+
   const submitPurchase = async (address: string) => {
     try {
       if (!ethers.utils.isAddress(address)) {
@@ -61,91 +69,71 @@ function Card({
     }
   };
 
-  const soldOut = parseInt(maxSupply) === parseInt(totalSold);
+  const Mint = () => (
+    <Button
+      type="button"
+      isLoading={minting}
+      disabled={false}
+      onClick={() => token && submitPurchase(token)}
+      className={classNames(
+        {
+          "cursor-not-allowed opacity-60 bg-slate-300 hover:shadow-none":
+            !isReady,
+        },
+        "w-full border-2 hover:shadow-md hover:transition transition bg-white rounded-md px-4 py-2 col-span-2"
+      )}
+    >
+      {!isConnected ? (
+        <>
+          <LightningBoltIcon className="h-4 inline text-slate-700 mr-2" />
+          <span className="text-slate-800 opacity-60 font-bold">
+            {t("purchases.mintingButtonState.notConnected")}
+          </span>
+        </>
+      ) : minting ? (
+        <>
+          <ActivityIndicator className="h-5 w-5 inline mr-2 animate-spin text-blue-400" />
+          <span className="text-blue-400">
+            {t("purchases.mintingButtonState.loading")}
+          </span>
+        </>
+      ) : !soldOut ? (
+        <>
+          <TagIcon className="h-4 inline text-blue-400 mr-2" />
+          <span className="text-blue-400">
+            {t("purchases.mintingButtonState.initial")}
+          </span>
+        </>
+      ) : (
+        <>
+          <BanIcon className="h-4 inline text-red-400 mr-2" />
+          <span className="text-red-400 opacity-60 bg-slate-300">
+            {t("purchases.mintingButtonState.soldOut")}
+          </span>
+        </>
+      )}
+    </Button>
+  );
 
   return (
-    <div className="mt-16 sm:mt-24 lg:mt-0 lg:col-span-6">
-      <div className="flex flex-col sm:max-w-md shadow-md rounded-lg shadow-slate-500 sm:w-full sm:mx-auto sm:overflow-hidden">
-        <div
-          onClick={() => router.push(`/explore/${token}`)}
-          className="md:max-h-96"
-        >
-          <img src={image} alt="" className="object-cover cursor-pointer" />
-        </div>
-        <div className="py-4 px-2 flex justify-start items-center bg-white">
-          <div className="pb-2">
-            <img
-              src={image}
-              alt=""
-              className="object-cover border-2 rounded-full h-12 w-12 shadow-md shadow-slate-400 border-white"
-            />
-          </div>
-          <div className="px-2">
-            <h2 className="text-gray-700 font-bold text-sm pr-4">{name}</h2>
-            <StyledLink
-              href={`${process.env.NEXT_PUBLIC_POLYGON_SCAN}/address/${token}/`}
-              className="mt-1 text-sm text-blue-500"
-            >
-              {addressSplitter(creator)}
-            </StyledLink>
-          </div>
-        </div>
-        <div className="p-4 col-span-2 bg-white border-t-2 border-slate-200">
-          <Button
-            type="button"
-            isLoading={minting}
-            disabled={false}
-            onClick={() => submitPurchase(token)}
-            className={classNames(
-              {
-                "cursor-not-allowed opacity-60 bg-slate-300 hover:shadow-none":
-                  !isConnected,
-              },
-              {
-                "cursor-not-allowed opacity-60 bg-slate-300 hover:shadow-none":
-                  minting,
-              },
-              {
-                "cursor-not-allowed opacity-60 bg-slate-300 hover:shadow-none":
-                  soldOut,
-              },
-
-              "w-full border-2 hover:shadow-md hover:transition transition bg-white rounded-md px-4 py-2 col-span-2"
-            )}
-          >
-            {!isConnected ? (
-              <>
-                <LightningBoltIcon className="h-4 inline text-slate-700 mr-2" />
-                <span className="text-slate-800 opacity-60 font-bold">
-                  {t("hero.mintingButtonState.notConnected")}
-                </span>
-              </>
-            ) : minting ? (
-              <>
-                <ActivityIndicator className="h-5 w-5 inline mr-2 animate-spin text-blue-400" />
-                <span className="text-blue-400">
-                  {t("hero.mintingButtonState.loading")}
-                </span>
-              </>
-            ) : !soldOut ? (
-              <>
-                <TagIcon className="h-4 inline text-blue-400 mr-2" />
-                <span className="text-blue-400">
-                  {t("hero.mintingButtonState.initial")}
-                </span>
-              </>
-            ) : (
-              <>
-                <BanIcon className="h-4 inline text-red-400 mr-2" />
-                <span className="text-red-400 opacity-60 bg-slate-300">
-                  {t("hero.mintingButtonState.soldOut")}
-                </span>
-              </>
-            )}
-          </Button>
-        </div>
+    <>
+      <div className="mt-16 sm:mt-24 lg:mt-0 lg:col-span-4 lg:col-start-8">
+        {!name || !image ? (
+          <ItemOverview.Loading />
+        ) : (
+          <ItemOverview
+            key={`${token}${name}`}
+            {...{
+              name,
+              image,
+              creator,
+              tokenId: `${token}`,
+            }}
+            action={<Mint />}
+          />
+        )}
       </div>
-    </div>
+    </>
   );
 }
 
@@ -157,12 +145,12 @@ export default function Hero({
   maxSupply,
   totalSold,
 }: {
-  image: string;
-  name: string;
-  token: string;
-  creator: string;
-  maxSupply: string;
-  totalSold: string;
+  image?: string;
+  name?: string;
+  token?: string;
+  creator?: string;
+  maxSupply?: string;
+  totalSold?: string;
 }) {
   const { t } = useTranslation("common");
   return (
