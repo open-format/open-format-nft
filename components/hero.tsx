@@ -7,13 +7,11 @@ import ActivityIndicator from "./activity-indicator";
 import { BanIcon, PlayIcon, TagIcon } from "@heroicons/react/solid";
 import { useRouter } from "next/router";
 import { ethers } from "ethers";
-import { addressSplitter } from "helpers/address-splitter";
 import classNames from "classnames";
 import { LightningBoltIcon } from "@heroicons/react/outline";
 import useTranslation from "next-translate/useTranslation";
 import Image from "next/image";
 import ItemOverview from "components/item-overview";
-import Skeleton from "./skeletonCard";
 
 function Backdrop({ image }: { image: string }) {
   return (
@@ -51,7 +49,6 @@ function Card({
   const { t } = useTranslation("common");
   const soldOut =
     maxSupply && totalSold && parseInt(maxSupply) === parseInt(totalSold);
-  const isReady = !isConnected || !minting || !soldOut;
 
   const submitPurchase = async (address: string) => {
     try {
@@ -78,7 +75,15 @@ function Card({
       className={classNames(
         {
           "cursor-not-allowed opacity-60 bg-slate-300 hover:shadow-none":
-            !isReady,
+            !isConnected,
+        },
+        {
+          "cursor-not-allowed opacity-60 bg-slate-300 hover:shadow-none":
+            minting,
+        },
+        {
+          "cursor-not-allowed opacity-60 bg-slate-300 hover:shadow-none":
+            soldOut,
         },
         "w-full border-2 hover:shadow-md hover:transition transition bg-white rounded-md px-4 py-2 col-span-2"
       )}
@@ -107,7 +112,7 @@ function Card({
       ) : (
         <>
           <BanIcon className="h-4 inline text-red-400 mr-2" />
-          <span className="text-red-400 opacity-60 bg-slate-300">
+          <span className="text-red-400 opacity-60">
             {t("purchases.mintingButtonState.soldOut")}
           </span>
         </>
