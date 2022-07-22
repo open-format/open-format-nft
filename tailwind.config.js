@@ -22,10 +22,21 @@ module.exports = {
         gray: colors.stone,
       },
     },
+    animation: {
+      spin: "spin 1s linear infinite",
+    },
     keyframes: {
       shimmer: {
         "100%": {
           transform: "translateX(100%)",
+        },
+      },
+      spin: {
+        from: {
+          transform: "rotate(0deg)",
+        },
+        to: {
+          transform: "rotate(360deg)",
         },
       },
     },
