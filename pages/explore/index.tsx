@@ -70,13 +70,13 @@ export default function Releases() {
       />
     );
   }
-  const placeholders = Array.from({ length: 12 });
 
   function renderPlaceholders() {
-    return placeholders.map((_, index) => (
-      <Skeleton key={`skeleton-${index}`} />
+    return Array.from({ length: 12 }).map((_, index) => (
+      <ItemOverview.Loading key={`skeleton-${index}`} />
     ));
   }
+
   const navigation = [
     {
       name: t("explore.navigation.itemOne.name"),
