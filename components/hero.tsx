@@ -1,21 +1,10 @@
-import React, {
-  RefObject,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import React from "react";
 import StyledLink from "components/styled-link";
 import { useMint, useWallet } from "@simpleweb/open-format-react";
 import toast from "react-hot-toast";
 import Button from "./button";
 import ActivityIndicator from "./activity-indicator";
-import {
-  BanIcon,
-  FastForwardIcon,
-  PlayIcon,
-  TagIcon,
-} from "@heroicons/react/solid";
+import { BanIcon, PlayIcon, TagIcon } from "@heroicons/react/solid";
 import { useRouter } from "next/router";
 import { ethers } from "ethers";
 import { addressSplitter } from "helpers/address-splitter";
@@ -24,7 +13,6 @@ import { LightningBoltIcon } from "@heroicons/react/outline";
 import useTranslation from "next-translate/useTranslation";
 import Image from "next/image";
 import Skeleton from "./skeletonCard";
-import ItemOverview from "./item-overview";
 
 function Backdrop({ image }: { image: string }) {
   return (
@@ -60,6 +48,10 @@ function Card({
   const router = useRouter();
   const { isConnected } = useWallet();
   const { t } = useTranslation("common");
+  const soldOut =
+    maxSupply && totalSold && parseInt(maxSupply) === parseInt(totalSold);
+  const isReady = !isConnected || !minting || !soldOut;
+
   const submitPurchase = async (address: string) => {
     try {
       if (!ethers.utils.isAddress(address)) {
@@ -75,8 +67,6 @@ function Card({
       console.log("handleDeploy", error);
     }
   };
-  const soldOut =
-    maxSupply && totalSold && parseInt(maxSupply) === parseInt(totalSold);
 
   return (
     <div className="mt-16 sm:mt-24 lg:mt-0 lg:col-span-6">
@@ -125,17 +115,8 @@ function Card({
               className={classNames(
                 {
                   "cursor-not-allowed opacity-60 bg-slate-300 hover:shadow-none":
-                    !isConnected,
+                    !isReady,
                 },
-                {
-                  "cursor-not-allowed opacity-60 bg-slate-300 hover:shadow-none":
-                    minting,
-                },
-                {
-                  "cursor-not-allowed opacity-60 bg-slate-300 hover:shadow-none":
-                    soldOut,
-                },
-
                 "w-full border-2 hover:shadow-md hover:transition transition bg-white rounded-md px-4 py-2 col-span-2"
               )}
             >
@@ -143,24 +124,28 @@ function Card({
                 <>
                   <LightningBoltIcon className="h-4 inline text-slate-700 mr-2" />
                   <span className="text-slate-800 opacity-60 font-bold">
-                    Connect your wallet
+                    {t("purchases.mintingButtonState.notConnected")}
                   </span>
                 </>
               ) : minting ? (
                 <>
                   <ActivityIndicator className="h-5 w-5 inline mr-2 animate-spin text-blue-400" />
-                  <span className="text-blue-400">Loading</span>
+                  <span className="text-blue-400">
+                    {t("purchases.mintingButtonState.loading")}
+                  </span>
                 </>
               ) : !soldOut ? (
                 <>
                   <TagIcon className="h-4 inline text-blue-400 mr-2" />
-                  <span className="text-blue-400">Mint</span>
+                  <span className="text-blue-400">
+                    {t("purchases.mintingButtonState.initial")}
+                  </span>
                 </>
               ) : (
                 <>
                   <BanIcon className="h-4 inline text-red-400 mr-2" />
                   <span className="text-red-400 opacity-60 bg-slate-300">
-                    Sold Out
+                    {t("purchases.mintingButtonState.soldOut")}
                   </span>
                 </>
               )}

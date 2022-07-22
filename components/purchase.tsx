@@ -55,6 +55,7 @@ export default function Puchase({
   const soldOut = parseInt(maxSupply) === parseInt(totalSold);
   const isExampleNftAddress =
     process.env.NEXT_PUBLIC_EXAMPLE_NFT_TOKEN_ADDRESS === tokenId;
+  const isReady = !isConnected || !minting || !soldOut;
 
   return (
     <>
@@ -173,17 +174,8 @@ export default function Puchase({
             className={classNames(
               {
                 "cursor-not-allowed opacity-60 bg-slate-300 hover:shadow-none":
-                  !isConnected,
+                  !isReady,
               },
-              {
-                "cursor-not-allowed opacity-60 bg-slate-300 hover:shadow-none":
-                  minting,
-              },
-              {
-                "cursor-not-allowed opacity-60 bg-slate-300 hover:shadow-none":
-                  soldOut,
-              },
-
               "w-full border-2 hover:shadow-md hover:transition transition bg-white rounded-md px-4 py-2 col-span-2"
             )}
           >

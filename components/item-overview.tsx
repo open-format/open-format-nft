@@ -13,13 +13,7 @@ interface Props {
   tokenId: string;
 }
 
-export default function ItemOverview({
-  name,
-  description,
-  creator,
-  image,
-  tokenId,
-}: Props) {
+export default function ItemOverview({ name, creator, image, tokenId }: Props) {
   return (
     <StyledLink href={`/explore/${tokenId}`} className="cursor-pointer">
       <Card>
