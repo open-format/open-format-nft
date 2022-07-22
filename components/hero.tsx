@@ -46,7 +46,6 @@ function Card({
   totalSold?: string;
 }) {
   const { mint, isLoading: minting } = useMint();
-  const [isready, setIsReady] = useState<boolean>();
   const router = useRouter();
   const { isConnected } = useWallet();
   const { t } = useTranslation("common");
@@ -115,7 +114,7 @@ function Card({
       ) : (
         <>
           <BanIcon className="h-4 inline text-red-400 mr-2" />
-          <span className="text-red-400 opacity-60 bg-slate-300">
+          <span className="text-red-400 opacity-60">
             {t("purchases.mintingButtonState.soldOut")}
           </span>
         </>
