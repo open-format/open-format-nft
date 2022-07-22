@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import StyledLink from "components/styled-link";
 import { useMint, useWallet } from "@simpleweb/open-format-react";
 import toast from "react-hot-toast";
@@ -7,13 +7,11 @@ import ActivityIndicator from "./activity-indicator";
 import { BanIcon, PlayIcon, TagIcon } from "@heroicons/react/solid";
 import { useRouter } from "next/router";
 import { ethers } from "ethers";
-import { addressSplitter } from "helpers/address-splitter";
 import classNames from "classnames";
 import { LightningBoltIcon } from "@heroicons/react/outline";
 import useTranslation from "next-translate/useTranslation";
 import Image from "next/image";
 import ItemOverview from "components/item-overview";
-import Skeleton from "./skeletonCard";
 
 function Backdrop({ image }: { image: string }) {
   return (
