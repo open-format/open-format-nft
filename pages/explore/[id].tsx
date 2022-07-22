@@ -56,7 +56,11 @@ export default function Release({ tokenId }: Props) {
 
   const getTransactionHistory = gql`
     query ($tokenId: String!) {
-      transactions(where: { token: $tokenId }) {
+      transactions(
+        where: { token: $tokenId }
+        orderBy: timestamp
+        orderDirection: desc
+      ) {
         id
         from
         to
