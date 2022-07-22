@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import StyledLink from "components/styled-link";
 import { useMint, useWallet } from "@simpleweb/open-format-react";
 import toast from "react-hot-toast";
@@ -46,12 +46,12 @@ function Card({
   totalSold?: string;
 }) {
   const { mint, isLoading: minting } = useMint();
+  const [isready, setIsReady] = useState<boolean>();
   const router = useRouter();
   const { isConnected } = useWallet();
   const { t } = useTranslation("common");
   const soldOut =
     maxSupply && totalSold && parseInt(maxSupply) === parseInt(totalSold);
-  const isReady = !isConnected || !minting || !soldOut;
 
   const submitPurchase = async (address: string) => {
     try {
@@ -78,7 +78,15 @@ function Card({
       className={classNames(
         {
           "cursor-not-allowed opacity-60 bg-slate-300 hover:shadow-none":
-            !isReady,
+            !isConnected,
+        },
+        {
+          "cursor-not-allowed opacity-60 bg-slate-300 hover:shadow-none":
+            minting,
+        },
+        {
+          "cursor-not-allowed opacity-60 bg-slate-300 hover:shadow-none":
+            soldOut,
         },
         "w-full border-2 hover:shadow-md hover:transition transition bg-white rounded-md px-4 py-2 col-span-2"
       )}
