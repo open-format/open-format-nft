@@ -1,6 +1,5 @@
 import { useRawRequest } from "@simpleweb/open-format-react";
 import ItemOverview from "components/item-overview";
-import Placeholders from "components/placeholders";
 import Skeleton from "components/skeletonCard";
 import StyledLink from "components/styled-link";
 import { gql } from "graphql-request";
