@@ -3,6 +3,7 @@ import React from "react";
 import Card from "components/card";
 import StyledLink from "components/styled-link";
 import { addressSplitter } from "helpers/address-splitter";
+import Image from "next/image";
 
 interface Props {
   name: string;
@@ -24,7 +25,15 @@ export default function ItemOverview({
       <Card>
         <div className="relative">
           <div className="flex flex-2 border-b border-slate-300 flex-col">
-            <img src={image} alt="" className="object-cover h-[400px]" />
+            <Image
+              blurDataURL="/images/placeholder.jpeg"
+              placeholder="blur"
+              height={400}
+              width={400}
+              src={image}
+              alt=""
+              className="object-cover"
+            />
             <img
               src={image}
               alt=""
