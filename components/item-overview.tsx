@@ -20,7 +20,7 @@ export default function ItemOverview({ name, creator, image, tokenId }: Props) {
         <div className="relative">
           <div className="flex flex-2 border-b border-slate-300 flex-col">
             <Image
-              blurDataURL="/images/placeholder.jpeg"
+              blurDataURL="/images/placeholder.png"
               placeholder="blur"
               height={400}
               width={400}

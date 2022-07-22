@@ -1,5 +1,6 @@
 import { useRawRequest } from "@simpleweb/open-format-react";
 import ItemOverview from "components/item-overview";
+import Placeholders from "components/placeholders";
 import Skeleton from "components/skeletonCard";
 import StyledLink from "components/styled-link";
 import { gql } from "graphql-request";
@@ -7,7 +8,7 @@ import getMetaValue from "helpers/get-meta-value";
 import transformURL from "helpers/transform-url";
 import useTranslation from "next-translate/useTranslation";
 import Head from "next/head";
-import { RefObject, useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import ReactTooltip from "react-tooltip";
 
 type Token = {
@@ -70,7 +71,13 @@ export default function Releases() {
       />
     );
   }
+  const placeholders = Array.from({ length: 12 });
 
+  function renderPlaceholders() {
+    return placeholders.map((_, index) => (
+      <Skeleton key={`skeleton-${index}`} />
+    ));
+  }
   const navigation = [
     {
       name: t("explore.navigation.itemOne.name"),
@@ -181,17 +188,11 @@ export default function Releases() {
           <hr className="divide-y"></hr>
         </nav>
         <div className="mt-12 px-6 grid grid-cols-1 gap-y-10 gap-x-10 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 md:gap-y-4">
-          {!isLoading ? (
-            historicTokens.tokens.map((token: Token) => {
-              return renderToken(token);
-            })
-          ) : (
-            <>
-              {Array.from(Array(12), (_, x) => x).map((val) => (
-                <Skeleton key={val} />
-              ))}
-            </>
-          )}
+          {!isLoading
+            ? historicTokens.tokens.map((token: Token) => {
+                return renderToken(token);
+              })
+            : renderPlaceholders()}
         </div>
       </div>
     </>
