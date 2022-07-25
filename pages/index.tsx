@@ -10,6 +10,7 @@ import Hero from "components/hero";
 import Resources from "components/resources";
 import { gql } from "graphql-request";
 import getMetaValue from "helpers/get-meta-value";
+import { getProperty } from "helpers/get-property";
 import transformURL from "helpers/transform-url";
 import type { NextPage } from "next";
 import useTranslation from "next-translate/useTranslation";
@@ -95,17 +96,30 @@ const Home: NextPage = () => {
 
   // @TODO we will type all of this out correctly once the new version of the SDK is installed.
 
-  const { data: exampleNft } = useRawRequest({
+  interface ExampleNft {
+    token: {
+      id: string;
+      creator: {
+        id: string;
+      };
+      saleData: {
+        totalSold: string;
+        maxSupply: string;
+      };
+      properties: Property[];
+    };
+  }
+
+  const { data: exampleNft } = useRawRequest<ExampleNft, Error>({
     query: rawQuery,
     variables: { tokenId: token as string },
   });
 
   const exampleNftToken = exampleNft?.token;
-  const name = getMetaValue(exampleNftToken?.properties, "name") as string;
-  const image = transformURL(
-    getMetaValue(exampleNftToken?.properties, "image") as string
-  ) as string;
-  const creator = exampleNft?.token?.creator?.id as string;
+  const properties = exampleNftToken?.properties;
+  const name = getProperty("name", properties);
+  const image = transformURL(getProperty("image"));
+  const creator = exampleNft?.token?.creator?.id;
   const maxSupply = exampleNft?.token?.saleData?.maxSupply;
   const totalSold = exampleNft?.token?.saleData?.totalSold;
 
