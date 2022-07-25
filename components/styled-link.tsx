@@ -16,7 +16,7 @@ export default function StyledLink({
   ...rest
 }: StyledLinkProps) {
   return (
-    <Link {...{ href }}>
+    <Link passHref={true} {...{ href }}>
       <a
         {...rest}
         target={openInNewTab ? "_blank" : ""}
