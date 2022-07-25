@@ -19,6 +19,7 @@ import ReactTooltip from "react-tooltip";
 import { HeartIcon } from "@heroicons/react/outline";
 import Head from "next/head";
 import useTranslation from "next-translate/useTranslation";
+import { getProperty } from "helpers/get-property";
 
 interface Props {
   tokenId: string;
@@ -135,15 +136,13 @@ export default function Release({ tokenId }: Props) {
   const tokenData = nftData?.token;
   const createdBy = tokenData?.creator?.id;
 
-  const getProperty = (val: string) =>
-    tokenData?.properties.find((property) => property.key === val)?.value;
-
   const maxSupply = nftData?.token?.saleData?.maxSupply;
   const totalSold = nftData?.token?.saleData?.totalSold;
+  const properties = tokenData?.properties;
   const price = tokenData?.saleData?.salePrice;
-  const image = transformURL(getProperty("image"));
-  const description = getProperty("description");
-  const name = getProperty("name");
+  const image = transformURL(getProperty("image", properties));
+  const description = getProperty("description", properties);
+  const name = getProperty("name", properties);
 
   return (
     <>

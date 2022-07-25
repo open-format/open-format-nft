@@ -24,10 +24,10 @@ interface Props {
   price?: string;
   name?: string;
   submitPurchase: (address: string) => Promise<void | Error>;
-  tokenId: string;
-  minting: boolean;
-  maxSupply: string;
-  totalSold: string;
+  tokenId?: string;
+  minting?: boolean;
+  maxSupply?: string;
+  totalSold?: string;
 }
 
 export default function Puchase({
@@ -52,7 +52,8 @@ export default function Puchase({
     : "";
   const { t } = useTranslation("common");
   const convertedPrice = useMaticPriceCalculation(parseFloat(formattedPrice));
-  const soldOut = parseInt(maxSupply) === parseInt(totalSold);
+  const soldOut =
+    maxSupply && totalSold && parseInt(maxSupply) === parseInt(totalSold);
   const isExampleNftAddress =
     process.env.NEXT_PUBLIC_EXAMPLE_NFT_TOKEN_ADDRESS === tokenId;
 
@@ -168,8 +169,8 @@ export default function Puchase({
           <Button
             type="button"
             isLoading={minting}
-            disabled={soldOut}
-            onClick={() => submitPurchase(tokenId)}
+            disabled={soldOut ? soldOut : undefined}
+            onClick={() => tokenId && submitPurchase(tokenId)}
             className={classNames(
               {
                 "cursor-not-allowed opacity-60 bg-slate-300 hover:shadow-none":
