@@ -11,6 +11,7 @@ type Data = {
   image: File[];
   name: string;
   description: string;
+  blockchain: string;
 };
 
 type UploadData = {
@@ -33,7 +34,7 @@ export const uploadToIPFS = async (data: UploadData) => {
  */
 
 export const buildMetadata = async (data: Data) => {
-  const { name, description, image } = data;
+  const { name, description, image, blockchain } = data;
 
   const imageUpload = image[0];
 
@@ -49,6 +50,7 @@ export const buildMetadata = async (data: Data) => {
   const metadata = {
     name,
     description,
+    blockchain,
     image: imageUpload,
     release_type: "art",
     factory_id: FACTORY_ID,
