@@ -50,28 +50,26 @@ const Home: NextPage = () => {
 
   const resources = [
     {
-      title: "Open Format documentation",
-      href: "https://docs.openformat.simpleweb.co.uk/protocol-overview/overview",
+      title: t("resources.resource.resourceOne.title"),
+      href: t("resources.resource.resourceOne.href"),
       category: {
-        name: "Documentation",
-        href: "https://docs.openformat.simpleweb.co.uk/protocol-overview/overview",
+        name: t("resources.resource.resourceOne.category.name"),
+        href: t("resources.resource.resourceOne.category.href"),
       },
-      description:
-        "Enabling developers to build decentralised marketplaces and factories for digital assets in the metaverse.",
-      imageUrl: "/images/nft-factory.png",
-      alt: "",
+      description: t("resources.resource.resourceOne.description"),
+      imageUrl: t("resources.resource.resourceOne.imageUrl"),
+      alt: t("resources.resource.resourceOne.alt"),
     },
     {
-      title: "Our Discord",
-      href: "https://discord.com/invite/8WV52tVqbZ",
+      title: t("resources.resource.resourceTwo.title"),
+      href: t("resources.resource.resourceTwo.href"),
       category: {
-        name: "Community",
-        href: "https://discord.com/invite/8WV52tVqbZ",
+        name: t("resources.resource.resourceTwo.category.name"),
+        href: t("resources.resource.resourceTwo.category.href"),
       },
-      description:
-        "Builiding a web3 community that we can all be proud of, come say hi whatever it may be we're all here to help.",
-      imageUrl: "/images/discord.jpg",
-      alt: "",
+      description: t("resources.resource.resourceTwo.description"),
+      imageUrl: t("resources.resource.resourceTwo.imageUrl"),
+      alt: t("resources.resource.resourceTwo.alt"),
     },
   ];
 

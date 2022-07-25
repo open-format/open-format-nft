@@ -1,22 +1,14 @@
 import { ErrorMessage } from "@hookform/error-message";
 import { yupResolver } from "@hookform/resolvers/yup";
-import React, { useCallback, useState } from "react";
+import React, { useState } from "react";
 import toast from "react-hot-toast";
-import {
-  Control,
-  Controller,
-  FormProvider,
-  useForm,
-  useFormContext,
-} from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import * as yup from "yup";
 import Button from "components/button";
 import { useDeploy, useWallet } from "@simpleweb/open-format-react";
 import { useRouter } from "next/router";
 import ActivityIndicator from "components/activity-indicator";
-import { useDropzone } from "react-dropzone";
 import { buildMetadata, uploadToIPFS } from "helpers/ipfs";
-import UploadPreview from "components/preview";
 import classNames from "classnames";
 import DropzoneField from "./dropzone-field";
 import useTranslation from "next-translate/useTranslation";
@@ -27,6 +19,7 @@ type FormValues = {
   mintPrice: string;
   image: File[];
   description: string;
+  blockchain: string;
 };
 
 export default function CreateReleaseForm() {
@@ -73,6 +66,7 @@ export default function CreateReleaseForm() {
               return file[0] && file[0].size <= 10000000;
             }
           ),
+        blockchain: yup.string().required(),
       })
     ),
     mode: "onSubmit",
@@ -83,6 +77,7 @@ export default function CreateReleaseForm() {
     register,
     handleSubmit,
     control,
+    setValue,
     formState: { errors },
   } = form;
 
@@ -91,17 +86,17 @@ export default function CreateReleaseForm() {
       name: data.name,
       description: data.description,
       image: data.image,
+      blockchain: data.blockchain,
     };
 
     const meta = await buildMetadata(metaUpload);
 
     try {
       setLoadingToIPFS(true);
-
       const ipfsSuccess = await toast.promise(uploadToIPFS(meta), {
-        loading: t("forms.deploy.toastMessages.ipfs.loading"),
-        success: t("forms.deploy.toastMessages.ipfs.success"),
-        error: t("forms.deploy.toastMessages.ipfs.error"),
+        loading: t("toastMessages.ipfs.loading"),
+        success: t("toastMessages.ipfs.success"),
+        error: t("toastMessages.ipfs.error"),
       });
 
       setLoadingToIPFS(false);
@@ -115,9 +110,9 @@ export default function CreateReleaseForm() {
           url: ipfsSuccess.url,
         }),
         {
-          loading: t("forms.deploy.toastMessages.contract.loading"),
-          success: t("forms.deploy.toastMessages.contract.success"),
-          error: t("forms.deploy.toastMessages.contract.error"),
+          loading: t("toastMessages.contract.loading"),
+          success: t("toastMessages.contract.success"),
+          error: t("toastMessages.contract.error"),
         }
       );
       router.push(`/explore/${response.contractAddress}`);
@@ -271,12 +266,24 @@ export default function CreateReleaseForm() {
               </label>
               <div className="mt-1">
                 <select
+                  {...register("blockchain")}
+                  onChange={(e) =>
+                    setValue("blockchain", e.target.value, {
+                      shouldValidate: true,
+                    })
+                  }
                   id="bolckchain"
                   name="blockchain"
                   className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
                   defaultValue={t("forms.deploy.defaultValues.blockchain")}
                 >
-                  <option value="polygon">Polygon</option>
+                  <option
+                    value={t(
+                      "forms.deploy.labels.blockchain.options.valueOne"
+                    ).toLowerCase()}
+                  >
+                    {t("forms.deploy.labels.blockchain.options.valueOne")}
+                  </option>
                 </select>
               </div>
             </div>
