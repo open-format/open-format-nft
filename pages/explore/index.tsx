@@ -59,7 +59,6 @@ export default function Releases() {
     query: rawQuery,
     variables: { factory_id: process.env.NEXT_PUBLIC_FACTORY_ID as string },
   });
-  console.log(historicTokens);
 
   function renderToken(token: Token) {
     const description = getMetaValue(token.properties, "description") as string;
