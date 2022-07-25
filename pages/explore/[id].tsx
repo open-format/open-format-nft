@@ -1,4 +1,9 @@
-import { useMint, useRawRequest, useNFT } from "@simpleweb/open-format-react";
+import {
+  useMint,
+  useRawRequest,
+  useNFT,
+  useWallet,
+} from "@simpleweb/open-format-react";
 import Meta from "components/meta";
 import ItemActivity from "components/item-activity";
 import Puchase from "components/purchase";
@@ -34,6 +39,21 @@ interface TransactionData {
   transactions: Transaction[];
 }
 
+interface NFTData {
+  token: {
+    id: string;
+    properties: Property[];
+    saleData: {
+      salePrice: string;
+      totalSold: string;
+      maxSupply: string;
+    };
+    creator: {
+      id: string;
+    };
+  };
+}
+
 export default function Release({ tokenId }: Props) {
   const [isMounted, setIsMounted] = useState<boolean>(false); // Need this for the react-tooltip
   const [tooltip, showTooltip] = useState<boolean>(false);
@@ -64,7 +84,7 @@ export default function Release({ tokenId }: Props) {
   `;
 
   const { data: nftData, isFetchedAfterMount: isFreshDataAfterChanging } =
-    useRawRequest({
+    useRawRequest<NFTData, Error>({
       query: getTokenDataQuery,
       variables: { tokenId },
     });
@@ -114,13 +134,16 @@ export default function Release({ tokenId }: Props) {
 
   const tokenData = nftData?.token;
   const createdBy = tokenData?.creator?.id;
-  const properties = tokenData?.properties;
+
+  const getProperty = (val: string) =>
+    tokenData?.properties.find((property) => property.key === val)?.value;
+
   const maxSupply = nftData?.token?.saleData?.maxSupply;
   const totalSold = nftData?.token?.saleData?.totalSold;
   const price = tokenData?.saleData?.salePrice;
-  const image = transformURL(getMetaValue(properties, "image") as string) ?? "";
-  const description = (getMetaValue(properties, "description") as string) ?? "";
-  const name = getMetaValue(properties, "name") as string;
+  const image = transformURL(getProperty("image"));
+  const description = getProperty("description");
+  const name = getProperty("name");
 
   return (
     <>
