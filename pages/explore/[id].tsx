@@ -14,15 +14,16 @@ import ReactTooltip from "react-tooltip";
 import { HeartIcon } from "@heroicons/react/outline";
 import Head from "next/head";
 import useTranslation from "next-translate/useTranslation";
+import { useRouter } from "next/router";
+import { string } from "yup";
 
-interface Props {
-  tokenId: string;
-}
-
-export default function Release({ tokenId }: Props) {
+export default function Release() {
   const [isMounted, setIsMounted] = useState<boolean>(false); // Need this for the react-tooltip
   const [tooltip, showTooltip] = useState<boolean>(false);
   const { t } = useTranslation("common");
+  const { query } = useRouter();
+  const id = query.id;
+  const tokenId = id as string;
 
   useEffect(() => {
     setIsMounted(true);
@@ -242,14 +243,3 @@ export default function Release({ tokenId }: Props) {
     </>
   );
 }
-
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const id = context.query.id as string;
-  const tokenId = id.toLowerCase();
-
-  return {
-    props: {
-      tokenId,
-    },
-  };
-};
