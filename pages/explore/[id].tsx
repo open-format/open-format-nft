@@ -1,4 +1,4 @@
-import { useMint, useRawRequest } from "@simpleweb/open-format-react";
+import { useMint, useRawRequest, useNFT } from "@simpleweb/open-format-react";
 import Meta from "components/meta";
 import ItemActivity from "components/item-activity";
 import Puchase from "components/purchase";
@@ -17,6 +17,21 @@ import useTranslation from "next-translate/useTranslation";
 
 interface Props {
   tokenId: string;
+}
+
+type Transaction = {
+  id: string;
+  from: string;
+  to: string;
+  timestamp: string;
+  token: {
+    saleData: {
+      salePrice: string;
+    };
+  };
+};
+interface TransactionData {
+  transactions: Transaction[];
 }
 
 export default function Release({ tokenId }: Props) {
@@ -74,19 +89,20 @@ export default function Release({ tokenId }: Props) {
     }
   `;
 
-  const { data: transactionData, isLoading } = useRawRequest({
+  const { data: transactionData } = useRawRequest<TransactionData, Error>({
     query: getTransactionHistory,
     variables: { tokenId },
   });
 
-  const { mint, isLoading: minting } = useMint();
+  const nft = useNFT(tokenId);
+  const { mint, isLoading: minting } = useMint(nft);
   const submitPurchase = async (address: string) => {
     try {
       if (!ethers.utils.isAddress(address)) {
         throw new Error("Wallet address not valid");
       }
 
-      await toast.promise(mint({ contractAddress: address }), {
+      await toast.promise(mint(), {
         loading: t("toastMessages.minting.loading"),
         success: t("toastMessages.minting.success"),
         error: t("toastMessages.minting.error"),

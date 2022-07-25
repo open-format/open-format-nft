@@ -8,7 +8,7 @@ import Table from "components/table";
 import useTranslation from "next-translate/useTranslation";
 
 interface Props {
-  transactions: Transaction[];
+  transactions?: Transaction[];
 }
 
 export default function ItemActivity({ transactions }: Props) {
