@@ -87,9 +87,9 @@ export default function Release({ tokenId }: Props) {
       }
 
       await toast.promise(mint({ contractAddress: address }), {
-        loading: "Please confirm the transaction in your wallet",
-        success: "Purchase complete",
-        error: "Minting error",
+        loading: t("toastMessages.minting.loading"),
+        success: t("toastMessages.minting.success"),
+        error: t("toastMessages.minting.error"),
       });
     } catch (error) {
       console.log("handleDeploy", error);
@@ -144,7 +144,7 @@ export default function Release({ tokenId }: Props) {
                     <div
                       className="cursor-pointer"
                       data-for={"likes"}
-                      data-tip={"Coming soon"}
+                      data-tip={t("tooltip.message")}
                       onMouseEnter={() => showTooltip(true)}
                       onMouseLeave={() => {
                         showTooltip(false);
@@ -201,7 +201,7 @@ export default function Release({ tokenId }: Props) {
                 transactions={transactionData?.transactions?.map(
                   (transaction: RawTransaction) => {
                     return {
-                      event: "Minted",
+                      event: t("itemActivity.event"),
                       from: transaction.from,
                       to: transaction.to,
                       date: transaction.timestamp,
@@ -215,10 +215,7 @@ export default function Release({ tokenId }: Props) {
         ) : (
           <div className="flex items-center justify-center">
             <div className="flex w-10/12 flex-col bg-slate-200 items-center rounded-sm py-24">
-              <h2 className="text-center">
-                We are retrieving the data for this NFT, this shouldn{"'"}t take
-                to long please wait....
-              </h2>
+              <h2 className="text-center">{t("loading.title")}</h2>
               <svg
                 role="status"
                 className="mt-12 h-12 w-12  animate-spin items-center fill-white text-blue-500 dark:text-blue-500"

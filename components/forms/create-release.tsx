@@ -97,11 +97,10 @@ export default function CreateReleaseForm() {
 
     try {
       setLoadingToIPFS(true);
-
       const ipfsSuccess = await toast.promise(uploadToIPFS(meta), {
-        loading: t("forms.deploy.toastMessages.ipfs.loading"),
-        success: t("forms.deploy.toastMessages.ipfs.success"),
-        error: t("forms.deploy.toastMessages.ipfs.error"),
+        loading: t("toastMessages.ipfs.loading"),
+        success: t("toastMessages.ipfs.success"),
+        error: t("toastMessages.ipfs.error"),
       });
 
       setLoadingToIPFS(false);
@@ -115,9 +114,9 @@ export default function CreateReleaseForm() {
           url: ipfsSuccess.url,
         }),
         {
-          loading: t("forms.deploy.toastMessages.contract.loading"),
-          success: t("forms.deploy.toastMessages.contract.success"),
-          error: t("forms.deploy.toastMessages.contract.error"),
+          loading: t("toastMessages.contract.loading"),
+          success: t("toastMessages.contract.success"),
+          error: t("toastMessages.contract.error"),
         }
       );
       router.push(`/explore/${response.contractAddress}`);
@@ -276,7 +275,9 @@ export default function CreateReleaseForm() {
                   className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
                   defaultValue={t("forms.deploy.defaultValues.blockchain")}
                 >
-                  <option value="polygon">Polygon</option>
+                  <option value="polygon">
+                    {t("forms.deploy.labels.blockchain.options.valueOne")}
+                  </option>
                 </select>
               </div>
             </div>
