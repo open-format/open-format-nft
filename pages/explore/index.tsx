@@ -1,6 +1,5 @@
 import { useRawRequest } from "@simpleweb/open-format-react";
 import ItemOverview from "components/item-overview";
-import Skeleton from "components/skeletonCard";
 import StyledLink from "components/styled-link";
 import { gql } from "graphql-request";
 import getMetaValue from "helpers/get-meta-value";
@@ -41,10 +40,26 @@ export default function Releases() {
     }
   `;
 
-  const { data: historicTokens, isLoading } = useRawRequest({
+  type Token = {
+    id: string;
+    creator: {
+      id: string;
+    };
+    properties: Property[];
+  };
+
+  interface HisotricTokens {
+    tokens: Token[];
+  }
+
+  const { data: historicTokens, isLoading } = useRawRequest<
+    HisotricTokens,
+    Error
+  >({
     query: rawQuery,
     variables: { factory_id: process.env.NEXT_PUBLIC_FACTORY_ID as string },
   });
+  console.log(historicTokens);
 
   function renderToken(token: Token) {
     const description = getMetaValue(token.properties, "description") as string;
@@ -188,7 +203,7 @@ export default function Releases() {
         </nav>
         <div className="mt-12 px-6 grid grid-cols-1 gap-y-10 gap-x-10 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 md:gap-y-4">
           {!isLoading
-            ? historicTokens.tokens.map((token: Token) => {
+            ? historicTokens?.tokens.map((token: Token) => {
                 return renderToken(token);
               })
             : renderPlaceholders()}
