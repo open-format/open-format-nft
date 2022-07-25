@@ -6,12 +6,12 @@ import StyledLink from "components/styled-link";
 import useTranslation from "next-translate/useTranslation";
 
 interface Props {
-  name?: string | undefined;
-  description?: string | undefined;
-  tokenId?: string | undefined;
-  createdBy?: string | undefined;
-  maxSupply?: string | undefined;
-  totalSold?: string | undefined;
+  name?: string;
+  description?: string;
+  tokenId?: string;
+  createdBy?: string;
+  maxSupply?: string;
+  totalSold?: string;
 }
 
 export default function Meta({
@@ -23,10 +23,8 @@ export default function Meta({
   maxSupply,
 }: Props) {
   const { t } = useTranslation("common");
-  const contractAddress: string | undefined =
-    tokenId && addressSplitter(tokenId);
-  const creatorAddress: string | undefined =
-    createdBy && addressSplitter(createdBy);
+  const contractAddress = tokenId && addressSplitter(tokenId);
+  const creatorAddress = createdBy && addressSplitter(createdBy);
   const isExampleNftAddress =
     process.env.NEXT_PUBLIC_EXAMPLE_NFT_TOKEN_ADDRESS === tokenId;
 
