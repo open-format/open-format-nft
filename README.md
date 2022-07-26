@@ -50,7 +50,6 @@ cp .env.local.example .env.local
 
 | Variable                                | Description                                                                                                                                                                                                     |
 | --------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `NEXT_PUBLIC_CHAIN_ID`                  | This is the chain id of the network you want to connect to. Open Format currently supports Polygon Mainnet (137) and Polygon Mumbai (80001)                                                                     |
 | `NEXT_PUBLIC_NFT_STORAGE_TOKEN`         | This starter uses nft.storage to interact with IPFS. You can use any IPFS storage provider. [Get an API Key](https://nft.storage/docs/#get-an-api-token)                                                        |
 | `NEXT_PUBLIC_FACTORY_ID`                | This is used for filtering the subgraph to only show tokens created in specific factory frontend. This can be any string value, but for uniqueness, we recommend using [UUIDv4](https://www.uuidgenerator.net/) |
 | `NEXT_PUBLIC_POLYGON_SCAN`              | Link to the network where you can view your contracts.                                                                                                                                                          |
