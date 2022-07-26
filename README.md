@@ -4,7 +4,7 @@ Open Format NFT is a web application that showcases the tooling we have designed
 
 ## Libraries and Frameworks
 
-As with most things we have a preference of the following librarires to build our web apps with. The ones with the biggest learning curves are highlighted below but please feel free to add or remove them as you see fit. The only one that is a core dependency is the [Open Format React SDK](https://github.com/simpleweb/open-format/tree/main/sdks/react).
+As with most things we have a preference of the following libraries to build our web apps with. The ones with the biggest learning curves are highlighted below but please feel free to add or remove them as you see fit. The only one that is a core dependency is the [Open Format React SDK](https://github.com/simpleweb/open-format/tree/main/sdks/react).
 
 #### Front End Framework
 
