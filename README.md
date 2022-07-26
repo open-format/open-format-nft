@@ -64,7 +64,7 @@ npm run dev or yarn run dev
 
 ## Translations
 
-- We have made it quick and easy to add your own copy to all of the current components using the [next-translate](https://www.npmjs.com/package/next-translate) package. The common.json file is where you can add or remove copy in order to make it sound more like you. You can alos remove this package if you wish and just add everything inline.
+- We have made it quick and easy to add your own copy to all of the current components using the [next-translate](https://www.npmjs.com/package/next-translate) package. The common.json file is where you can add or remove copy in order to make it sound more like you. You can also remove this package if you wish and just add everything inline.
 
 ## Documentation
 
