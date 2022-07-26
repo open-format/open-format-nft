@@ -59,7 +59,7 @@ cp .env.local.example .env.local
 > move into the root directory of the Next application
 
 ```
-npm run dev or yarn dev
+npm run dev or yarn run dev
 ```
 
 ## Translations
