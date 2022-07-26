@@ -57,9 +57,9 @@ function Card({
       }
 
       await toast.promise(mint({ contractAddress: address }), {
-        loading: "Please confirm the transaction in your wallet",
-        success: "Purchase complete",
-        error: "Minting error",
+        loading: t("toastMessages.minting.loading"),
+        success: t("toastMessages.minting.success"),
+        error: t("toastMessages.minting.error"),
       });
     } catch (error) {
       console.log("handleDeploy", error);
