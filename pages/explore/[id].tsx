@@ -1,25 +1,19 @@
-import {
-  useMint,
-  useRawRequest,
-  useNFT,
-  useWallet,
-} from "@simpleweb/open-format-react";
-import Meta from "components/meta";
+import { HeartIcon } from "@heroicons/react/outline";
+import { useMint, useNFT, useRawRequest } from "@simpleweb/open-format-react";
 import ItemActivity from "components/item-activity";
+import PolygonLogo from "components/logo/polygon-logo";
+import Meta from "components/meta";
 import Puchase from "components/purchase";
+import { ethers } from "ethers";
 import { gql } from "graphql-request";
-import getMetaValue from "helpers/get-meta-value";
+import { getProperty } from "helpers/get-property";
 import transformURL from "helpers/transform-url";
 import { GetServerSideProps } from "next";
-import React, { useEffect, useState } from "react";
-import toast from "react-hot-toast";
-import { ethers } from "ethers";
-import PolygonLogo from "components/logo/polygon-logo";
-import ReactTooltip from "react-tooltip";
-import { HeartIcon } from "@heroicons/react/outline";
-import Head from "next/head";
 import useTranslation from "next-translate/useTranslation";
-import { getProperty } from "helpers/get-property";
+import Head from "next/head";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import ReactTooltip from "react-tooltip";
 
 interface Props {
   tokenId: string;
