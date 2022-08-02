@@ -4,6 +4,11 @@
       "title": "Open Format NFT"
     }
   },
+  "four0four": {
+    "title": "404",
+    "subTitle": "Page Not Found",
+    "pointerText": "Please check the URL in the address bar and try again."
+  },
   "create": {
     "head": {
       "title": "Create your very own NFT | Open Format"
