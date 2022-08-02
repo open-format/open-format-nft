@@ -117,8 +117,10 @@ const Home: NextPage = () => {
 
   const exampleNftToken = exampleNft?.token;
   const properties = exampleNftToken?.properties;
+  console.log({ properties });
+
   const name = getProperty("name", properties);
-  const image = transformURL(getProperty("image"));
+  const image = transformURL(getProperty("image", properties));
   const creator = exampleNft?.token?.creator?.id;
   const maxSupply = exampleNft?.token?.saleData?.maxSupply;
   const totalSold = exampleNft?.token?.saleData?.totalSold;

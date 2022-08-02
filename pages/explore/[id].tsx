@@ -53,6 +53,7 @@ interface NFTData {
       id: string;
     };
   };
+  progress: number;
 }
 
 export default function Release({ tokenId }: Props) {
@@ -88,6 +89,10 @@ export default function Release({ tokenId }: Props) {
     useRawRequest<NFTData, Error>({
       query: getTokenDataQuery,
       variables: { tokenId },
+      config: {
+        refetchInterval: (nftData) =>
+          !nftData?.token || nftData?.progress < 100 ? 500 : false,
+      },
     });
 
   const getTransactionHistory = gql`
