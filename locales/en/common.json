@@ -149,9 +149,9 @@
         },
         "image": {
           "heading": "Image",
-          "subHeading": "File types supported: JPEG, PNG MP3",
+          "subHeading": "File types supported: JPEG, PNG",
           "internalCopy": "Upload a file or drag and drop",
-          "supportedFileTypes": "JPEG, PNG, MP3 Max 20MB"
+          "supportedFileTypes": "JPEG, PNG, Max 20MB"
         },
         "button": {
           "loading": "loading",
