@@ -52,9 +52,7 @@ export default function CreateReleaseForm() {
           .test(
             "fileSize",
             t("forms.deploy.errors.imageSize"),
-            (file: [File]) => {
-              console.log(file);
-
+            (file: File) => {
               if (file === undefined) {
                 return false;
               }
