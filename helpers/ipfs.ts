@@ -8,7 +8,7 @@ const client = new NFTStorage({
 });
 
 type Data = {
-  image: File[];
+  image: File;
   name: string;
   description: string;
   blockchain: string;
@@ -36,8 +36,6 @@ export const uploadToIPFS = async (data: UploadData) => {
 export const buildMetadata = async (data: Data) => {
   const { name, description, image, blockchain } = data;
 
-  const imageUpload = image[0];
-
   // generate a random factory ID
   const FACTORY_ID = process.env.NEXT_PUBLIC_FACTORY_ID;
   // throw error if factory ID is not set or invalid;
@@ -51,7 +49,7 @@ export const buildMetadata = async (data: Data) => {
     name,
     description,
     blockchain,
-    image: imageUpload,
+    image,
     release_type: "art",
     factory_id: FACTORY_ID,
   };

@@ -1,6 +1,6 @@
 import React from "react";
 import StyledLink from "components/styled-link";
-import { useMint, useWallet } from "@simpleweb/open-format-react";
+import { useMint, useNFT, useWallet } from "@simpleweb/open-format-react";
 import toast from "react-hot-toast";
 import Button from "./button";
 import ActivityIndicator from "./activity-indicator";
@@ -43,7 +43,9 @@ function Card({
   maxSupply?: string;
   totalSold?: string;
 }) {
-  const { mint, isLoading: minting } = useMint();
+  const nft = useNFT(token as string);
+  const { mint, isLoading: minting } = useMint(nft);
+
   const router = useRouter();
   const { isConnected } = useWallet();
   const { t } = useTranslation("common");
@@ -56,7 +58,7 @@ function Card({
         throw new Error("Wallet address not valid");
       }
 
-      await toast.promise(mint({ contractAddress: address }), {
+      await toast.promise(mint(), {
         loading: t("toastMessages.minting.loading"),
         success: t("toastMessages.minting.success"),
         error: t("toastMessages.minting.error"),
@@ -158,6 +160,7 @@ export default function Hero({
   totalSold?: string;
 }) {
   const { t } = useTranslation("common");
+
   return (
     <>
       <div className="relative overflow-hidden py-12">

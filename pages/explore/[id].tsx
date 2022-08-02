@@ -1,22 +1,53 @@
-import { useMint, useRawRequest } from "@simpleweb/open-format-react";
-import Meta from "components/meta";
+import { HeartIcon } from "@heroicons/react/outline";
+import { useMint, useNFT, useRawRequest } from "@simpleweb/open-format-react";
 import ItemActivity from "components/item-activity";
+import PolygonLogo from "components/logo/polygon-logo";
+import Meta from "components/meta";
 import Puchase from "components/purchase";
+import { ethers } from "ethers";
 import { gql } from "graphql-request";
-import getMetaValue from "helpers/get-meta-value";
+import { getProperty } from "helpers/get-property";
 import transformURL from "helpers/transform-url";
 import { GetServerSideProps } from "next";
-import React, { useEffect, useState } from "react";
-import toast from "react-hot-toast";
-import { ethers } from "ethers";
-import PolygonLogo from "components/logo/polygon-logo";
-import ReactTooltip from "react-tooltip";
-import { HeartIcon } from "@heroicons/react/outline";
-import Head from "next/head";
 import useTranslation from "next-translate/useTranslation";
+import Head from "next/head";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import ReactTooltip from "react-tooltip";
 
 interface Props {
   tokenId: string;
+}
+
+type Transaction = {
+  id: string;
+  from: string;
+  to: string;
+  timestamp: string;
+  token: {
+    saleData: {
+      salePrice: string;
+    };
+  };
+};
+interface TransactionData {
+  transactions: Transaction[];
+}
+
+interface NFTData {
+  token: {
+    id: string;
+    properties: Property[];
+    saleData: {
+      salePrice: string;
+      totalSold: string;
+      maxSupply: string;
+    };
+    creator: {
+      id: string;
+    };
+  };
+  progress: number;
 }
 
 export default function Release({ tokenId }: Props) {
@@ -49,9 +80,13 @@ export default function Release({ tokenId }: Props) {
   `;
 
   const { data: nftData, isFetchedAfterMount: isFreshDataAfterChanging } =
-    useRawRequest({
+    useRawRequest<NFTData, Error>({
       query: getTokenDataQuery,
       variables: { tokenId },
+      config: {
+        refetchInterval: (nftData) =>
+          !nftData?.token || nftData?.progress < 100 ? 500 : false,
+      },
     });
 
   const getTransactionHistory = gql`
@@ -74,19 +109,20 @@ export default function Release({ tokenId }: Props) {
     }
   `;
 
-  const { data: transactionData, isLoading } = useRawRequest({
+  const { data: transactionData } = useRawRequest<TransactionData, Error>({
     query: getTransactionHistory,
     variables: { tokenId },
   });
 
-  const { mint, isLoading: minting } = useMint();
+  const nft = useNFT(tokenId);
+  const { mint, isLoading: minting } = useMint(nft);
   const submitPurchase = async (address: string) => {
     try {
       if (!ethers.utils.isAddress(address)) {
         throw new Error("Wallet address not valid");
       }
 
-      await toast.promise(mint({ contractAddress: address }), {
+      await toast.promise(mint(), {
         loading: t("toastMessages.minting.loading"),
         success: t("toastMessages.minting.success"),
         error: t("toastMessages.minting.error"),
@@ -98,13 +134,14 @@ export default function Release({ tokenId }: Props) {
 
   const tokenData = nftData?.token;
   const createdBy = tokenData?.creator?.id;
-  const properties = tokenData?.properties;
+
   const maxSupply = nftData?.token?.saleData?.maxSupply;
   const totalSold = nftData?.token?.saleData?.totalSold;
+  const properties = tokenData?.properties;
   const price = tokenData?.saleData?.salePrice;
-  const image = transformURL(getMetaValue(properties, "image") as string) ?? "";
-  const description = (getMetaValue(properties, "description") as string) ?? "";
-  const name = getMetaValue(properties, "name") as string;
+  const image = transformURL(getProperty("image", properties));
+  const description = getProperty("description", properties);
+  const name = getProperty("name", properties);
 
   return (
     <>

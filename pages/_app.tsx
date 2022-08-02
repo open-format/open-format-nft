@@ -15,7 +15,9 @@ const App = ({ Component, pageProps }: AppProps) => {
         <title>{t("app.head.title")}</title>
         <link rel="icon" href="/icons/logo_small.png" />
       </Head>
-      <OpenFormatProvider config={{ network: "mumbai" }}>
+      <OpenFormatProvider
+        config={{ network: process.env.NEXT_PUBLIC_NETWORK as string }}
+      >
         <Header />
         <main>
           <Toaster />
