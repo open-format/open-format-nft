@@ -138,7 +138,7 @@ export default function Meta({
                   </div>
                   <div className="flex justify-between">
                     <p className="px-6 pb-2 text-sm">
-                      {t("meta.details.optionFive.key")}
+                      {t("meta.details.optionSix.key")}
                     </p>
                     <p className="px-6 text-sm">{totalSold}</p>
                   </div>
