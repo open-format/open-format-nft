@@ -8,7 +8,7 @@ const client = new NFTStorage({
 });
 
 type Data = {
-  image: File[];
+  image: File;
   name: string;
   description: string;
   blockchain: string;
