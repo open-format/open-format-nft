@@ -17,7 +17,7 @@ type FormValues = {
   name: string;
   totalSupply: string;
   mintPrice: string;
-  image: File[];
+  image: File;
   description: string;
   blockchain: string;
 };
