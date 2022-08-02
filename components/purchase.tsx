@@ -169,19 +169,19 @@ export default function Puchase({
           <Button
             type="button"
             isLoading={minting}
-            disabled={soldOut ? soldOut : undefined}
+            disabled={!isConnected || soldOut || minting}
             onClick={() => tokenId && submitPurchase(tokenId)}
             className={classNames(
               {
-                "cursor-not-allowed opacity-60 bg-slate-300 hover:shadow-none":
+                "cursor-not-allowed opacity-60 bg-slate-300 disabled:shadow-none":
                   !isConnected,
               },
               {
-                "cursor-not-allowed opacity-60 bg-slate-300 hover:shadow-none":
+                "cursor-not-allowed opacity-60 bg-slate-300 disabled:shadow-none":
                   minting,
               },
               {
-                "cursor-not-allowed opacity-60 bg-slate-300 hover:shadow-none":
+                "cursor-not-allowed opacity-60 bg-slate-300 disabled:shadow-none":
                   soldOut,
               },
               "w-full border-2 hover:shadow-md hover:transition transition bg-white rounded-md px-4 py-2 col-span-2"

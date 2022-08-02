@@ -48,22 +48,15 @@ export default function CreateReleaseForm() {
           .typeError(t("forms.deploy.errors.mintPrice")),
         image: yup
           .mixed()
-          .test("required", t("forms.deploy.errors.image"), (file: [File]) => {
-            if (file === undefined) {
-              return false;
-            }
-            if (file[0]) return true;
-
-            return false;
-          })
+          .required(t("forms.deploy.errors.image"))
           .test(
             "fileSize",
             t("forms.deploy.errors.imageSize"),
-            (file: [File]) => {
+            (file: File) => {
               if (file === undefined) {
                 return false;
               }
-              return file[0] && file[0].size <= 10000000;
+              return file && file.size <= 10000000;
             }
           ),
         blockchain: yup.string().required(),

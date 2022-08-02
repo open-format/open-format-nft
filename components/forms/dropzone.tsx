@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import UploadPreview from "components/preview";
 import useTranslation from "next-translate/useTranslation";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { useFormContext } from "react-hook-form";
 
@@ -9,15 +9,12 @@ export default function Dropzone({
   onChange,
   ...options
 }: {
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: (files: File[]) => void;
 }) {
-  const onDrop = useCallback((acceptedFiles: any) => {
-    onChange(acceptedFiles);
-  }, []);
-  const { setValue, watch, resetField } = useFormContext();
+  const { watch, resetField } = useFormContext();
   const [entered, setEntered] = useState<boolean>();
   const { getRootProps, getInputProps } = useDropzone({
-    onDrop: (files) => setValue("image", files),
+    onDrop: (files) => onChange(files),
     onDragEnter: () => setEntered(true),
     onDragLeave: () => setEntered(false),
     accept: {
@@ -68,7 +65,7 @@ export default function Dropzone({
                 />
               </svg>
             </div>
-            <UploadPreview {...{ image: image[0] }} />
+            <UploadPreview {...{ image }} />
           </div>
         </div>
       ) : (
@@ -113,7 +110,7 @@ export default function Dropzone({
                   className="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
                 >
                   <span>{t("forms.deploy.labels.image.internalCopy")}</span>
-                  <input {...getInputProps({ onDrop })} />
+                  <input {...getInputProps()} />
                 </label>
               </div>
               <p className="text-xs text-gray-500">

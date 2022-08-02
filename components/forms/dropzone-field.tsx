@@ -12,10 +12,7 @@ export default function DropzoneField({
   return (
     <Controller
       render={({ field: { onChange } }) => (
-        <Dropzone
-          onChange={(e: any) => onChange(e.target.files[0])}
-          {...rest}
-        />
+        <Dropzone onChange={(files: File[]) => onChange(files[0])} {...rest} />
       )}
       name={name}
       control={control}

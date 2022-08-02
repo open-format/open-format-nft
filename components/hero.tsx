@@ -59,9 +59,9 @@ function Card({
       }
 
       await toast.promise(mint(), {
-        loading: "Please confirm the transaction in your wallet",
-        success: "Purchase complete",
-        error: "Minting error",
+        loading: t("toastMessages.minting.loading"),
+        success: t("toastMessages.minting.success"),
+        error: t("toastMessages.minting.error"),
       });
     } catch (error) {
       console.log("handleDeploy", error);
@@ -72,19 +72,19 @@ function Card({
     <Button
       type="button"
       isLoading={minting}
-      disabled={false}
+      disabled={!isConnected || soldOut || minting}
       onClick={() => token && submitPurchase(token)}
       className={classNames(
         {
-          "cursor-not-allowed opacity-60 bg-slate-300 hover:shadow-none":
+          "cursor-not-allowed opacity-60 bg-slate-300 disabled:shadow-none":
             !isConnected,
         },
         {
-          "cursor-not-allowed opacity-60 bg-slate-300 hover:shadow-none":
+          "cursor-not-allowed opacity-60 bg-slate-300 disabled:shadow-none":
             minting,
         },
         {
-          "cursor-not-allowed opacity-60 bg-slate-300 hover:shadow-none":
+          "cursor-not-allowed opacity-60 bg-slate-300 disabled:shadow-none":
             soldOut,
         },
         "w-full border-2 hover:shadow-md hover:transition transition bg-white rounded-md px-4 py-2 col-span-2"
