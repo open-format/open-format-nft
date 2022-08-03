@@ -56,7 +56,7 @@ cp .env.local.example .env.local
 | `NEXT_PUBLIC_EXAMPLE_NFT_LINK`          | A link to the original creator of our example NFT.                                                                                                                                                              |
 | `NEXT_PUBLIC_EXAMPLE_NFT_TOKEN_ADDRESS` | This is the example token address we have created for you to quickly interact with. Feel free to replace this with your own once up and running.                                                                |
 
-> move into the root directory of the Next application
+> Run the app
 
 ```
 npm run dev or yarn run dev
@@ -72,6 +72,15 @@ npm run dev or yarn run dev
 
 ## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- A faster way to deploy this web app.
+  [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/simpleweb/open-format-nft.git)
+
+- Site preview
+
+  <a style="cursor:pointer;color:#333133;background-color:#EAE9EA;padding:0.4rem; border-radius:5px;" href="https://open-format-nft.vercel.app/">Preview our live site</a>
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js. [Here is a link to thier docs.](https://vercel.com/docs)
+
+#### More info about Next JS deployments
 
 Check out the [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
