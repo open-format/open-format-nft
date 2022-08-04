@@ -73,7 +73,7 @@ npm run dev or yarn run dev
 ## Deploy on Vercel
 
 - A faster way to deploy this web app.
-  [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/simpleweb/open-format-nft.git)
+  [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/simpleweb/open-format-nft.git&env=NEXT_PUBLIC_IPFS,NEXT_PUBLIC_FACTORY_ID,NEXT_PUBLIC_NFT_STORAGE_TOKEN,NEXT_PUBLIC_CHAIN_ID,NEXT_PUBLIC_POLYGON_SCAN,NEXT_PUBLIC_EXAMPLE_NFT_LINK,NEXT_PUBLIC_EXAMPLE_NFT_TOKEN_ADDRESS,NEXT_PUBLIC_NETWORK)
 
 - Site preview
 
