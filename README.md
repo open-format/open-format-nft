@@ -68,18 +68,20 @@ npm run dev or yarn run dev
 
 ## Documentation
 
-[Open Format Docs](https://docs.openformat.simpleweb.co.uk/)
+- View our documentation [here](https://docs.openformat.simpleweb.co.uk/)
 
-## Deploy on Vercel
+## Deployments
 
-- A faster way to deploy this web app.
+#### Vercel
+
+- A fast way to deploy this web app.
   [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/simpleweb/open-format-nft.git&env=NEXT_PUBLIC_IPFS,NEXT_PUBLIC_FACTORY_ID,NEXT_PUBLIC_NFT_STORAGE_TOKEN,NEXT_PUBLIC_CHAIN_ID,NEXT_PUBLIC_POLYGON_SCAN,NEXT_PUBLIC_EXAMPLE_NFT_LINK,NEXT_PUBLIC_EXAMPLE_NFT_TOKEN_ADDRESS,NEXT_PUBLIC_NETWORK)
 
-- Site preview
+- [View the full vercel docs.](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme)
 
-  <a style="cursor:pointer;color:#333133;background-color:#EAE9EA;padding:0.4rem; border-radius:5px;" href="https://open-format-nft.vercel.app/">Preview our live site</a>
+#### View our live site
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js. [Here is a link to thier docs.](https://vercel.com/docs)
+- [Visit Preview](https://open-format-nft.vercel.app/)
 
 #### More info about Next JS deployments
 
