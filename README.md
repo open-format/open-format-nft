@@ -68,7 +68,7 @@ npm run dev or yarn run dev
 
 ## Documentation
 
-- View our documentation [here](https://docs.openformat.simpleweb.co.uk/)
+- View our documentation [here](https://docs.openformat.simpleweb.co.uk/).
 
 ## Deployments
 
