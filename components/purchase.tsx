@@ -219,9 +219,6 @@ export default function Puchase({
           </Button>
         </div>
       </div>
-      <div className="grid bg-slate-50 lg:grid-cols-4 border border-b-slate-200 rounded-md">
-        <div className="lg:col-span-7 p-4"> Revenue sharing</div>
-      </div>
     </>
   );
 }
