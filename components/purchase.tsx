@@ -126,7 +126,7 @@ export default function Puchase({
         <div className="py-4">
           {isExampleNftAddress ? (
             <>
-              <p className="inline">{t("purchases.exampleNft.heading")}</p>
+              <p className="inline">{t("purchases.exampleNft.heading")} </p>
 
               <StyledLink
                 openInNewTab={true}
@@ -138,7 +138,7 @@ export default function Puchase({
             </>
           ) : (
             <p>
-              {t("purchases.nft.heading")}{" "}
+              {t("purchases.nft.heading")}
               <StyledLink
                 openInNewTab={true}
                 href={`${process.env.NEXT_PUBLIC_POLYGON_SCAN}/address/${createdBy}`}
@@ -218,6 +218,9 @@ export default function Puchase({
             )}
           </Button>
         </div>
+      </div>
+      <div className="grid bg-slate-50 lg:grid-cols-4 border border-b-slate-200 rounded-md">
+        <div className="lg:col-span-7 p-4"> Revenue sharing</div>
       </div>
     </>
   );

@@ -79,7 +79,7 @@
     "navigation": {
       "itemOne": {
         "name": "Docs",
-        "href": "https://openformat.simpleweb.co.uk"
+        "href": "https://docs.openformat.simpleweb.co.uk"
       },
       "itemTwo": {
         "name": "Explore",
@@ -273,10 +273,10 @@
     "resource": {
       "resourceOne": {
         "title": "Open Format documentation",
-        "href": "https://docs.openformat.simpleweb.co.uk/protocol-overview/overview",
+        "href": "https://docs.openformat.simpleweb.co.uk",
         "category": {
           "name": "Documentation",
-          "href": "https://docs.openformat.simpleweb.co.uk/protocol-overview/overview"
+          "href": "https://docs.openformat.simpleweb.co.uk"
         },
         "description": "Enabling developers to build decentralised marketplaces and factories for digital assets in the metaverse.",
         "imageUrl": "/images/nft-factory.png",
