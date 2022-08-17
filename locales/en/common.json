@@ -79,7 +79,7 @@
     "navigation": {
       "itemOne": {
         "name": "Docs",
-        "href": "https://openformat.simpleweb.co.uk"
+        "href": "https://docs.openformat.simpleweb.co.uk"
       },
       "itemTwo": {
         "name": "Explore",
@@ -273,10 +273,9 @@
     "resource": {
       "resourceOne": {
         "title": "Open Format documentation",
-        "href": "https://docs.openformat.simpleweb.co.uk/protocol-overview/overview",
+        "href": "https://docs.openformat.simpleweb.co.uk",
         "category": {
-          "name": "Documentation",
-          "href": "https://docs.openformat.simpleweb.co.uk/protocol-overview/overview"
+          "name": "Documentation"
         },
         "description": "Enabling developers to build decentralised marketplaces and factories for digital assets in the metaverse.",
         "imageUrl": "/images/nft-factory.png",
@@ -286,8 +285,7 @@
         "title": "Our Discord",
         "href": "https://discord.com/invite/8WV52tVqbZ",
         "category": {
-          "name": "Community",
-          "href": "https://discord.com/invite/8WV52tVqbZ"
+          "name": "Community"
         },
         "description": "Builiding a web3 community that we can all be proud of, come say hi whatever it may be we're all here to help.",
         "imageUrl": "/images/discord.jpg",
