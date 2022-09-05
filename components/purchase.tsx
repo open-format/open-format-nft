@@ -138,7 +138,7 @@ export default function Puchase({
             </>
           ) : (
             <p>
-              {t("purchases.nft.heading")}
+              {t("purchases.nft.heading")}{" "}
               <StyledLink
                 openInNewTab={true}
                 href={`${process.env.NEXT_PUBLIC_POLYGON_SCAN}/address/${createdBy}`}
