@@ -210,8 +210,7 @@
     "title": "Item Activity",
     "tdOne": "Event",
     "tdTwo": "Price",
-    "tdThree": "From",
-    "tdFour": "To",
+    "tdThree": "Owner",
     "tdFive": "Date",
     "event": "Minted"
   },

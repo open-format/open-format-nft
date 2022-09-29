@@ -63,12 +63,6 @@ export default function ItemActivity({ transactions }: Props) {
                     scope="col"
                     className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
                   >
-                    {t("itemActivity.tdFour")}
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-                  >
                     {t("itemActivity.tdFive")}
                   </th>
                 </tr>
@@ -90,14 +84,6 @@ export default function ItemActivity({ transactions }: Props) {
                         href={`${process.env.NEXT_PUBLIC_POLYGON_SCAN}/address/${transaction.from}`}
                       >
                         {transaction.from}
-                      </StyledLink>
-                    </td>
-                    <td className="cursor-pointer whitespace-nowrap px-3 py-4 text-sm text-blue-500">
-                      <StyledLink
-                        openInNewTab={true}
-                        href={`${process.env.NEXT_PUBLIC_POLYGON_SCAN}/address/${transaction.to}`}
-                      >
-                        {transaction.to}
                       </StyledLink>
                     </td>
                     <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
