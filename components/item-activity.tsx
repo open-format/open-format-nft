@@ -1,11 +1,11 @@
 import { Disclosure } from "@headlessui/react";
 import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/solid";
-import dayjs from "dayjs";
-import { ethers } from "ethers";
-import React from "react";
 import StyledLink from "components/styled-link";
 import Table from "components/table";
+import dayjs from "dayjs";
+import { ethers } from "ethers";
 import useTranslation from "next-translate/useTranslation";
+import React from "react";
 
 interface Props {
   transactions?: Transaction[];
@@ -95,7 +95,7 @@ export default function ItemActivity({ transactions }: Props) {
                     <td className="cursor-pointer whitespace-nowrap px-3 py-4 text-sm text-blue-500">
                       <StyledLink
                         openInNewTab={true}
-                        href={`${process.env.NEXT_PUBLIC_POLYGON_SCAN}/address/${transaction.from}`}
+                        href={`${process.env.NEXT_PUBLIC_POLYGON_SCAN}/address/${transaction.to}`}
                       >
                         {transaction.to}
                       </StyledLink>
