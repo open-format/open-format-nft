@@ -210,8 +210,7 @@
     "title": "Item Activity",
     "tdOne": "Event",
     "tdTwo": "Price",
-    "tdThree": "From",
-    "tdFour": "To",
+    "tdThree": "Owner",
     "tdFive": "Date",
     "event": "Minted"
   },
@@ -226,7 +225,7 @@
       },
       "optionTwo": {
         "key": "Token Standard",
-        "value": "ERC-20"
+        "value": "ERC-721"
       },
       "optionThree": {
         "key": "Blockchain",
@@ -254,7 +253,7 @@
       "owner": "Distinct Mind"
     },
     "nft": {
-      "heading": "Owned By"
+      "heading": "Created by"
     },
     "cardHeading": "Mint Price",
     "mintingButtonState": {
