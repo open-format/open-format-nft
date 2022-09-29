@@ -226,7 +226,7 @@
       },
       "optionTwo": {
         "key": "Token Standard",
-        "value": "ERC-20"
+        "value": "ERC-721"
       },
       "optionThree": {
         "key": "Blockchain",
