@@ -17,7 +17,7 @@ const App = ({ Component, pageProps }: AppProps) => {
       </Head>
       <OpenFormatProvider
         config={{
-          network: process.env.NEXT_PUBLIC_NETWORK as string,
+          network: "mumbai",
           factory: process.env.NEXT_PUBLIC_FACTORY_ID,
           nftStorageToken: process.env.NEXT_PUBLIC_NFT_STORAGE_TOKEN,
         }}
