@@ -75,32 +75,21 @@ export default function CreateReleaseForm() {
   } = form;
 
   const onSubmit = async (data: FormValues) => {
-    const metaUpload = {
-      name: data.name,
-      description: data.description,
-      image: data.image,
-      blockchain: data.blockchain,
-    };
-
-    const meta = await buildMetadata(metaUpload);
-
+    const { image, blockchain, description, name, totalSupply, mintPrice } =
+      data;
     try {
-      setLoadingToIPFS(true);
-      const ipfsSuccess = await toast.promise(uploadToIPFS(meta), {
-        loading: t("toastMessages.ipfs.loading"),
-        success: t("toastMessages.ipfs.success"),
-        error: t("toastMessages.ipfs.error"),
-      });
-
-      setLoadingToIPFS(false);
-
       const response = await toast.promise(
         deploy({
-          maxSupply: parseInt(data.totalSupply),
-          mintingPrice: parseFloat(data.mintPrice),
-          name: meta.name,
+          maxSupply: parseInt(totalSupply),
+          mintingPrice: parseFloat(mintPrice),
           symbol: "TEST",
-          url: ipfsSuccess.url,
+          name,
+          description,
+          image,
+          releaseType: "art",
+          metadata: {
+            blockchain,
+          },
         }),
         {
           loading: t("toastMessages.contract.loading"),
