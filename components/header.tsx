@@ -115,7 +115,7 @@ const Header: React.FC = () => {
                     ))}
                   </nav>
 
-                  <ConnectButton className="flex-shrink-0 rounded-md  p-2 text-white hover:text-gray-200 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 bg-blue-600" />
+                  <ConnectButton />
 
                   {/* Profile dropdown */}
                   <Menu as="div" className="flex-shrink-0 relative ml-4">
