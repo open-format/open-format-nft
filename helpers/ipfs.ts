@@ -1,4 +1,5 @@
-import { File, NFTStorage } from "nft.storage";
+import axios from "axios";
+import { NFTStorage } from "nft.storage";
 
 if (typeof process.env.NEXT_PUBLIC_NFT_STORAGE_TOKEN !== "string")
   throw new Error("Please set the NEXT_PUBLIC_CHAIN_ID environment variable.");
@@ -12,17 +13,35 @@ type Data = {
   name: string;
   description: string;
   blockchain: string;
+  type: string;
 };
 
-type UploadData = {
-  image: File;
-  name: string;
-  description: string;
-};
-
-export const uploadToIPFS = async (data: UploadData) => {
+export const uploadToIPFS = async (data: Blob | File) => {
   if (!data) throw Error("Data is invalid");
-  return await client.store(data);
+  return await client.storeBlob(data);
+};
+
+export const pinHashToIPFS = async (ipfsHash: string) => {
+  let CID;
+  var config = {
+    method: "post",
+    url: "https://api.pinata.cloud/pinning/pinByHash",
+    headers: {
+      Authorization: `Bearer ${process.env.NEXT_PUBLIC_PINATA_JWT_TOKEN}`,
+      "Content-Type": "application/json",
+    },
+    data: {
+      hashToPin: ipfsHash,
+    },
+  };
+
+  if (ipfsHash) {
+    CID = await axios(config)
+      .then((res) => console.log({ res }))
+      .catch((err) => console.log({ err }));
+  }
+
+  return CID;
 };
 
 /**
@@ -34,7 +53,10 @@ export const uploadToIPFS = async (data: UploadData) => {
  */
 
 export const buildMetadata = async (data: Data) => {
-  const { name, description, image, blockchain } = data;
+  const { name, description, image, blockchain, type } = data;
+
+  const imageCID = await uploadToIPFS(image);
+  await pinHashToIPFS(imageCID);
 
   // generate a random factory ID
   const FACTORY_ID = process.env.NEXT_PUBLIC_FACTORY_ID;
@@ -49,8 +71,8 @@ export const buildMetadata = async (data: Data) => {
     name,
     description,
     blockchain,
-    image,
-    release_type: "art",
+    image: `ipfs://${imageCID}`,
+    release_type: type,
     factory_id: FACTORY_ID,
   };
 
