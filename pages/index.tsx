@@ -55,7 +55,7 @@ const Home: NextPage = () => {
       href: t("resources.resource.resourceOne.href"),
       category: {
         name: t("resources.resource.resourceOne.category.name"),
-        href: t("resources.resource.resourceOne.category.href"),
+        href: t("resources.resource.resourceOne.href"),
       },
       description: t("resources.resource.resourceOne.description"),
       imageUrl: t("resources.resource.resourceOne.imageUrl"),
@@ -66,7 +66,7 @@ const Home: NextPage = () => {
       href: t("resources.resource.resourceTwo.href"),
       category: {
         name: t("resources.resource.resourceTwo.category.name"),
-        href: t("resources.resource.resourceTwo.category.href"),
+        href: t("resources.resource.resourceTwo.href"),
       },
       description: t("resources.resource.resourceTwo.description"),
       imageUrl: t("resources.resource.resourceTwo.imageUrl"),
@@ -117,7 +117,6 @@ const Home: NextPage = () => {
 
   const exampleNftToken = exampleNft?.token;
   const properties = exampleNftToken?.properties;
-  console.log({ properties });
 
   const name = getProperty("name", properties);
   const image = transformURL(getProperty("image", properties));

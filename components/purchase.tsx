@@ -126,7 +126,7 @@ export default function Puchase({
         <div className="py-4">
           {isExampleNftAddress ? (
             <>
-              <p className="inline">{t("purchases.exampleNft.heading")}</p>
+              <p className="inline">{t("purchases.exampleNft.heading")} </p>
 
               <StyledLink
                 openInNewTab={true}

@@ -51,10 +51,12 @@ cp .env.local.example .env.local
 | Variable                                | Description                                                                                                                                                                                                     |
 | --------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `NEXT_PUBLIC_NFT_STORAGE_TOKEN`         | This starter uses nft.storage to interact with IPFS. You can use any IPFS storage provider. [Get an API Key](https://nft.storage/docs/#get-an-api-token)                                                        |
+| `NEXT_PUBLIC_IPFS`         | `https://ipfs.io/ipfs/`
 | `NEXT_PUBLIC_FACTORY_ID`                | This is used for filtering the subgraph to only show tokens created in specific factory frontend. This can be any string value, but for uniqueness, we recommend using [UUIDv4](https://www.uuidgenerator.net/) |
 | `NEXT_PUBLIC_POLYGON_SCAN`              | Link to the network where you can view your contracts.                                                                                                                                                          |
 | `NEXT_PUBLIC_EXAMPLE_NFT_LINK`          | A link to the original creator of our example NFT.                                                                                                                                                              |
 | `NEXT_PUBLIC_EXAMPLE_NFT_TOKEN_ADDRESS` | This is the example token address we have created for you to quickly interact with. Feel free to replace this with your own once up and running.                                                                |
+| `NEXT_PUBLIC_NETWORK` | mumbai                                                            |
 
 > Run the app
 

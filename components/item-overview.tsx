@@ -37,6 +37,7 @@ function ItemOverview({ name, creator, image, tokenId, action }: Props) {
           <div className="relative aspect-w-1 aspect-h-1">
             <StyledLink href={`/explore/${tokenId}`} className="cursor-pointer">
               <Image
+                priority={true}
                 blurDataURL="/images/placeholder.png"
                 placeholder="blur"
                 layout="fill"
