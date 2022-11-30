@@ -72,7 +72,7 @@ export const buildMetadata = async (data: Data) => {
     description,
     blockchain,
     image: `ipfs://${imageCID}`,
-    release_type: type,
+    release_type: type.toLowerCase(),
     factory_id: FACTORY_ID,
   };
 
