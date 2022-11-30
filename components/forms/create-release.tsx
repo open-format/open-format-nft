@@ -125,6 +125,7 @@ export default function CreateReleaseForm() {
 
       const meta = await buildMetadata(metaUpload);
       const CID = await uploadToIPFS(new Blob([JSON.stringify(meta)]));
+      await fetch(`https://gateway.pinata.cloud/ipfs/${CID}`);
 
       return { meta, CID };
     } catch (error) {
