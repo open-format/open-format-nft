@@ -10,6 +10,14 @@ type RawTransaction = {
   };
 };
 
+type Token = {
+  id: string;
+  creator: {
+    id: string;
+  };
+  properties: Property[];
+};
+
 type Transaction = {
   event: string;
   from: string;
@@ -46,3 +54,7 @@ type Action = {
   iconBackground: string;
   description: string;
 };
+
+interface HistoricTokens {
+  tokens: Token[];
+}

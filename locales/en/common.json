@@ -25,40 +25,9 @@
       "title": "Explore NFTs | Open Format"
     },
     "title": "Explore Collections",
-    "navigation": {
-      "itemOne": {
-        "name": "Trending",
-        "value": "trending"
-      },
-      "itemTwo": {
-        "name": "Top",
-        "value": "top"
-      },
-      "itemThree": {
-        "name": "Collectables",
-        "value": "collectable"
-      },
-      "itemFour": {
-        "name": "Art",
-        "value": "art"
-      },
-
-      "itemFive": {
-        "name": "Photography",
-        "value": "photography"
-      },
-      "itemSix": {
-        "name": "Articles",
-        "value": "article"
-      },
-      "itemSeven": {
-        "name": "Sports",
-        "value": "sport"
-      },
-      "itemEight": {
-        "name": "Music",
-        "value": "music"
-      }
+    "notFound": {
+      "title": "Oh no!",
+      "subtitle": "No NFTs found in this category"
     }
   },
   "header": {
@@ -101,7 +70,7 @@
         "name": "Twitter",
         "href": "https://twitter.com/simpleweb"
       },
-      "companyDetails": "Powered by Simpleweb."
+      "companyDetails": "Powered by Open Format"
     }
   },
   "forms": {

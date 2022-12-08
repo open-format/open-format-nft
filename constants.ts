@@ -1,1 +1,7 @@
-export const NFT_TYPES: string[] = ["Art", "Textile", "Photography", "Article"];
+export const CATEGORIES: string[] = [
+  "All",
+  "Art",
+  "Textile",
+  "Photography",
+  "Article",
+];
