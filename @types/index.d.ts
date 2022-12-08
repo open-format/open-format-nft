@@ -55,6 +55,6 @@ type Action = {
   description: string;
 };
 
-interface HisotricTokens {
+interface HistoricTokens {
   tokens: Token[];
 }

@@ -13,7 +13,7 @@ import React, { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import * as yup from "yup";
-import { NFT_TYPES } from "../../constants";
+import { CATEGORIES } from "../../constants";
 
 import DropzoneField from "./dropzone-field";
 
@@ -125,7 +125,10 @@ export default function CreateReleaseForm() {
 
       const meta = await buildMetadata(metaUpload);
       const CID = await uploadToIPFS(new Blob([JSON.stringify(meta)]));
-      await fetch(`https://gateway.pinata.cloud/ipfs/${CID}`);
+      await fetch(`https://gateway.pinata.cloud/ipfs/${CID}`).catch(
+        (err) => err
+      );
+      await fetch(`https://ipfs.io/ipfs/${CID}`).catch((err) => err);
 
       return { meta, CID };
     } catch (error) {
@@ -288,7 +291,7 @@ export default function CreateReleaseForm() {
                   name="type"
                   className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
                 >
-                  {NFT_TYPES.map((type, i) => (
+                  {CATEGORIES.map((type, i) => (
                     <option key={i} value={type}>
                       {type}
                     </option>

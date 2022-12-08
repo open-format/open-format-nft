@@ -1,33 +1,28 @@
 import { useRawRequest } from "@simpleweb/open-format-react";
+import classNames from "classnames";
 import ItemOverview from "components/item-overview";
-import StyledLink from "components/styled-link";
 import { gql } from "graphql-request";
 import getMetaValue from "helpers/get-meta-value";
 import transformURL from "helpers/transform-url";
 import useTranslation from "next-translate/useTranslation";
 import Head from "next/head";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import ReactTooltip from "react-tooltip";
-
-type Token = {
-  id: string;
-  creator: {
-    id: string;
-  };
-  properties: Property[];
-};
+import { CATEGORIES } from "../../constants";
 
 export default function Releases() {
-  const [isMounted, setIsMounted] = useState(false); // Need this for the react-tooltip
-  const [tooltip, showTooltip] = useState(false);
+  const [categoryIndex, setCategoryIndex] = useState<number>(0);
   const { t } = useTranslation("common");
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
+  const { push } = useRouter();
 
   const rawQuery = gql`
-    query ($factory_id: String!) {
-      tokens(where: { factory_id: $factory_id }) {
+    query ($factory_id: String!, $releaseType: String) {
+      tokens(
+        where: {
+          factory_id: $factory_id
+          release_type_contains_nocase: $releaseType
+        }
+      ) {
         id
         creator {
           id
@@ -40,24 +35,16 @@ export default function Releases() {
     }
   `;
 
-  type Token = {
-    id: string;
-    creator: {
-      id: string;
-    };
-    properties: Property[];
-  };
-
-  interface HisotricTokens {
-    tokens: Token[];
-  }
-
-  const { data: historicTokens, isLoading } = useRawRequest<
-    HisotricTokens,
-    Error
-  >({
+  const {
+    data: historicTokens,
+    isLoading,
+    refetch,
+  } = useRawRequest<HistoricTokens, Error>({
     query: rawQuery,
-    variables: { factory_id: process.env.NEXT_PUBLIC_FACTORY_ID as string },
+    variables: {
+      factory_id: process.env.NEXT_PUBLIC_FACTORY_ID as string,
+      releaseType: categoryIndex !== 0 ? CATEGORIES[categoryIndex] : "",
+    },
   });
 
   function renderToken(token: Token) {
@@ -91,40 +78,15 @@ export default function Releases() {
     ));
   }
 
-  const navigation = [
-    {
-      name: t("explore.navigation.itemOne.name"),
-      value: t("explore.navigation.itemOne.value"),
-    },
-    {
-      name: t("explore.navigation.itemTwo.name"),
-      value: t("explore.navigation.itemTwo.value"),
-    },
-    {
-      name: t("explore.navigation.itemThree.name"),
-      value: t("explore.navigation.itemThree.value"),
-    },
-    {
-      name: t("explore.navigation.itemFour.name"),
-      value: t("explore.navigation.itemFour.value"),
-    },
-    {
-      name: t("explore.navigation.itemFive.name"),
-      value: t("explore.navigation.itemFive.value"),
-    },
-    {
-      name: t("explore.navigation.itemSix.name"),
-      value: t("explore.navigation.itemSix.value"),
-    },
-    {
-      name: t("explore.navigation.itemSeven.name"),
-      value: t("explore.navigation.itemSeven.value"),
-    },
-    {
-      name: t("explore.navigation.itemEight.name"),
-      value: t("explore.navigation.itemEight.value"),
-    },
-  ];
+  useEffect(() => {
+    refetch();
+  }, [categoryIndex]);
+
+  function handleCategoryChange(index: number) {
+    setCategoryIndex(index);
+  }
+
+  const noResults = historicTokens && !historicTokens.tokens.length;
 
   return (
     <>
@@ -139,74 +101,47 @@ export default function Releases() {
             </h1>
           </div>
         </div>
-        <nav aria-label="Top">
-          <div className="w-full py-6 flex items-center justify-center">
-            <div className="flex items-center">
-              <div className="hidden space-x-8 lg:block">
-                {navigation.map((link) => (
-                  <StyledLink
-                    key={link.name}
-                    href={""}
-                    data-for={"categories"}
-                    data-tip={t("tooltip.message")}
-                    disabled={true}
-                    className="cursor-not-allowed text-base font-medium text-slate-500 hover:text-slate-900"
-                    onMouseEnter={() => showTooltip(true)}
-                    onMouseLeave={() => {
-                      showTooltip(false);
-                      setTimeout(() => showTooltip(true), 100);
-                    }}
-                  >
-                    {link.name}
-                  </StyledLink>
-                ))}
-              </div>
-            </div>
-          </div>
-          {isMounted && tooltip && (
-            <ReactTooltip
-              id={"categories"}
-              effect={"solid"}
-              type={"dark"}
-              place={"bottom"}
-            />
-          )}
-          <div className="py-4 flex flex-wrap justify-center space-x-6 lg:hidden">
-            {navigation.map((link) => (
-              <StyledLink
-                key={link.name}
-                href={""}
-                data-for={"categories-mobile"}
-                data-tip={t("tooltip.message")}
-                disabled={true}
-                onMouseEnter={() => showTooltip(true)}
-                onMouseLeave={() => {
-                  showTooltip(false);
-                  setTimeout(() => showTooltip(true), 100);
-                }}
-                className="cursor-not-allowed text-base font-medium text-slate-500 hover:text-slate-700"
+        <nav>
+          <ul className="flex justify-between w-[50%] mx-auto">
+            {CATEGORIES.map((type, i) => (
+              <li
+                className={classNames(
+                  { "text-blue-500": categoryIndex === i },
+                  "font-semibold cursor-pointer hover:text-gray-500"
+                )}
+                key={i}
+                onClick={() => handleCategoryChange(i)}
               >
-                {link.name}
-              </StyledLink>
+                {type}
+              </li>
             ))}
-          </div>
-          {isMounted && tooltip && (
-            <ReactTooltip
-              id={"categories-mobile"}
-              effect={"solid"}
-              type={"dark"}
-              place={"bottom"}
-            />
-          )}
-          <hr className="divide-y"></hr>
+          </ul>
         </nav>
-        <div className="mt-12 px-6 grid grid-cols-1 gap-y-10 gap-x-10 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 md:gap-y-4">
-          {!isLoading
-            ? historicTokens?.tokens.map((token: Token) => {
-                return renderToken(token);
-              })
-            : renderPlaceholders()}
-        </div>
+        {noResults ? (
+          <div className="flex m-5 items-center justify-center flex-col space-y-5">
+            <div className="flex flex-col justify-center items-center">
+              <span className="text-2xl font-bold">
+                {t("explore.notFound.title")}
+              </span>
+              <span>{t("explore.notFound.subtitle")}</span>
+            </div>
+            <button
+              onClick={() => push("/create")}
+              className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-700 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500
+"
+            >
+              {t("create.title")}
+            </button>
+          </div>
+        ) : (
+          <div className="mt-12 px-6 grid grid-cols-1 gap-y-10 gap-x-10 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 md:gap-y-4">
+            {!isLoading
+              ? historicTokens?.tokens.map((token: Token) => {
+                  return renderToken(token);
+                })
+              : renderPlaceholders()}
+          </div>
+        )}
       </div>
     </>
   );
