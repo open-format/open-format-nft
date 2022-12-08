@@ -291,11 +291,13 @@ export default function CreateReleaseForm() {
                   name="type"
                   className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
                 >
-                  {CATEGORIES.map((type, i) => (
-                    <option key={i} value={type}>
-                      {type}
-                    </option>
-                  ))}
+                  {CATEGORIES.filter((cat) => !cat.includes("All")).map(
+                    (type, i) => (
+                      <option key={i} value={type}>
+                        {type}
+                      </option>
+                    )
+                  )}
                 </select>
               </div>
             </div>
