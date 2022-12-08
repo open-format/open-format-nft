@@ -1,17 +1,21 @@
 import { ErrorMessage } from "@hookform/error-message";
 import { yupResolver } from "@hookform/resolvers/yup";
-import React, { useState } from "react";
-import toast from "react-hot-toast";
-import { FormProvider, useForm } from "react-hook-form";
-import * as yup from "yup";
-import Button from "components/button";
 import { useDeploy, useWallet } from "@simpleweb/open-format-react";
-import { useRouter } from "next/router";
-import ActivityIndicator from "components/activity-indicator";
-import { buildMetadata, uploadToIPFS } from "helpers/ipfs";
+
 import classNames from "classnames";
-import DropzoneField from "./dropzone-field";
+import ActivityIndicator from "components/activity-indicator";
+import Button from "components/button";
+import { buildMetadata, pinHashToIPFS, uploadToIPFS } from "helpers/ipfs";
 import useTranslation from "next-translate/useTranslation";
+import { useRouter } from "next/router";
+import { Blob } from "nft.storage";
+import React, { useState } from "react";
+import { FormProvider, useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import * as yup from "yup";
+import { NFT_TYPES } from "../../constants";
+
+import DropzoneField from "./dropzone-field";
 
 type FormValues = {
   name: string;
@@ -20,6 +24,7 @@ type FormValues = {
   image: File;
   description: string;
   blockchain: string;
+  type: string;
 };
 
 export default function CreateReleaseForm() {
@@ -75,40 +80,54 @@ export default function CreateReleaseForm() {
   } = form;
 
   const onSubmit = async (data: FormValues) => {
-    const metaUpload = {
-      name: data.name,
-      description: data.description,
-      image: data.image,
-      blockchain: data.blockchain,
-    };
-
-    const meta = await buildMetadata(metaUpload);
-
     try {
       setLoadingToIPFS(true);
-      const ipfsSuccess = await toast.promise(uploadToIPFS(meta), {
+      const ipfsData = await toast.promise(handleIPFSUpload(data), {
         loading: t("toastMessages.ipfs.loading"),
         success: t("toastMessages.ipfs.success"),
         error: t("toastMessages.ipfs.error"),
       });
-
       setLoadingToIPFS(false);
 
-      const response = await toast.promise(
-        deploy({
-          maxSupply: parseInt(data.totalSupply),
-          mintingPrice: parseFloat(data.mintPrice),
-          name: meta.name,
-          symbol: "TEST",
-          url: ipfsSuccess.url,
-        }),
-        {
-          loading: t("toastMessages.contract.loading"),
-          success: t("toastMessages.contract.success"),
-          error: t("toastMessages.contract.error"),
-        }
-      );
-      router.push(`/explore/${response.contractAddress}`);
+      if (ipfsData) {
+        await pinHashToIPFS(ipfsData.CID);
+
+        const response = await toast.promise(
+          deploy({
+            maxSupply: parseInt(data.totalSupply),
+            mintingPrice: parseFloat(data.mintPrice),
+            name: ipfsData.meta.name,
+            symbol: "TEST",
+            url: `ipfs://${ipfsData.CID}`,
+          }),
+          {
+            loading: t("toastMessages.contract.loading"),
+            success: t("toastMessages.contract.success"),
+            error: t("toastMessages.contract.error"),
+          }
+        );
+        router.push(`/explore/${response.contractAddress}`);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleIPFSUpload = async (data: FormValues) => {
+    try {
+      const metaUpload = {
+        name: data.name,
+        description: data.description,
+        image: data.image,
+        blockchain: data.blockchain,
+        type: data.type,
+      };
+
+      const meta = await buildMetadata(metaUpload);
+      const CID = await uploadToIPFS(new Blob([JSON.stringify(meta)]));
+      await fetch(`https://gateway.pinata.cloud/ipfs/${CID}`);
+
+      return { meta, CID };
     } catch (error) {
       console.log(error);
     }
@@ -246,6 +265,36 @@ export default function CreateReleaseForm() {
                   <p className="text-sm mt-1 text-pink-700">{message}</p>
                 )}
               />
+            </div>
+            <div className="sm:col-span-6">
+              <label
+                htmlFor="type"
+                className="block text-sm font-medium text-gray-700"
+              >
+                <p>{t("forms.deploy.labels.type.heading")}</p>
+                <p className="mt-2 text-xs text-gray-500">
+                  {t("forms.deploy.labels.type.subHeading")}
+                </p>
+              </label>
+              <div className="mt-1">
+                <select
+                  {...register("type")}
+                  onChange={(e) =>
+                    setValue("type", e.target.value, {
+                      shouldValidate: true,
+                    })
+                  }
+                  id="type"
+                  name="type"
+                  className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                >
+                  {NFT_TYPES.map((type, i) => (
+                    <option key={i} value={type}>
+                      {type}
+                    </option>
+                  ))}
+                </select>
+              </div>
             </div>
             <div className="sm:col-span-6">
               <label

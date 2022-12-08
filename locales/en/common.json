@@ -140,6 +140,10 @@
           "heading": "Supply",
           "subHeading": " The number of items that can be minted."
         },
+        "type": {
+          "heading": "Type",
+          "subHeading": "The type of NFT."
+        },
         "blockchain": {
           "heading": "Blockchain",
           "subHeading": "The chain you would like to use",
