@@ -17,7 +17,6 @@ type Data = {
 };
 
 export const uploadToIPFS = async (data: Blob | File) => {
-  if (!data) throw Error("Data is invalid");
   return await client.storeBlob(data);
 };
 
